@@ -9,8 +9,13 @@
     -Overview doc, enable sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide
 
     -Permissions Needed:
-        -Global Admin: EnableMIPLabelsForContainers, EnableNewCapabilitiesSPOOD
+        -Global Admin: EnableMIPLabelsForContainers, EnableNewCapabilitiesSPOOD, SyncLabels
         -SharePoint Admin: EnableNewCapabilitiesSPOOD
+        -Security Admin: SyncLabels
+
+    -Notes: 
+        -Could take up to 24 hours for some changes to show up
+        -Need to also enable any LABELS for "Groups & sites" under Label -> Scope
 #>
 
 Function InstallModule {
@@ -57,11 +62,11 @@ Function SyncLabels {
     -NOTES: Basic auth may be required to run the following commands.
     -Docs: 
         -Connect to s&c powershell: https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps#connect-to-security--compliance-powershell-using-mfa-and-modern-authentication
-        - 
+    -Permissisions: none were listed when building script. was already logged in as Security admin and had success.
 #>
     Import-Module ExchangeOnlineManagement
-    $UserCredential = Get-Credential
-    Connect-IPPSSession -Credential $UserCredential
+    #UPDATE BELOW WITH ADMIN ACCOUNT
+    Connect-IPPSSession -UserPrincipalName user@contoso.com
     Execute-AzureAdLabelSync
 }
 
