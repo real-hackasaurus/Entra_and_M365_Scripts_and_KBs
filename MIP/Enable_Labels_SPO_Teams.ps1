@@ -3,7 +3,7 @@
     -Created by: Wesley Blackwell
     -Date last updated: 4/5/2022
 
-    -Overview: 
+    -Overview:
         This script is meant to enable the newer capabilities of sensitivity labels in SharePoint and OneDrive as well as enable sensitivity labels for use in Teams, M365 groups, and SharePoint sites.
     -Overview doc, enable new SPO features: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide
     -Overview doc, enable sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide
@@ -13,7 +13,7 @@
         -SharePoint Admin: EnableNewCapabilitiesSPOOD
         -Security Admin: SyncLabels
 
-    -Notes: 
+    -Notes:
         -Could take up to 24 hours for some changes to show up
         -Need to also enable any LABELS for "Groups & sites" under Label -> Scope
 #>
@@ -22,13 +22,12 @@ Function InstallModule {
     Install-Module -Name Microsoft.Online.SharePoint.PowerShell #Used: EnableNewCapabilitiesSPOOD
     Install-Module AzureADPreview #Used: EnableMIPLabelsForContainers
     Install-Module ExchangeOnlineManagement #Used: SyncLabels
-    
 }
 
 Function EnableNewCapabilitiesSPOOD{
 <#
     -Permissions: global administrator or SharePoint admin privileges in Microsoft 365
-    -Docs: 
+    -Docs:
         -Use PowerShell to enable support for sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#use-powershell-to-enable-support-for-sensitivity-labels
 #>
     Update-Module -Name Microsoft.Online.SharePoint.PowerShell
@@ -60,7 +59,7 @@ Function SyncLabels {
 <#
 
     -NOTES: Basic auth may be required to run the following commands.
-    -Docs: 
+    -Docs:
         -Connect to s&c powershell: https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps#connect-to-security--compliance-powershell-using-mfa-and-modern-authentication
     -Permissisions: none were listed when building script. was already logged in as Security admin and had success.
 #>
