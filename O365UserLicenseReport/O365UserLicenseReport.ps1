@@ -1,10 +1,32 @@
-﻿#Using this script administrator can identify all licensed users with their assigned licenses, services, and its status.
+﻿<#
+
+    -Modified by: Wesley Blackwell
+    -Date last updated: 4/6/2022
+
+    -Overview:
+        Using this script administrator can identify all licensed users with their assigned licenses, services, and its status.
+
+    -Permissions Needed:
+
+    -Modules Needed:
+        -MSOnline
+
+    -Notes:
+        -REQUIRES ADDITIONAL TXT FILES (LicenseFriendlyName.txt and ServiceFriendlyName.txt) IN FOLDER TO WORK
+        -Runs best when ISE or PS window is not opened as admin. This allows the script to run in the folder instead of the admin execution directory.
+        -If modules are not installed, run module installation function or lines as admin.
+
+#>
 
 Param
 (
  [Parameter(Mandatory = $false)]
     [string]$UserNamesFile
 )
+
+Function InstallModule {
+    Install-Module MSOnline
+}
 
 Function Get_UsersLicenseInfo
 {
@@ -104,57 +126,61 @@ Function Get_UsersLicenseInfo
 
 Function main()
 {
-     #Clean up session
-     Get-PSSession | Remove-PSSession
-     #Connect AzureAD from PowerShell
-     Connect-MsolService
-     #Set output file
-     $ExportCSV=".\DetailedO365UserLicenseReport_$((Get-Date -format yyyy-MMM-dd-ddd` hh-mm` tt).ToString()).csv"
-     $ExportSimpleCSV=".\SimpleO365UserLicenseReport_$((Get-Date -format yyyy-MMM-dd-ddd` hh-mm` tt).ToString()).csv"
-     #FriendlyName list for license plan and service
-     $FriendlyNameHash=Get-Content -Raw -Path .\LicenseFriendlyName.txt -ErrorAction Stop | ConvertFrom-StringData
-     $ServiceArray=Get-Content -Path .\ServiceFriendlyName.txt -ErrorAction Stop
-     #Hash table declaration
-     $Result=""
-     $Results=@()
-     $output=""
-     $outputs=@()
-     #Get licensed user
-     $LicensedUserCount=0
+    #Clean up session
+    Get-PSSession | Remove-PSSession
+    #Connect AzureAD from PowerShell
 
-     #Check for input file/Get users from input file
-     if([string]$UserNamesFile -ne "")
-     {
-          #We have an input file, read it into memory
-          $UserNames=@()
-          $UserNames=Import-Csv -Header "DisplayName" $UserNamesFile
-          $userNames
-          foreach($item in $UserNames)
-          {
-            Get-MsolUser -UserPrincipalName $item.displayname | where{$_.islicensed -eq "true"} | Foreach{
-                Get_UsersLicenseInfo
-                $LicensedUserCount++}
-          }
-     }
+    #InstallModule
+    Import-Module MSOnline
 
-     #Get all licensed users
-     else
-     {
-          Get-MsolUser -All | where{$_.islicensed -eq "true"} | Foreach{
+    Connect-MsolService
+    #Set output file
+    $ExportCSV=".\DetailedO365UserLicenseReport_$((Get-Date -format yyyy-MMM-dd-ddd` hh-mm` tt).ToString()).csv"
+    $ExportSimpleCSV=".\SimpleO365UserLicenseReport_$((Get-Date -format yyyy-MMM-dd-ddd` hh-mm` tt).ToString()).csv"
+    #FriendlyName list for license plan and service
+    $FriendlyNameHash=Get-Content -Raw -Path .\LicenseFriendlyName.txt -ErrorAction Stop | ConvertFrom-StringData
+    $ServiceArray=Get-Content -Path .\ServiceFriendlyName.txt -ErrorAction Stop
+    #Hash table declaration
+    $Result=""
+    $Results=@()
+    $output=""
+    $outputs=@()
+    #Get licensed user
+    $LicensedUserCount=0
+
+    #Check for input file/Get users from input file
+    if([string]$UserNamesFile -ne "")
+    {
+        #We have an input file, read it into memory
+        $UserNames=@()
+        $UserNames=Import-Csv -Header "DisplayName" $UserNamesFile
+        $userNames
+        foreach($item in $UserNames)
+        {
+        Get-MsolUser -UserPrincipalName $item.displayname | where{$_.islicensed -eq "true"} | Foreach{
             Get_UsersLicenseInfo
             $LicensedUserCount++}
-     }
+        }
+    }
 
-     #Open output file after execution
-     Write-Host Detailed report available in: $ExportCSV
-     Write-host Simple report available in: $ExportSimpleCSV
-     $Prompt = New-Object -ComObject wscript.shell
-     $UserInput = $Prompt.popup("Do you want to open output files?",`
-     0,"Open Files",4)
-     If ($UserInput -eq 6)
-     {
-          Invoke-Item "$ExportCSV"
-          Invoke-Item "$ExportSimpleCSV"
-     }
+    #Get all licensed users
+    else
+    {
+        Get-MsolUser -All | where{$_.islicensed -eq "true"} | Foreach{
+        Get_UsersLicenseInfo
+        $LicensedUserCount++}
+    }
+
+    #Open output file after execution
+    Write-Host Detailed report available in: $ExportCSV
+    Write-host Simple report available in: $ExportSimpleCSV
+    $Prompt = New-Object -ComObject wscript.shell
+    $UserInput = $Prompt.popup("Do you want to open output files?",`
+    0,"Open Files",4)
+    If ($UserInput -eq 6)
+    {
+        Invoke-Item "$ExportCSV"
+        Invoke-Item "$ExportSimpleCSV"
+    }
 }
  . main

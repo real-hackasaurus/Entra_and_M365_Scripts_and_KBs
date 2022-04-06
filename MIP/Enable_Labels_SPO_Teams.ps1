@@ -13,6 +13,11 @@
         -SharePoint Admin: EnableNewCapabilitiesSPOOD
         -Security Admin: SyncLabels
 
+    -Modules Needed:
+        -Microsoft.Online.SharePoint.PowerShell
+        -AzureADPreview
+        -ExchangeOnlineManagement
+
     -Notes:
         -Could take up to 24 hours for some changes to show up
         -Need to also enable any LABELS for "Groups & sites" under Label -> Scope
@@ -73,7 +78,7 @@ Function SyncLabels {
 EnableNewCapabilitiesSPOOD
 
 #Step 2: Insatll any modules needed
-InstallModule
+#InstallModule
 
 #Step 3: Update O365 Containers to enable MIP Labels
 EnableMIPLabelsForContainers
