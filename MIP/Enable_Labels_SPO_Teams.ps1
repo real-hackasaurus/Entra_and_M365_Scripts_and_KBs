@@ -52,7 +52,7 @@ Function EnableMIPLabelsForContainers {
 #>
     Import-Module AzureADPreview
     Connect-AzureAD
-    $grpUnifiedSetting = (Get-AzureADDirectorySetting | Where-Object -Property DisplayName -Value "Group.Unified" -EQ)
+    $grpUnifiedSetting = (Get-AzureADDirectorySetting | where -Property DisplayName -Value "Group.Unified" -EQ)
     $Setting = $grpUnifiedSetting
     $grpUnifiedSetting.Values
     $Setting["EnableMIPLabels"] = "True"
