@@ -21,6 +21,8 @@
     -Notes:
         -Could take up to 24 hours for some changes to show up
         -Need to also enable any LABELS for "Groups & sites" under Label -> Scope
+        -!!!UPDATE THE SHAREPOINT SITE FOR ENABLING THE CAPABILITIES!!!
+        -!!!UPDATE THE USER UPN FOR SYNCING LABELSI HAVE!!!
 #>
 
 Function InstallModule {
@@ -36,8 +38,12 @@ Function EnableNewCapabilitiesSPOOD{
         -Use PowerShell to enable support for sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#use-powershell-to-enable-support-for-sensitivity-labels
 #>
     Update-Module -Name Microsoft.Online.SharePoint.PowerShell
-    #UPDATE URL BELOW FOR ORG
-    Connect-SPOService -Url https://contoso-admin.sharepoint.com
+
+    #--------------------------------------------------------------------------
+    #UPDATE: URL BELOW FOR ORG
+    #Connect-SPOService -Url https://contoso-admin.sharepoint.com
+    #--------------------------------------------------------------------------
+
     Set-SPOTenant -EnableAIPIntegration $true
 }
 
@@ -69,16 +75,20 @@ Function SyncLabels {
     -Permissisions: none were listed when building script. was already logged in as Security admin and had success.
 #>
     Import-Module ExchangeOnlineManagement
-    #UPDATE BELOW WITH ADMIN ACCOUNT
-    Connect-IPPSSession -UserPrincipalName user@contoso.com
+
+    #--------------------------------------------------------------------------
+    #UPDATE: BELOW WITH ADMIN ACCOUNT
+    #Connect-IPPSSession -UserPrincipalName user@contoso.com
+    #--------------------------------------------------------------------------
+
     Execute-AzureAdLabelSync
 }
 
-#Step 1: Enable new capabilities in SPO and OD
-EnableNewCapabilitiesSPOOD
-
-#Step 2: Insatll any modules needed
+#Step 1: Insatll any modules needed
 #InstallModule
+
+#Step 2: Enable new capabilities in SPO and OD
+EnableNewCapabilitiesSPOOD
 
 #Step 3: Update O365 Containers to enable MIP Labels
 EnableMIPLabelsForContainers
