@@ -15,7 +15,8 @@
         -ExchangeOnlineManagement
 
     -Notes:
-        -Cmdlets will be downloaded when the session is active. 
+        -Cmdlets will be downloaded when the session is active.
+        -Security permissions need to be active first. If user is not an admin, the command will just fail to execute without giving a permission error.
 #>
 
 Import-Module ExchangeOnlineManagement
