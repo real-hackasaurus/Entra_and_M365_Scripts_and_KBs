@@ -9,7 +9,7 @@
     -Overview doc, Get-LabelPolicy: https://docs.microsoft.com/en-us/powershell/module/exchange/get-labelpolicy?view=exchange-ps
 
     -Permissions Needed:
-        -Security Admin or greater: Get-Label and Get-LabelPolicy
+        -Security Admin or greater (confirmed): Get-Label and Get-LabelPolicy
 
     -Modules Needed:
         -ExchangeOnlineManagement
