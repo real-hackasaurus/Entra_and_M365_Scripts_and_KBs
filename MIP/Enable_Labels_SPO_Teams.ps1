@@ -72,7 +72,7 @@ Function SyncLabels {
     -NOTES: Basic auth may be required to run the following commands.
     -Docs:
         -Connect to s&c powershell: https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps#connect-to-security--compliance-powershell-using-mfa-and-modern-authentication
-    -Permissisions: none were listed when building script. was already logged in as Security admin and had success.
+    -Permissisions: Global Admin.
 #>
     Import-Module ExchangeOnlineManagement
 
