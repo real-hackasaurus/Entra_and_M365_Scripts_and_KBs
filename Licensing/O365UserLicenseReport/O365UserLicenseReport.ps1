@@ -12,7 +12,7 @@
         -MSOnline
 
     -Notes:
-        -REQUIRES ADDITIONAL TXT FILES (LicenseFriendlyName.txt and ServiceFriendlyName.txt) IN FOLDER TO WORK
+        -REQUIRES ADDITIONAL TXT FILES (LicenseFriendlyName.txt and ServiceFriendlyName.txt) IN RUN LOCATION FOLDER TO WORK
         -Runs best when ISE or PS window is not opened as admin. This allows the script to run in the folder instead of the admin execution directory.
         -If modules are not installed, run module installation function or lines as admin.
 
