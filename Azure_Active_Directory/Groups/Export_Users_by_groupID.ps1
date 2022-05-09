@@ -1,7 +1,7 @@
 <#
 
     -Created by: Wesley Blackwell
-    -Date last updated: 5/2/2022
+    -Date last updated: 5/9/2022
 
     -Overview:
         This script is designed to display what the active IRM settings are. This can be useful in troubleshooting MIP.
@@ -20,7 +20,5 @@
         -Security permissions need to be active first. If user is not an admin, the command will just fail to execute without giving a permission error.
 #>
 
-Import-Module ExchangeOnlineManagement
-Connect-ExchangeOnline -UserPrincipalName user@yourdomain.com
-
-Get-IRMConfiguration | fl
+Connect-AzureAD
+Get-AzureADGroupMember -ObjectId "166c6e59-f0ab-4e31-a3d5-86404b6b0333" | Export-Csv -Path .\Group.csv -NoTypeInformation
