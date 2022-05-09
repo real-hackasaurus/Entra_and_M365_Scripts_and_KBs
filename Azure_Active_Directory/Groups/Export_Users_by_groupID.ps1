@@ -4,20 +4,16 @@
     -Date last updated: 5/9/2022
 
     -Overview:
-        This script is designed to display what the active IRM settings are. This can be useful in troubleshooting MIP.
-    -Overview doc, Get-IRMConfiguration: https://docs.microsoft.com/en-us/powershell/module/exchange/get-irmconfiguration?view=exchange-ps
+        Just exports users of group by group id
 
     -Permissions Needed:
-        -Global Admin (confirmed): Preferred since this user can see everything.
-        -Compliance Admin (confirmed): can run the Get-IRMConfiguration cmdlet
-        -Compliance Management // Hygience Management // Organization Management // View-Only Organization Management: Get-IRMConfiguration
+        -Global Admin (confirmed)
 
     -Modules Needed:
-        -ExchangeOnlineManagement
+        -AzureAD
 
     -Notes:
-        -Cmdlets will be downloaded when the session is active. 
-        -Security permissions need to be active first. If user is not an admin, the command will just fail to execute without giving a permission error.
+        -
 #>
 
 Connect-AzureAD
