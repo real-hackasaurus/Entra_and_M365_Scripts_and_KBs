@@ -15,6 +15,7 @@
     -Notes:
         -
 #>
+Import-Module AzureAD
 
 Connect-AzureAD
 Get-AzureADGroupMember -ObjectId "166c6e59-f0ab-4e31-a3d5-86404b6b0333" | Export-Csv -Path .\Group.csv -NoTypeInformation
