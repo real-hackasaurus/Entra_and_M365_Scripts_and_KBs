@@ -28,21 +28,6 @@
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -UserPrincipalName youruser@domain.com
 
-#This cmdlet will pull all policies available for Safe Links.
-Get-SafeLinksPolicy | Export-Csv -Path .\SafeLinksPolicy.csv -NoTypeInformation
-
-#This cmdlet will pull all hand-built policies and more details about how it functions.
-Get-SafeLinksRule | Export-Csv -Path .\SafeLinksRule.csv -NoTypeInformation
-
-#This cmdlet will pull all policies available for Safe Attachments.
-Get-SafeAttachmentPolicy | Export-Csv -Path .\SafeAttachmentPolicy.csv -NoTypeInformation
-
-#This cmdlet will pull all hand-built policies and more details about how it functions.
-Get-SafeAttachmentRule | Export-Csv -Path .\SafeAttachmentRule.csv -NoTypeInformation
-
-#This cmdlet will pull all global configs for Safe Attachments and Safe Links.
-Get-AtpPolicyForO365 | Export-Csv -Path .\AtpPolicyForO365.csv -NoTypeInformation
-
 #This cmdlet will pull all policies available for Anti-Phising.
 Get-AntiPhishPolicy | Export-Csv -Path .\AntiPhishPolicy.csv -NoTypeInformation
 
