@@ -10,3 +10,8 @@
 <h1>Additional Tools</h1>
 <h3>1. Unified Labeling Support Tool: https://github.com/microsoft/UnifiedLabelingSupportTool</h3>
     &emsp;• The 'Unified Labeling Support Tool' provides the functionality to reset all corresponding client services (UL, AIP, MIP, etc.). Its main purpose is to delete the currently downloaded sensitivity label policies and thus reset all settings, and it can also be used to collect data for failure analysis and problem solving.<br>
+<br>
+<br>
+<h1>Other Tips</h1>
+<h3>1. Labels do not work at all</h3>
+    &emsp;• If labels do not work in your environment at all, there could be a severe issue. I have noticed this issue along with other issues such as Safe Links breaking as well. A potential fix for this is a full tenant sync. This is not a procedure that regular org admins can make. This procedure is performed by Microsoft customer support.<br>
