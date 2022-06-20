@@ -15,3 +15,5 @@
 <h1>Other Tips</h1>
 <h3>1. Labels do not work at all</h3>
     &emsp;• If labels do not work in your environment at all, there could be a severe issue. I have noticed this issue along with other issues such as Safe Links breaking as well. A potential fix for this is a full tenant sync. This is not a procedure that regular org admins can make. This procedure is performed by Microsoft customer support.<br>
+<h1>MSFT TroubleShooting Docs</h1>
+    &emsp;• <a href="https://support.microsoft.com/en-us/office/known-issues-with-sensitivity-labels-in-office-b169d687-2bbd-4e21-a440-7da1b2743edc#:~:text=Labeled%20email%20messages%20that%20were,may%20not%20display%20the%20label.&text=Remove%20your%20account%20from%20Outlook,sensitivity%20labels%20should%20be%20displayed.">Known issues with sensitivity labels in Office.</a><br>
