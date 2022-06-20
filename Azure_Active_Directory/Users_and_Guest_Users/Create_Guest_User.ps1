@@ -25,4 +25,4 @@ Function InstallModule {
 
 Connect-MgGraph -Scopes user.readwrite.all
 #UPDATE: update below with necessary information: Display name, email address, redirect url (not often changed), and sendinvite boolean 
-New-MgInvitation -InvitedUserDisplayName "FirstName LastName" -InvitedUserEmailAddress user@contoso.com -InviteRedirectUrl "https://myapplications.microsoft.com" -SendInvitationMessage:$false
+New-MgInvitation -InvitedUserDisplayName "wes test" -InvitedUserEmailAddress wblackwell@nihdev.onmicrosoft.com -InviteRedirectUrl "https://myapplications.microsoft.com" -SendInvitationMessage:$false

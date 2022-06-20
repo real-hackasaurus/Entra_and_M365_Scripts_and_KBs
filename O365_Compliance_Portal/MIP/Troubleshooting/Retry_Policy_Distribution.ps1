@@ -19,6 +19,6 @@
 #>
 
 Import-Module ExchangeOnlineManagement
-Connect-ExchangeOnline -UserPrincipalName admin@M365x248674.onmicrosoft.com
+Connect-ExchangeOnline -UserPrincipalName yourupn@domain.com
 
 Set-LabelPolicy -RetryDistribution -Identity "Demo - Policy"
