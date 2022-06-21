@@ -4,7 +4,8 @@
 <br>
 <br>
 <h1>FAQs</h1>
-<h3>1. Supported file types and size limits: https://docs.microsoft.com/en-us/information-protection/develop/concept-supported-filetypes</h3><br>
-<h3>2. Unified Labeling Client Maintenance Mode</h3><br>
+<h3>1. <a href="https://docs.microsoft.com/en-us/microsoft-365/compliance/ome-faq?view=o365-worldwide">Message Encryption FAQ</a></h3><br>
+<h3>2. Supported file types and size limits: https://docs.microsoft.com/en-us/information-protection/develop/concept-supported-filetypes</h3><br>
+<h3>3. Unified Labeling Client Maintenance Mode</h3><br>
     &emsp;• <a href="https://docs.microsoft.com/en-us/azure/information-protection/rms-client/use-client">Learn about built-in labeling and the AIP unified labeling client</a><br>
     &emsp;• <a href="https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#how-to-disable-the-aip-add-in-to-use-built-in-labeling-for-office-apps">How to disable the AIP add-in to use built-in labeling for Office apps</a><br>
