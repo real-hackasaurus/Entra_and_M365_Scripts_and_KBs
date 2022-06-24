@@ -1,2 +1,11 @@
-<h1>Future Ideas</h1>
-1. script: export all labels and policies to csv
+<h1>Overview of Folders</h1>
+<h2>Configuration</h2>
+Contains:</br>
+• Scripts</br>
+• FAQs </br>
+<h2>Troubleshooting</h2>
+Contains:</br>
+• Scripts</br>
+• Additional Troubleshooting Tools</br>
+• Other Troubleshooting Tips</br>
+• MSFT Troubleshooting Docs</br>
