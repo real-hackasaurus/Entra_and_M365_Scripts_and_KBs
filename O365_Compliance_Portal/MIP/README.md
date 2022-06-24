@@ -1,10 +1,10 @@
 <h1>Overview of Folders</h1>
 <h2>Configuration</h2>
-Contains:</br>
+<h3>Contains:</h3>
 • Scripts</br>
 • FAQs </br>
 <h2>Troubleshooting</h2>
-Contains:</br>
+<h3>Contains:</h3>
 • Scripts</br>
 • Additional Troubleshooting Tools</br>
 • Other Troubleshooting Tips</br>
