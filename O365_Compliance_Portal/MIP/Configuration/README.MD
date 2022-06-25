@@ -2,7 +2,6 @@
 <h3>1. Enable_Labels_SPO_Teams.ps1</h3>
     &emsp;• Enables the ability to use labels in SPO and OD. Also enables the ability to use labels on SPO Sites, Teams, and M365 groups.<br>
 <br>
-<br>
 <h1>FAQs</h1>
 <h3>1. <a href="https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#feature-parity-for-built-in-labeling-and-the-aip-add-in-for-office-apps">Feature parity for built-in labeling and the AIP add-in for Office apps</a></h3>
 <h3>2. <a href="https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=&searchterms=compliance">Microsoft 365 roadmap</a>: Search for features here, especially if they are listed in the feature parity above.</h3>
