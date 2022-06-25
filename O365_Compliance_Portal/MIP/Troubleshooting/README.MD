@@ -5,6 +5,10 @@
 &emsp;• Display what the active IRM settings are. This can be useful in troubleshooting MIP.<br>
 <h3>3. Retry_Policy_Distribution.ps1</h3>
 &emsp;• Retry policy distribution if the distribution status may be hung up (i.e. pending).<br>
+<h3>4. Export_AIP_Service_Admin_Log.ps1</h3>
+&emsp;• Export any admin commands that have been ran, including PowerShell commands.<br>
+<h3>5. Export_AIP_Service_Information.ps1</h3>
+&emsp;• Export the AIP service information such as if it is on, what platforms is it turned on for, etc...<br>
 <br>
 <br>
 <h1>Additional Tools</h1>
