@@ -1,4 +1,4 @@
-# AzureAndO365Scripts
+# Azure And O365 Scripts
 Various scripts that I have worked on throughout the years
 
 
