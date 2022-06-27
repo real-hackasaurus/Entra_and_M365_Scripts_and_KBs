@@ -2,14 +2,23 @@
 Various scripts that I have worked on throughout the years
 
 
-<H1> Rules for Script Creation </H1>
-1. Create a header for each script with the following info <br>
-   - Created By <br>
-   - Date Last Modified <br>
-   - Overview of usage <br>
-   - Permissions <br>
-   - Additional Notes <br><br>
-2.  If it can be a function, make it a function <br><br>
-3.  Add additional notes in each function for specific information important to that function <br>
-    - This 100% includes documentation (i.e. msft kb docs) on what the commands do and their purpose <br><br>
-4.  Comment above any lines that need to be changed <br><br>
+<H1> Contents of Folders </H1>
+<h2> Azure Active Directory </h2>
+&emsp;• Conditional Access</br>
+&emsp;• Groups</br>
+&emsp;• Users and Guests</br>
+
+<h2> Licensing </h2>
+&emsp;• Licensing Report Tool</br>
+
+<h2> MDCA </h2>
+&emsp;• Content Coming Soon</br>
+
+<h2> O365 Compliance Portal Services </h2>
+&emsp;• DLP</br>
+&emsp;• MIP</br>
+
+<h2> O365 Security Portal Services </h2>
+&emsp;• Alerts</br>
+&emsp;• Anti_Phising</br>
+&emsp;• Safe Links and Safe Attachments</br>
