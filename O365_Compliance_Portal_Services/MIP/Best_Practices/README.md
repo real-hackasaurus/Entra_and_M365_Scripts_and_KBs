@@ -10,3 +10,6 @@
 
 <h2>Phase 2</h2>
 &emsp;• Test labels with a pilot group. Add and update labels as needed.</br>
+
+<h2>Phase 3</h2>
+&emsp;• After all pilot testing is complete, deploy the policy org wide.</br>
