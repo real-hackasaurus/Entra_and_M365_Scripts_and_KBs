@@ -1,0 +1,16 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 5/9/2022
+
+// -Overview:
+//     Filters results by application
+
+// -Permissions Needed:
+//     -Security Admin(confirmed)
+
+// -Notes:
+//     -Full list of applications below*
+//         -https://docs.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-cloudappevents-table?view=o365-worldwide#apps-and-services-covered
+//         *NOT ACTUALLY A COMPLETE LIST OR ACCURATE. BOX HAS BEEN TESTED AND WORKS, OTHER SERVICES LIKE SHAREPOINT ARE LABELED DIFFERENTLY IN THE SERVICE.
+
+//UPDATE: update the name of the application below
+CloudAppEvents | where Application == "Microsoft SharePoint Online"
