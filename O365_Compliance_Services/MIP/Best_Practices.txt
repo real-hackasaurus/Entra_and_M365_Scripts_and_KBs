@@ -1,0 +1,18 @@
+Best Practices for Microsoft Information Protection
+Phase 1
+• Acquire licensing for service, preferably in the E5 suite. This suite contains all the advanced features.
+• Enable several configurations, listed below:
+    • Enable support for PDFs
+        • https://github.com/Leafry/AzureAndO365Scripts/blob/main/O365_Compliance_Portal_Services/MIP/Configuration/Enabel_Labels_PDFs.ps1
+    • Enable support in SPO, OD, Teams, and M365 groups.
+        • https://github.com/Leafry/AzureAndO365Scripts/blob/main/O365_Compliance_Portal_Services/MIP/Configuration/Enable_Labels_SPO_Sites_Teams_M365_Groups.ps1
+• Create a set of "global" labels to act as a baseline for all users.
+• Deploy the Unified Labeling Client, but disable the add-in for all users. *this step is needed for as long as the client is in maintenance mode</br>
+    • How to disable the AIP add-in to use built-in labeling for Office apps
+        • https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#how-to-disable-the-aip-add-in-to-use-built-in-labeling-for-office-apps
+
+Phase 2
+• Test labels with a pilot group. Add and update labels as needed.
+
+Phase 3
+• After all pilot testing is complete, deploy the policy org wide.
