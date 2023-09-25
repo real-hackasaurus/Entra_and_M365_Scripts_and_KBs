@@ -32,12 +32,8 @@ $EndDate = Get-Date
 # Modify the $SiteURLs array to hold each site that should be pulled. 
 # Remember to add a comma after each site in quotes (ex "mysite", ) except for the last site inthe array
 $SiteURLs = @(
-    "https://nih.sharepoint.com/sites/HRSA-OO-OIT-Managers/*",
-    "https://nih.sharepoint.com/sites/HRSA-OO-OIT-BO/*",
-    "https://nih.sharepoint.com/sites/hrsa-oo-ohr/*",
-    "https://nih.sharepoint.com/sites/hrsa-oo-oam/*",
-    "https://nih.sharepoint.com/sites/hrsa-oo-oamp/*",
-    "https://nih.sharepoint.com/sites/HRSA-OO-ExecSec/*"
+    "https://contoso.sharepoint.com/sites/site1/*",
+    "https://contoso.sharepoint.com/sites/site2/*"
     )
 
 ###INSTRUCITONS###
@@ -45,12 +41,8 @@ $SiteURLs = @(
 # Rename file location, TIP: update the file to be similar to MysiteAuditLog.CSV
 # !!IMPORTANT!! this array needs to have the same number of indexs as $SiteURLs to work
 $CSVFile = @(
-    "C:\TEMP\auditlogs\HRSA-OO-OIT-Managers_AuditLog.csv",
-    "C:\TEMP\auditlogs\HRSA-OO-OIT-BO_AuditLog.csv",
-    "C:\TEMP\auditlogs\hrsa-oo-ohr_AuditLog.csv",
-    "C:\TEMP\auditlogs\hrsa-oo-oam_AuditLog.csv",
-    "C:\TEMP\auditlogs\hrsa-oo-oamp_AuditLog.csv",
-    "C:\TEMP\auditlogs\HRSA-OO-ExecSec_AuditLog.csv"
+    "C:\TEMP\auditlogs\site1-AuditLog.csv",
+    "C:\TEMP\auditlogs\site2-AuditLog.csv"
     )
   
 # This section loops throught the siteurls, uses the index as the position, and runs the report for each site and file
