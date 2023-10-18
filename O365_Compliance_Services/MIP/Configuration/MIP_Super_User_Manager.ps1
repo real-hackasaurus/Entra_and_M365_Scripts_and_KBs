@@ -24,35 +24,35 @@ The group name for actions that require it.
 
 .EXAMPLE
 # Enable the Super User feature
-EnableSuperUser
+.\MIP_Super_User_Manager.ps1 -Action "enable"
 
 .EXAMPLE
 # Disable the Super User feature
-DisableSuperUser
+.\MIP_Super_User_Manager.ps1 -Action "disable"
 
 .EXAMPLE
 # Add specific users as super users
-AddUser -users "user1@example.com,user2@example.com"
+.\MIP_Super_User_Manager.ps1 -Action "adduser" -User "user1@example.com,user2@example.com"
 
 .EXAMPLE
 # Remove specific users from the super user list
-RemoveUser -users "user1@example.com,user2@example.com"
+.\MIP_Super_User_Manager.ps1 -Action "removeuser" -User "user1@example.com,user2@example.com"
 
 .EXAMPLE
 # Set a group as the super user group
-AddGroup -group "groupemail@example.com"
+.\MIP_Super_User_Manager.ps1 -Action "addgroup" -Group "groupemail@example.com"
 
 .EXAMPLE
 # Remove the designated super user group
-RemoveGroup
+.\MIP_Super_User_Manager.ps1 -Action "removegroup"
 
 .EXAMPLE
 # List all super users and the super user group
-ListAllSuperUsers
+.\MIP_Super_User_Manager.ps1 -Action "listallsuperusers"
 
 .EXAMPLE
 # Display the current state of the Super User feature
-ListCurrentState
+.\MIP_Super_User_Manager.ps1 -Action "listcurrentstate"
 #>
 
 # If needed, install module with below
