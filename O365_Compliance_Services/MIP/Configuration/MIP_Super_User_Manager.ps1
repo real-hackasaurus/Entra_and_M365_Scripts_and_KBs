@@ -23,28 +23,34 @@ The username for actions that require it.
 The group name for actions that require it.
 
 .EXAMPLE
-
 # Enable the Super User feature
 EnableSuperUser
 
+.EXAMPLE
 # Disable the Super User feature
 DisableSuperUser
 
+.EXAMPLE
 # Add specific users as super users
 AddUser -users "user1@example.com,user2@example.com"
 
+.EXAMPLE
 # Remove specific users from the super user list
 RemoveUser -users "user1@example.com,user2@example.com"
 
+.EXAMPLE
 # Set a group as the super user group
 AddGroup -group "groupemail@example.com"
 
+.EXAMPLE
 # Remove the designated super user group
 RemoveGroup
 
+.EXAMPLE
 # List all super users and the super user group
 ListAllSuperUsers
 
+.EXAMPLE
 # Display the current state of the Super User feature
 ListCurrentState
 #>
