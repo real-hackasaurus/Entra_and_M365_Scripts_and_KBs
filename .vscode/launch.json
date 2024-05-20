@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "PowerShell: Launch Current File",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${file}",
-            "cwd": "${file}"
+            "name": "Debug Specific PowerShell Script",
+            "script": "${workspaceFolder}/O365_Compliance_Services/Audit_Log/Common_Searches/SPO_Site_Deleted.ps1",  // Adjust the path accordingly
+            "args": [
+                "-SiteUrl", "https://m365x01543238.sharepoint.com/sites/benefits",
+                "-DaysBack", "30"
+            ],
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
