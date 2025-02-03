@@ -332,27 +332,55 @@ if ($IncludeMRMRetentionDetails) {
 
 #endregion Optional: MRM Retention Policies
 
-#region Optional: Capstone Policy Details
+#region Optional: Retention Policy Details
 
-function Get-CapstonePolicyDetails {
+function Get-RetentionPolicyDetails {
     param (
-        [string]$policyName,
+        [string]$mailboxIdentity,
         [string]$outputFile
     )
     
-    "===================== Capstone Policy Details =====================" | Out-File -FilePath $outputFile -Append
-    "Retention Policy Details for: $policyName" | Out-File -FilePath $outputFile -Append
-    Get-RetentionCompliancePolicy -Identity $policyName -DistributionDetail | Format-List | Out-File -FilePath $outputFile -Append
+    "===================== Retention Policy Details =====================" | Out-File -FilePath $outputFile -Append
+    "This section provides detailed information about retention policies applied to the mailbox." | Out-File -FilePath $outputFile -Append
+    "For more information, see: https://learn.microsoft.com/en-us/purview/ediscovery-identify-a-hold-on-an-exchange-online-mailbox" | Out-File -FilePath $outputFile -Append
+    "" | Out-File -FilePath $outputFile -Append
+
+    # Get the In-Place Holds from the mailbox
+    $inPlaceHolds = Get-Mailbox $mailboxIdentity | Select-Object -ExpandProperty InPlaceHolds
+
+    if ($inPlaceHolds) {
+        foreach ($hold in $inPlaceHolds) {
+            # Clean the GUID by removing the "mbx" prefix and ":number" suffix
+            $cleanGuid = $hold -replace '^mbx', '' -replace ':\d+$', ''
+            
+            # Fetch the policy details using the cleaned GUID
+            $policy = Get-RetentionCompliancePolicy -Identity $cleanGuid -DistributionDetail -ErrorAction SilentlyContinue
+
+            if ($policy) {
+                "Policy Details for GUID: $cleanGuid" | Out-File -FilePath $outputFile -Append
+                "Policy Name: $($policy.Name)" | Out-File -FilePath $outputFile -Append
+                "Policy Type: $($policy.Type)" | Out-File -FilePath $outputFile -Append
+                "Policy Enabled: $($policy.Enabled)" | Out-File -FilePath $outputFile -Append
+                "Policy Mode: $($policy.Mode)" | Out-File -FilePath $outputFile -Append
+                "Policy Locations: $($policy.WorkloadLocations)" | Out-File -FilePath $outputFile -Append
+                "" | Out-File -FilePath $outputFile -Append
+            } else {
+                "GUID: $cleanGuid (No policy details found)" | Out-File -FilePath $outputFile -Append
+            }
+        }
+    } else {
+        "No retention policies found for this mailbox." | Out-File -FilePath $outputFile -Append
+    }
     "" | Out-File -FilePath $outputFile -Append
 }
 
-# Optional switch to include Capstone policy details
-$IncludePolicyDetails = $false  # Set to $true to include Capstone policy details
+# Optional switch to include Retention Policy details
+$IncludeRetentionPolicyDetails = $false  # Set to $true to include Retention Policy details
 
-if ($IncludePolicyDetails) {
-    Get-CapstonePolicyDetails -policyName "Capstone" -outputFile $outputFile
+if ($IncludeRetentionPolicyDetails) {
+    Get-RetentionPolicyDetails -mailboxIdentity $mailboxIdentity -outputFile $outputFile
 }
 
-#endregion Optional: Capstone Policy Details
+#endregion Optional: Retention Policy Details
 
-Write-Host "Retention report generated at: $outputFile"
+Write-Host "Retention report generated at: $outpucatFile"
