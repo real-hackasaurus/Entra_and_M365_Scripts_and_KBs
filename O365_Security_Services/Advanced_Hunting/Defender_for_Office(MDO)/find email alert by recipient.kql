@@ -1,2 +1,0 @@
-EmailEvents
-| where RecipientEmailAddress == "useremail@contoso.com"

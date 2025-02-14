@@ -1,2 +1,0 @@
-EmailEvents
-| where DeliveryAction != "Delivered"
