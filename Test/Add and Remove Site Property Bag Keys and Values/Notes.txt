@@ -1,0 +1,3 @@
+Observations
+-it appears that private groups do not show. Both the https://m365x34890247.sharepoint.com/sites/SACTestSite1/ and https://m365x34890247.sharepoint.com/sites/Communications/ sites are private groups but do not appear in searches from the site collection
+

@@ -1,0 +1,181 @@
+Site URL: https://m365x34890247.sharepoint.com/sites/SACTestSite1/
+-------------------------------------------------------------------------------------------
+
+Key                              Value
+---                              -----
+vti_categories                   Travel Expense\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\ Process Planning Schedule
+LastGroupSitePrivacyUpdated      638688548402398840
+GroupId                          94b24e23-45a5-4b6b-af17-f2049d380392
+vti_searchversion                3
+GroupType                        Private
+vti_defaultlanguage              en-us
+vti_createdassociategroups       3;4;5
+enabledhelpcollections           VGSEndUser
+BulkSac                          TestVal1
+vti_extenderversion              16.0.0.25506
+vti_approvallevels               Approved Rejected Pending\ Review
+profileschemaversion             1
+GroupAlias                       SACTestSite1
+contenttypessynctimestampversion 1
+SiteNotebookGuid                 961d4fa5-0457-4522-aba1-0a8785009f4c
+GroupDocumentsListId             45741141-8135-4a17-a0f6-c9df5fca0c27
+vti_associatevisitorgroup        4
+vti_associateownergroup          3
+vti_associategroups              5;4;3
+NoCrawl                          false
+HomepageProvisioned              1
+contenttypesusagebackfillversion 3
+FollowLinkEnabled                TRUE
+vti_sitemasterid                 fb979ec1-869c-4c82-a34c-2559a39b8506
+vti_associatemembergroup         5
+dlc_AdaptivePolicies             f6dc8ba2-dbee-4e74-8e11-b4f0af41f3d1,c067448a-9738-4967-86af-789d17214baf,f117a977-6b4b-4563-a0f7-cbf510382b68,35195846-77d3-4978-9f3f-75795d1d7543,7532dd80-dd49-491b-96b7-3e70e85c0e…
+vti_indexedpropertykeys          QgB1AGwAawBTAGEAYwA=|QgB1AGwAawBTAGEAYwAyAA==|
+__AllowExternalEmbedding         1
+taxonomyhiddenlist               d7aee66b-5234-496f-a59d-f3fede564a2d
+UseFastCloneFromSiteMaster       TRUE
+GroupDocumentsUrl                Shared Documents
+BulkSac2                         TestVal2
+disabledhelpcollections          
+ProvCorrelationId                79066aa1-80a9-7000-2801-ca6d65b3aded
+
+
+
+
+Site URL: https://m365x34890247.sharepoint.com/sites/benefits/
+-------------------------------------------------------------------------------------------
+
+Key                              Value
+---                              -----
+vti_associategroups              5;4;3
+FollowLinkEnabled                TRUE
+vti_associateownergroup          3
+vti_indexedpropertykeys          QgB1AGwAawBTAGEAYwA=|
+disabledhelpcollections          
+vti_defaultlanguage              en-us
+taxonomyhiddenlist               5626e094-cb1f-48e0-afda-bf6211c39ac1
+RelatedHubSiteIds                ["3b3a319b-dcd8-4ce8-b0d1-db5176fb7628"]
+vti_sitemasterid                 08292e90-dfd9-47d2-9304-b96abdf58fd6
+profileschemaversion             1
+contenttypessynctimestampversion 1
+BulkSac                          TestVal1
+enabledhelpcollections           VGSEndUser
+UseFastCloneFromSiteMaster       FALSE
+vti_associatevisitorgroup        4
+vti_extenderversion              16.0.0.25409
+vti_associatemembergroup         5
+contenttypesusagebackfillversion 3
+CanSyncHubSitePermissions        TRUE
+vti_categories                   Travel Expense\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\ Process Planning Schedule
+vti_createdassociategroups       3;4;5
+vti_approvallevels               Approved Rejected Pending\ Review
+
+
+
+
+Site URL: https://m365x34890247.sharepoint.com/sites/ProjectFalcon-UXtest/
+-------------------------------------------------------------------------------------------
+
+Key                              Value
+---                              -----
+contenttypessynctimestampversion 1
+vti_associatemembergroup         5
+disabledhelpcollections          
+vti_associateownergroup          3
+__AllowExternalEmbedding         1
+taxonomyhiddenlist               04fe96fe-f0ff-42be-8257-b32f380f2d25
+vti_categories                   Travel Expense\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\ Process Planning Schedule
+vti_associatevisitorgroup        4
+vti_extenderversion              16.0.0.25409
+vti_defaultlanguage              en-us
+vti_sitemasterid                 08292e90-dfd9-47d2-9304-b96abdf58fd6
+vti_indexedpropertykeys          QgB1AGwAawBTAGEAYwA=|
+FollowLinkEnabled                TRUE
+contenttypesusagebackfillversion 3
+UseFastCloneFromSiteMaster       FALSE
+vti_associategroups              5;4;3
+vti_approvallevels               Approved Rejected Pending\ Review
+profileschemaversion             1
+BulkSac                          TestVal1
+enabledhelpcollections           VGSEndUser
+vti_createdassociategroups       3;4;5
+
+
+
+
+Site URL: https://m365x34890247.sharepoint.com/sites/Communications/
+-------------------------------------------------------------------------------------------
+
+Key                              Value
+---                              -----
+GroupId                          61627fd1-d6f1-40dc-a063-41d1a87a43c3
+vti_sitemasterid                 07465766-21b9-460c-8f07-3a321b18c837
+BulkSac                          TestVal1
+vti_categories                   Travel Expense\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\ Process Planning Schedule
+vti_createdassociategroups       3;4;5
+vti_defaultlanguage              en-us
+HomepageProvisioned              1
+contenttypessynctimestampversion 1
+__AllowExternalEmbedding         1
+taxonomyhiddenlist               26ca2794-c41c-45b5-a719-9a0e93a385ca
+UseFastCloneFromSiteMaster       TRUE
+vti_associategroups              5;4;3
+vti_approvallevels               Approved Rejected Pending\ Review
+GroupDocumentsListId             f70d0d51-4421-44fd-ae98-21729618ea35
+disabledhelpcollections          
+SiteNotebookGuid                 a156780d-1749-4b1b-8d2f-ee6be3c82bdf
+GroupType                        Private
+contenttypesusagebackfillversion 3
+vti_associatevisitorgroup        4
+vti_extenderversion              16.0.0.25409
+profileschemaversion             1
+GroupAlias                       Communications
+LastGroupSitePrivacyUpdated      638669671348393458
+vti_associateownergroup          3
+enabledhelpcollections           VGSEndUser
+ProvCorrelationId                38fe62a1-6083-6000-dab6-a8d186b7f963
+FollowLinkEnabled                TRUE
+vti_associatemembergroup         5
+GroupDocumentsUrl                Shared Documents
+vti_indexedpropertykeys          QgB1AGwAawBTAGEAYwA=|
+
+
+
+
+Site URL: https://m365x34890247.sharepoint.com/sites/Contosomarketing/
+-------------------------------------------------------------------------------------------
+
+Key                              Value
+---                              -----
+GroupId                          c11f65ea-803f-4009-8c65-fc1fe2f63ec8
+vti_sitemasterid                 07465766-21b9-460c-8f07-3a321b18c837
+BulkSac                          TestVal1
+vti_categories                   Travel Expense\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\ Process Planning Schedule
+vti_createdassociategroups       3;4;5
+vti_defaultlanguage              en-us
+HomepageProvisioned              1
+contenttypessynctimestampversion 1
+vti_approvallevels               Approved Rejected Pending\ Review
+taxonomyhiddenlist               7a350ca3-93de-471b-8ab9-84e8d3176e36
+UseFastCloneFromSiteMaster       TRUE
+vti_associategroups              5;4;3
+profileschemaversion             1
+GroupDocumentsListId             f70d0d51-4421-44fd-ae98-21729618ea35
+disabledhelpcollections          
+SiteNotebookGuid                 10c844e3-eb24-4a0b-a877-0c3deee89ce3
+GroupType                        Public
+contenttypesusagebackfillversion 3
+vti_associatevisitorgroup        4
+vti_extenderversion              16.0.0.25409
+GroupAlias                       Contosomarketing
+LastGroupSitePrivacyUpdated      638669674613400806
+vti_associateownergroup          3
+enabledhelpcollections           VGSEndUser
+ProvCorrelationId                88fe62a1-e031-7000-06ed-19c575ceae67
+FollowLinkEnabled                TRUE
+vti_associatemembergroup         5
+GroupDocumentsUrl                Shared Documents
+vti_indexedpropertykeys          QgB1AGwAawBTAGEAYwA=|
+
+
+
+
