@@ -1,3 +1,6 @@
 Observations
 -it appears that private groups do not show. Both the https://m365x34890247.sharepoint.com/sites/SACTestSite1/ and https://m365x34890247.sharepoint.com/sites/Communications/ sites are private groups but do not appear in searches from the site collection
 
+Next Steps
+-Check the status of labels on both of these sites https://m365x34890247.sharepoint.com/sites/SACTestSite1/Shared%20Documents/Forms/AllItems.aspx and https://m365x34890247.sharepoint.com/sites/ProjectFalcon-UXtest/Shared%20Documents/Forms/AllItems.aspx added on 2/17/2025
+    -looking for either RSS Schedule 1 -or- Capstone Test as an option to apply to files
