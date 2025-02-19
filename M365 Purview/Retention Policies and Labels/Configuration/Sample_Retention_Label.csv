@@ -1,5 +1,0 @@
-Name (Required),Comment (Optional),IsRecordLabel (Required),RetentionAction (Optional),RetentionDuration (Optional),RetentionType (Optional),ReviewerEmail (Optional)
-LabelName_t_1,Record - keep and delete - 2 years,$true,KeepAndDelete,730,CreationAgeInDays,
-LabelName_t_2,Keep and delete tag - 7 years,$false,KeepAndDelete,2555,ModificationAgeInDays,
-LabelName_t_3,5 year delete,$false,Delete,1825,TaggedAgeInDays,
-LabelName_t_4,Record label tag - financial,$true,Keep,730,CreationAgeInDays,

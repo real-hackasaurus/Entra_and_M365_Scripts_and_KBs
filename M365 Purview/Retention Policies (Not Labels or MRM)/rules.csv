@@ -1,0 +1,4 @@
+PolicyName,RetentionDurationDays,RetentionComplianceAction
+Policy1,2555,Delete
+Policy2,2555,KeepAndDelete
+Policy3,2555,Keep
