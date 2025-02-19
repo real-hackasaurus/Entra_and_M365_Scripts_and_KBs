@@ -1,100 +1,91 @@
 <#
 .SYNOPSIS
-    Create new retention policies in Microsoft 365 Purview based on a CSV file.
+    This script creates new retention policies in Microsoft 365 Purview based on the information provided in a CSV file.
 
 .DESCRIPTION
-    This script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file, and creates new retention policies in Microsoft 365 Purview.
+    The script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file, 
+    and creates new retention policies in Microsoft 365 Purview. The CSV file should contain columns for PolicyName, 
+    ExchangeLocation, SharePointLocation, and OneDriveLocation.
 
-.PARAMETER CsvPath
+.PARAMETER csvPath
     The path to the CSV file containing the retention policy details.
 
-.PARAMETER AdminUPN
+.PARAMETER adminUPN
     The User Principal Name (UPN) of the admin account used to connect to Security & Compliance PowerShell.
 
 .EXAMPLE
-    .\New-RetentionPolicy.ps1 -CsvPath "C:\Path\To\Your\CSV\policies.csv" -AdminUPN "admin@yourdomain.onmicrosoft.com"
+    .\New-RetentionPolicy.ps1 -csvPath "C:\Path\To\Your\CSV\policies.csv" -adminUPN "admin@yourdomain.onmicrosoft.com"
 
 .NOTES
-    Author: Wesley Blackwell
-    Date: 5/25/2022
-    Prerequisite: ExchangeOnlineManagement module
+    Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
+
+.PERMISSIONS
+    Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
+
+.MODULES
+    ExchangeOnlineManagement
+
 #>
 
 param (
-    [Parameter(Mandatory=$true)]
-    [string]$CsvPath = $env:CSV_PATH,
-
-    [Parameter(Mandatory=$true)]
-    [string]$AdminUPN = $env:ADMIN_UPN
+    [string]$csvPath = $env:CSV_PATH,
+    [string]$adminUPN = $env:ADMIN_UPN
 )
 
-function Check-Module {
-    param (
-        [string]$ModuleName
-    )
-    if (-not (Get-Module -ListAvailable -Name $ModuleName)) {
-        Install-Module -Name $ModuleName -Force -AllowClobber
-    }
-    Import-Module $ModuleName -ErrorAction Stop
-}
-
-# Check if ExchangeOnlineManagement module is installed and imported
+# Check if necessary modules are installed
 if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
-    Install-Module -Name ExchangeOnlineManagement -Force
+    Install-Module -Name ExchangeOnlineManagement -Force -Scope CurrentUser
 }
 Import-Module ExchangeOnlineManagement
 
 try {
-    Check-Module -ModuleName "ExchangeOnlineManagement"
-} catch {
-    Write-Error "Failed to install or import ExchangeOnlineManagement module: $_"
-    exit 1
-}
+    # Validate parameters
+    if (-not $csvPath) {
+        throw "CSV path is required."
+    }
+    if (-not $adminUPN) {
+        throw "Admin UPN is required."
+    }
 
-try {
-    Connect-ExchangeOnline -UserPrincipalName $AdminUPN
-} catch {
-    Write-Error "Failed to connect to Security & Compliance PowerShell: $_"
-    exit 1
-}
+    # Connect to Security & Compliance PowerShell
+    Connect-ExchangeOnline -UserPrincipalName $adminUPN
 
-try {
-    $policies = Import-Csv -Path $CsvPath
-} catch {
-    Write-Error "Failed to import CSV file: $_"
-    exit 1
-}
+    # Import the CSV file
+    $policies = Import-Csv -Path $csvPath
 
-foreach ($policy in $policies) {
-    try {
+    # Loop through each policy and create it
+    foreach ($policy in $policies) {
         $policyName = $policy.PolicyName
         $exchangeLocation = $policy.ExchangeLocation
         $sharePointLocation = $policy.SharePointLocation
         $oneDriveLocation = $policy.OneDriveLocation
 
-        $command = "New-RetentionCompliancePolicy -Name `"$policyName`"" 
+        # Build the command dynamically based on available locations
+        $command = "New-RetentionCompliancePolicy -Name `"$policyName`""
         
         if ($exchangeLocation) {
-            $command += " -ExchangeLocation `"$exchangeLocation`"" 
+            $command += " -ExchangeLocation `"$exchangeLocation`""
         }
         
         if ($sharePointLocation) {
-            $command += " -SharePointLocation `"$sharePointLocation`"" 
+            $command += " -SharePointLocation `"$sharePointLocation`""
         }
         
         if ($oneDriveLocation) {
-            $command += " -OneDriveLocation `"$oneDriveLocation`"" 
+            $command += " -OneDriveLocation `"$oneDriveLocation`""
         }
 
-        Invoke-Expression $command
-        Write-Output "Retention policy '$policyName' created successfully."
-    } catch {
-        Write-Error "Failed to create retention policy '$($policy.PolicyName)': $_"
+        # Execute the command
+        try {
+            Invoke-Expression $command
+            Write-Output "Retention policy '$policyName' created successfully."
+        } catch {
+            Write-Error "Failed to create retention policy '$policyName': $_"
+        }
     }
-}
 
-try {
+    # Disconnect from Security & Compliance PowerShell
     Disconnect-ExchangeOnline -Confirm:$false
 } catch {
-    Write-Error "Failed to disconnect from Security & Compliance PowerShell: $_"
+    Write-Error "An error occurred: $_"
 }
