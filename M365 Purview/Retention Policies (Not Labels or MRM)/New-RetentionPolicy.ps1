@@ -38,6 +38,12 @@ function Check-Module {
     Import-Module $ModuleName -ErrorAction Stop
 }
 
+# Check if ExchangeOnlineManagement module is installed and imported
+if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
+    Install-Module -Name ExchangeOnlineManagement -Force
+}
+Import-Module ExchangeOnlineManagement
+
 try {
     Check-Module -ModuleName "ExchangeOnlineManagement"
 } catch {
@@ -66,18 +72,18 @@ foreach ($policy in $policies) {
         $sharePointLocation = $policy.SharePointLocation
         $oneDriveLocation = $policy.OneDriveLocation
 
-        $command = "New-RetentionCompliancePolicy -Name `"$policyName`""
+        $command = "New-RetentionCompliancePolicy -Name `"$policyName`"" 
         
         if ($exchangeLocation) {
-            $command += " -ExchangeLocation `"$exchangeLocation`""
+            $command += " -ExchangeLocation `"$exchangeLocation`"" 
         }
         
         if ($sharePointLocation) {
-            $command += " -SharePointLocation `"$sharePointLocation`""
+            $command += " -SharePointLocation `"$sharePointLocation`"" 
         }
         
         if ($oneDriveLocation) {
-            $command += " -OneDriveLocation `"$oneDriveLocation`""
+            $command += " -OneDriveLocation `"$oneDriveLocation`"" 
         }
 
         Invoke-Expression $command

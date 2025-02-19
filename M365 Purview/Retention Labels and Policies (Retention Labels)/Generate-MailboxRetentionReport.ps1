@@ -65,6 +65,12 @@ try {
     exit 1
 }
 
+# Check if ExchangeOnlineManagement module is installed and imported
+if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
+    Install-Module -Name ExchangeOnlineManagement -Force
+}
+Import-Module ExchangeOnlineManagement
+
 Connect-Exchange -AdminAccount $AdminAccount
 
 # Output file

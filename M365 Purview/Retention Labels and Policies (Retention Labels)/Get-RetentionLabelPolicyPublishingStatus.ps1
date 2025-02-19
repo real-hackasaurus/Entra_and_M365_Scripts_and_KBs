@@ -38,6 +38,12 @@ function Check-Module {
     Import-Module $ModuleName -ErrorAction Stop
 }
 
+# Check if ExchangeOnlineManagement module is installed and imported
+if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
+    Install-Module -Name ExchangeOnlineManagement -Force
+}
+Import-Module ExchangeOnlineManagement
+
 try {
     Check-Module -ModuleName "ExchangeOnlineManagement"
 } catch {

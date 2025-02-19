@@ -26,6 +26,10 @@
         - Ensure you have the necessary permissions to check properties in the property bag in SharePoint Online.
 #>
 
+# Check if PnP.PowerShell module is installed and imported
+if (-not (Get-Module -ListAvailable -Name PnP.PowerShell)) {
+    Install-Module -Name PnP.PowerShell -Force
+}
 Import-Module PnP.PowerShell
 
 # Load the CSV file
