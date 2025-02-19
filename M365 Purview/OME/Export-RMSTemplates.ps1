@@ -1,26 +1,83 @@
 <#
+.SYNOPSIS
+This script exports all RMS templates in the environment.
 
-    -Created by: Wesley Blackwell
-    -Date last updated: 4/29/2022
+.DESCRIPTION
+The script imports the ExchangeOnlineManagement module, connects to the IPPS session using the provided UPN, and retrieves the RMS templates.
 
-    -Overview:
-        This script is designed to just pull down all labels and label policies in an enviornment and export it to a txt file. 
-    -Overview doc, Get-RMSTemplate: https://learn.microsoft.com/en-us/powershell/module/exchange/get-rmstemplate?view=exchange-ps
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to export RMS templates.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
 
-    -Permissions Needed:
-        -Security Admin or greater (confirmed): Get-Label and Get-LabelPolicy
+.PERMISSIONS NEEDED
+- Security Admin or greater (confirmed)
 
-    -Modules Needed:
-        -ExchangeOnlineManagement
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
-    -Notes:
-        -Cmdlets will be downloaded when the session is active.
-        -Security permissions need to be active first. If user is not an admin, the command will just fail to execute without giving a permission error.
+.PARAMETERS
+-UPN: The User Principal Name (UPN) for administrative actions.
+
+.EXAMPLES
+.\Export-RMSTemplates.ps1 -UPN "yourupn@domain.com"
+
+.NOTES
+- Ensure the ExchangeOnlineManagement module is installed.
+- Cmdlets will be downloaded when the session is active.
+- Security permissions need to be active first. If the user is not an admin, the command will fail to execute without giving a permission error.
 #>
 
-Import-Module ExchangeOnlineManagement
-Connect-IPPSSession -UserPrincipalName yourupn@domain.com
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$UPN = $env:UPN
+)
 
-Start-Transcript
-Get-RMSTemplate | fl
-Stop-Transcript
+# Validate parameters
+if (-not $UPN) {
+    Write-Error "UPN parameter is required."
+    exit 1
+}
+
+# Check if ExchangeOnlineManagement module is installed
+if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
+    try {
+        Install-Module -Name ExchangeOnlineManagement -Force -ErrorAction Stop
+    } catch {
+        Write-Error "Failed to install ExchangeOnlineManagement module: $_"
+        exit 1
+    }
+}
+
+try {
+    # Import ExchangeOnlineManagement module
+    Import-Module ExchangeOnlineManagement -ErrorAction Stop
+} catch {
+    Write-Error "Failed to import ExchangeOnlineManagement module: $_"
+    exit 1
+}
+
+try {
+    # Connect to IPPS session using the provided UPN
+    Connect-IPPSSession -UserPrincipalName $UPN -ErrorAction Stop
+} catch {
+    Write-Error "Failed to connect to IPPS session: $_"
+    exit 1
+}
+
+try {
+    # Start transcript
+    Start-Transcript -Path "$env:TEMP\Export-RMSTemplates.log" -ErrorAction Stop
+
+    # Get RMS templates and export to the specified path
+    $templates = Get-RMSTemplate | Format-List | Out-String
+    Set-Content -Path "$env:TEMP\RMSTemplates.txt" -Value $templates
+
+    Write-Output "RMS templates have been successfully exported to $env:TEMP\RMSTemplates.txt"
+
+    # Stop transcript
+    Stop-Transcript -ErrorAction Stop
+} catch {
+    Write-Error "Failed to export RMS templates: $_"
+    exit 1
+}

@@ -6,36 +6,61 @@
     This script connects to the Microsoft 365 Security & Compliance Center and retrieves information about the specified retention label policy.
     The script outputs the status of the policy.
 
-.PREREQUISITES
-    1. Install the Exchange Online Management module:
-       Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
-    2. Ensure you have the necessary permissions to connect to the Microsoft 365 Security & Compliance Center.
-    3. Replace the placeholder values (e.g., admin account, retention label policy) with your actual values.
+.PARAMETER AdminAccount
+    The admin account to use for connecting to the Microsoft 365 Security & Compliance Center.
 
-.INSTRUCTIONS
-    1. Open PowerShell with administrative privileges.
-    2. Run the script.
-    3. The script will prompt you to connect to the Microsoft 365 Security & Compliance Center.
-    4. After execution, the status of the retention label policy will be displayed.
+.PARAMETER RetentionLabelPolicy
+    The retention label policy to retrieve the publishing status for.
 
-.AUTHOR
-    Wesley Blackwell
-    Version: 1.0
-    Date: 2/17/2025
+.EXAMPLE
+    .\Get-RetentionLabelPolicyPublishingStatus.ps1 -AdminAccount "admin@yourdomain.com" -RetentionLabelPolicy "YourRetentionLabelPolicy"
+
+.NOTES
+    Permissions: Ensure you have the necessary permissions to access and export the configurations.
+    Modules: ExchangeOnlineManagement
 #>
 
-# Import the Exchange Online Management module
-Import-Module ExchangeOnlineManagement
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$AdminAccount = $env:ADMIN_ACCOUNT,
 
-# Define variables
-$adminAccount = "admin@yourdomain.com"  # Replace with your admin account
-$retentionLabelPolicy = "YourRetentionLabelPolicy"  # Replace with the retention label policy you want to check
+    [Parameter(Mandatory=$true)]
+    [string]$RetentionLabelPolicy = $env:RETENTION_LABEL_POLICY
+)
 
-# Connect to the Microsoft 365 Security & Compliance Center
-Connect-IPPSSession -UserPrincipalName $adminAccount
+function Check-Module {
+    param (
+        [string]$ModuleName
+    )
+    if (-not (Get-Module -ListAvailable -Name $ModuleName)) {
+        Install-Module -Name $ModuleName -Force -AllowClobber
+    }
+    Import-Module $ModuleName -ErrorAction Stop
+}
 
-# Get the retention label policy
-$policy = Get-RetentionCompliancePolicy -Identity $retentionLabelPolicy
+try {
+    Check-Module -ModuleName "ExchangeOnlineManagement"
+} catch {
+    Write-Error "Failed to install or import ExchangeOnlineManagement module: $_"
+    exit 1
+}
 
-# Output the status of the policy
-$policy | fl
+try {
+    Connect-IPPSSession -UserPrincipalName $AdminAccount
+} catch {
+    Write-Error "Failed to connect to Microsoft 365 Security & Compliance Center: $_"
+    exit 1
+}
+
+try {
+    $policy = Get-RetentionCompliancePolicy -Identity $RetentionLabelPolicy
+    $policy | fl
+} catch {
+    Write-Error "Failed to retrieve retention label policy: $_"
+}
+
+try {
+    Disconnect-ExchangeOnline
+} catch {
+    Write-Error "Failed to disconnect from Microsoft 365 Security & Compliance Center: $_"
+}

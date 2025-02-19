@@ -17,36 +17,62 @@ The path to the CSV file containing the adaptive scope definitions. The CSV file
 The admin account to use for connecting to the Security & Compliance Center.
 
 .EXAMPLE
-.\New-RetentionLabelPolicies.ps1 -CsvPath "C:\path\to\scopes.csv" -AdminAccount "admin@domain.com"
+.\New-AdaptiveScopes.ps1 -CsvPath "C:\path\to\scopes.csv" -AdminAccount "admin@domain.com"
 
 .NOTES
 Ensure that the Exchange Online Management module is installed and that you have the necessary permissions to create adaptive scopes.
 #>
 
 param (
-    [string]$CsvPath,
-    [string]$AdminAccount
+    [Parameter(Mandatory=$true)]
+    [string]$CsvPath = $env:CSV_PATH,
+
+    [Parameter(Mandatory=$true)]
+    [string]$AdminAccount = $env:ADMIN_ACCOUNT
 )
 
-# Install the Exchange Online Management module if not already installed
-if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
-    Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
+function Check-Module {
+    param (
+        [string]$ModuleName
+    )
+    if (-not (Get-Module -ListAvailable -Name $ModuleName)) {
+        Install-Module -Name $ModuleName -Force -AllowClobber
+    }
+    Import-Module $ModuleName -ErrorAction Stop
 }
 
-# Import the module
-Import-Module ExchangeOnlineManagement
+try {
+    Check-Module -ModuleName "ExchangeOnlineManagement"
+} catch {
+    Write-Error "Failed to install or import ExchangeOnlineManagement module: $_"
+    exit 1
+}
 
-# Connect to the Security & Compliance Center
-Connect-IPPSSession -UserPrincipalName $AdminAccount
+try {
+    Connect-IPPSSession -UserPrincipalName $AdminAccount
+} catch {
+    Write-Error "Failed to connect to Security & Compliance Center: $_"
+    exit 1
+}
 
-# Import the CSV file
-$scopes = Import-Csv -Path $CsvPath
+try {
+    $scopes = Import-Csv -Path $CsvPath
+} catch {
+    Write-Error "Failed to import CSV file: $_"
+    exit 1
+}
 
-# Loop through each row in the CSV and create adaptive scopes
 foreach ($scope in $scopes) {
-    $rawQuery = $scope.Query
-    New-AdaptiveScope -Name $scope.Name -LocationType $scope.Location -RawQuery $rawQuery
+    try {
+        $rawQuery = $scope.Query
+        New-AdaptiveScope -Name $scope.Name -LocationType $scope.Location -RawQuery $rawQuery
+    } catch {
+        Write-Error "Failed to create adaptive scope for $($scope.Name): $_"
+    }
 }
 
-# Disconnect from the Security & Compliance Center
-Disconnect-ExchangeOnline
+try {
+    Disconnect-ExchangeOnline
+} catch {
+    Write-Error "Failed to disconnect from Security & Compliance Center: $_"
+}

@@ -1,93 +1,119 @@
 <#
+.SYNOPSIS
+This script enables the newer capabilities of sensitivity labels in SharePoint and OneDrive as well as enables sensitivity labels for use in Teams, M365 groups, and SharePoint sites.
 
-    -Created by: Wesley Blackwell
-    -Date last updated: 4/5/2022
+.DESCRIPTION
+The script performs the following actions:
+1. Installs necessary modules.
+2. Enables new capabilities in SharePoint Online (SPO) and OneDrive (OD).
+3. Updates O365 Containers to enable MIP Labels.
+4. Syncs any existing labels so that they can be used.
 
-    -Overview:
-        This script is meant to enable the newer capabilities of sensitivity labels in SharePoint and OneDrive as well as enable sensitivity labels for use in Teams, M365 groups, and SharePoint sites.
-    -Overview doc, enable new SPO features: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide
-    -Overview doc, enable sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to enable sensitivity labels.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
 
-    -Permissions Needed:
-        -Global Admin: EnableMIPLabelsForContainers, EnableNewCapabilitiesSPOOD, SyncLabels
-        -SharePoint Admin: EnableNewCapabilitiesSPOOD
-        -Security Admin: SyncLabels
+.PERMISSIONS NEEDED
+- Global Administrator: EnableMIPLabelsForContainers, EnableNewCapabilitiesSPOOD, SyncLabels
+- SharePoint Administrator: EnableNewCapabilitiesSPOOD
+- Security Administrator: SyncLabels
 
-    -Modules Needed:
-        -Microsoft.Online.SharePoint.PowerShell
-        -AzureADPreview
-        -ExchangeOnlineManagement
+.MODULES NEEDED
+- Microsoft.Online.SharePoint.PowerShell
+- AzureADPreview
+- ExchangeOnlineManagement
 
-    -Notes:
-        -Could take up to 24 hours for some changes to show up
-        -Need to also enable any LABELS for "Groups & sites" under Label -> Scope
-        -!!!UPDATE THE SHAREPOINT SITE FOR ENABLING THE CAPABILITIES!!!
-        -!!!UPDATE THE USER UPN FOR SYNCING LABELSI HAVE!!!
+.PARAMETERS
+-URL: The specific URL for SharePoint Online (SPO) integration.
+-UPN: The User Principal Name (UPN) for administrative actions.
+
+.EXAMPLES
+.\Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1 -URL "https://contoso-admin.sharepoint.com" -UPN "admin@contoso.com"
+
+.NOTES
+- Ensure the necessary modules are installed.
+- Changes may take up to 24 hours to show up.
+- Ensure any labels for "Groups & sites" are enabled under Label -> Scope.
 #>
 
-Function InstallModule {
-    Install-Module -Name Microsoft.Online.SharePoint.PowerShell #Used: EnableNewCapabilitiesSPOOD
-    Install-Module AzureADPreview #Used: EnableMIPLabelsForContainers
-    Install-Module ExchangeOnlineManagement #Used: SyncLabels
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$URL = $env:URL,
+
+    [Parameter(Mandatory=$true)]
+    [string]$UPN = $env:UPN
+)
+
+# Validate parameters
+if (-not $URL) {
+    Write-Error "URL parameter is required."
+    exit 1
+}
+if (-not $UPN) {
+    Write-Error "UPN parameter is required."
+    exit 1
 }
 
-Function EnableNewCapabilitiesSPOOD{
-<#
-    -Permissions: global administrator or SharePoint admin privileges in Microsoft 365
-    -Docs:
-        -Use PowerShell to enable support for sensitivity labels: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#use-powershell-to-enable-support-for-sensitivity-labels
-#>
-    Update-Module -Name Microsoft.Online.SharePoint.PowerShell
-
-    #UPDATE: URL BELOW FOR ORG
-    Connect-SPOService -Url https://contoso-admin.sharepoint.com
-
-    Set-SPOTenant -EnableAIPIntegration $true
+function InstallModule {
+    try {
+        Install-Module -Name Microsoft.Online.SharePoint.PowerShell -Force -ErrorAction Stop
+        Install-Module -Name AzureADPreview -Force -ErrorAction Stop
+        Install-Module -Name ExchangeOnlineManagement -Force -ErrorAction Stop
+    } catch {
+        Write-Error "Failed to install necessary modules: $_"
+        exit 1
+    }
 }
 
-Function EnableMIPLabelsForContainers {
-<#
-
-    -Permissions: Global Admin
-    -Docs:
-        -Instructions of steps: https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels
-        -Instructions for powershell for sensitivity labels: https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels
-
-#>
-    Import-Module AzureADPreview
-    Connect-AzureAD
-    $grpUnifiedSetting = (Get-AzureADDirectorySetting | where -Property DisplayName -Value "Group.Unified" -EQ)
-    $Setting = $grpUnifiedSetting
-    $grpUnifiedSetting.Values
-    $Setting["EnableMIPLabels"] = "True"
-    $Setting.Values
-    Set-AzureADDirectorySetting -Id $grpUnifiedSetting.Id -DirectorySetting $Setting
+function EnableNewCapabilitiesSPOOD {
+    try {
+        Update-Module -Name Microsoft.Online.SharePoint.PowerShell -ErrorAction Stop
+        Import-Module Microsoft.Online.SharePoint.PowerShell -ErrorAction Stop
+        Connect-SPOService -Url $URL -ErrorAction Stop
+        Set-SPOTenant -EnableAIPIntegration $true -ErrorAction Stop
+        Write-Output "New capabilities in SPO and OD enabled successfully."
+    } catch {
+        Write-Error "Failed to enable new capabilities in SPO and OD: $_"
+        exit 1
+    }
 }
 
-Function SyncLabels {
-<#
-
-    -NOTES: Basic auth may be required to run the following commands.
-    -Docs:
-        -Connect to s&c powershell: https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps#connect-to-security--compliance-powershell-using-mfa-and-modern-authentication
-    -Permissisions: Global Admin.
-#>
-    Import-Module ExchangeOnlineManagement
-
-    #UPDATE: BELOW WITH ADMIN ACCOUNT
-    Connect-IPPSSession -UserPrincipalName user@contoso.com
-
-    Execute-AzureAdLabelSync
+function EnableMIPLabelsForContainers {
+    try {
+        Import-Module AzureADPreview -ErrorAction Stop
+        Connect-AzureAD -ErrorAction Stop
+        $grpUnifiedSetting = (Get-AzureADDirectorySetting | where -Property DisplayName -Value "Group.Unified" -EQ)
+        $Setting = $grpUnifiedSetting
+        $Setting["EnableMIPLabels"] = "True"
+        Set-AzureADDirectorySetting -Id $grpUnifiedSetting.Id -DirectorySetting $Setting -ErrorAction Stop
+        Write-Output "MIP Labels for Containers enabled successfully."
+    } catch {
+        Write-Error "Failed to enable MIP Labels for Containers: $_"
+        exit 1
+    }
 }
 
-#Step 1: Insatll any modules needed
-#InstallModule
+function SyncLabels {
+    try {
+        Import-Module ExchangeOnlineManagement -ErrorAction Stop
+        Connect-IPPSSession -UserPrincipalName $UPN -ErrorAction Stop
+        Execute-AzureAdLabelSync -ErrorAction Stop
+        Write-Output "Labels synced successfully."
+    } catch {
+        Write-Error "Failed to sync labels: $_"
+        exit 1
+    }
+}
 
-#Step 2: Enable new capabilities in SPO and OD
+# Step 1: Install any modules needed
+InstallModule
+
+# Step 2: Enable new capabilities in SPO and OD
 EnableNewCapabilitiesSPOOD
 
-#Step 3: Update O365 Containers to enable MIP Labels
+# Step 3: Update O365 Containers to enable MIP Labels
 EnableMIPLabelsForContainers
 
-#Step 4: Sync any existing labels so that they can be used
+# Step 4: Sync any existing labels so that they can be used
 SyncLabels

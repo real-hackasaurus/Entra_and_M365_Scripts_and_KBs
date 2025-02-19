@@ -1,28 +1,75 @@
 <#
+.SYNOPSIS
+This script exports all O365 Threat Protection rules (old ATP) from the portal and saves them in a CSV file.
 
-    -Created by: Wesley Blackwell
-    -Date last updated: 5/3/2022
+.DESCRIPTION
+Using the ExchangeOnlineManagement module, this script fetches all global configurations for Safe Attachments and Safe Links and exports them to a CSV file.
 
-    -Overview:
-        This script is designed to export all O365 Threat Protection rules (old atp) from the portal and put them in a csv.
-    -Overview doc, Get-AtpPolicyForO365: https://docs.microsoft.com/en-us/powershell/module/exchange/get-atppolicyforo365?view=exchange-ps
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Connect to your Office 365 using the Connect-ExchangeOnline cmdlet.
+3. Run the script with the required parameters or set the environment variables.
 
-    -Permissions Needed:
-        -Global Admin (confirmed): Preferred since this user can see everything. 
-        -Security admin: All cmdlets
+.PERMISSIONS
+You need to have Global Admin or Security Admin permissions to see all policies and rules.
 
-    -Modules Needed:
-        -ExchangeOnlineManagement
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
-    -Notes:
-        -Cmdlets will be downloaded when the session is active.
-        -Security permissions need to be active first. If user is not an admin, the command will just fail to execute without giving a permission error.
-        -Save and run in local runspace so files save where you want them to.
+.PARAMETER AdminUserPrincipalName
+The User Principal Name of the admin account to connect to Exchange Online.
+
+.PARAMETER OutputPath
+The file path where the CSV file will be saved.
+
+.EXAMPLE
+.\Export-O365ThreatProtectionPolicies.ps1 -AdminUserPrincipalName "youruser@domain.com" -OutputPath "C:\Path\To\AtpPolicyForO365.csv"
+
+This will export all global configurations for Safe Attachments and Safe Links to the specified CSV file.
+
+.NOTES
+File Name      : Export-O365ThreatProtectionPolicies.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$AdminUserPrincipalName = $env:ADMIN_USER_PRINCIPAL_NAME,
+
+    [Parameter(Mandatory=$true)]
+    [string]$OutputPath = $env:OUTPUT_PATH
+)
+
+# Ensure parameters are not empty
+try {
+    if (-not $AdminUserPrincipalName) {
+        Write-Error "AdminUserPrincipalName parameter is empty or not set!"
+        exit
+    }
+
+    if (-not $OutputPath) {
+        Write-Error "OutputPath parameter is empty or not set!"
+        exit
+    }
+} catch {
+    Write-Error "Error checking parameters: $_"
+    exit
+}
 
 Import-Module ExchangeOnlineManagement
-Connect-ExchangeOnline -UserPrincipalName youruser@domain.com
 
-#This cmdlet will pull all global configs for Safe Attachments and Safe Links.
-Get-AtpPolicyForO365 | Export-Csv -Path .\AtpPolicyForO365.csv -NoTypeInformation
+try {
+    # Connect to Exchange Online
+    Connect-ExchangeOnline -UserPrincipalName $AdminUserPrincipalName
+} catch {
+    Write-Error "Failed to connect to Exchange Online: $_"
+    exit
+}
+
+try {
+    # Export ATP Policies
+    Get-AtpPolicyForO365 | Export-Csv -Path $OutputPath -NoTypeInformation
+} catch {
+    Write-Error "Error exporting ATP Policies: $_"
+}

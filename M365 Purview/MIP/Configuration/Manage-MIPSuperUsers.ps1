@@ -13,173 +13,158 @@ Supported actions:
 - listallsuperusers
 - listcurrentstate
 
-.PARAMETER Action
-The action to be performed.
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to manage MIP super users.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
 
-.PARAMETER User
-The username for actions that require it.
+.PERMISSIONS NEEDED
+- Azure Information Protection Administrator
+- Global Administrator (if required for certain actions)
 
-.PARAMETER Group
-The group name for actions that require it.
+.MODULES NEEDED
+- AIPService
 
-.EXAMPLE
+.PARAMETERS
+-Action: The action to be performed.
+-User: The username for actions that require it.
+-Group: The group name for actions that require it.
+
+.EXAMPLES
 # Enable the Super User feature
-.\MIP_Super_User_Manager.ps1 -Action "enable"
+.\Manage-MIPSuperUsers.ps1 -Action "enable"
 
-.EXAMPLE
 # Disable the Super User feature
-.\MIP_Super_User_Manager.ps1 -Action "disable"
+.\Manage-MIPSuperUsers.ps1 -Action "disable"
 
-.EXAMPLE
 # Add specific users as super users
-.\MIP_Super_User_Manager.ps1 -Action "adduser" -User "user1@example.com,user2@example.com"
+.\Manage-MIPSuperUsers.ps1 -Action "adduser" -User "user1@example.com,user2@example.com"
 
-.EXAMPLE
 # Remove specific users from the super user list
-.\MIP_Super_User_Manager.ps1 -Action "removeuser" -User "user1@example.com,user2@example.com"
+.\Manage-MIPSuperUsers.ps1 -Action "removeuser" -User "user1@example.com,user2@example.com"
 
-.EXAMPLE
 # Set a group as the super user group
-.\MIP_Super_User_Manager.ps1 -Action "addgroup" -Group "groupemail@example.com"
+.\Manage-MIPSuperUsers.ps1 -Action "addgroup" -Group "groupemail@example.com"
 
-.EXAMPLE
 # Remove the designated super user group
-.\MIP_Super_User_Manager.ps1 -Action "removegroup"
+.\Manage-MIPSuperUsers.ps1 -Action "removegroup"
 
-.EXAMPLE
 # List all super users and the super user group
-.\MIP_Super_User_Manager.ps1 -Action "listallsuperusers"
+.\Manage-MIPSuperUsers.ps1 -Action "listallsuperusers"
 
-.EXAMPLE
 # Display the current state of the Super User feature
-.\MIP_Super_User_Manager.ps1 -Action "listcurrentstate"
+.\Manage-MIPSuperUsers.ps1 -Action "listcurrentstate"
 #>
-
-# If needed, install module with below
-# Install-Module -Name AIPService -Force -AllowClobber
 
 param (
     [Parameter(Mandatory=$true)]
     [ValidateSet("enable", "disable", "adduser", "addgroup", "removeuser", "removegroup", "listallsuperusers", "listcurrentstate")]
-    [string]$Action,
+    [string]$Action = $env:ACTION,
 
-    [Parameter(Mandatory=$false)]
-    [string]$User,
+    [string]$User = $env:USER,
 
-    [Parameter(Mandatory=$false)]
-    [string]$Group
+    [string]$Group = $env:GROUP
 )
 
-# Connect to AIP Service
-Connect-AipService
+# Validate parameters
+if (-not $Action) {
+    Write-Error "Action parameter is required."
+    exit 1
+}
 
-function EnableSuperUser() {
-    function EnableSuperUser() {
-        try {
-            # Enabling the super user functionality
-            Enable-AipServiceSuperUserFeature
-    
-            Write-Output "Super User feature has been successfully enabled."
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to enable Super User feature. Error: $_"
-        }
+# Check if AIPService module is installed
+if (-not (Get-Module -ListAvailable -Name AIPService)) {
+    try {
+        Install-Module -Name AIPService -Force -ErrorAction Stop
+    } catch {
+        Write-Error "Failed to install AIPService module: $_"
+        exit 1
     }
 }
 
-function DisableSuperUser() {
-    function DisableSuperUser() {
-        try {
-            # Disabling the super user functionality
-            Disable-AipServiceSuperUserFeature
-    
-            Write-Output "Super User feature has been successfully disabled."
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to disable Super User feature. Error: $_"
-        }
-    }    
+try {
+    # Connect to AIP Service
+    Import-Module AIPService -ErrorAction Stop
+    Connect-AipService -ErrorAction Stop
+} catch {
+    Write-Error "Failed to connect to AIP service: $_"
+    exit 1
 }
 
-function AddUser([string]$user) {
-    function AddUser([string]$users) {
-        # Splitting the provided comma-separated users into an array
-        $userArray = $users -split ',' | ForEach-Object { $_.Trim() }
-    
-        try {
-            foreach ($user in $userArray) {
-                # Adding each user as a super user
-                Add-AipServiceSuperUser -EmailAddress $user
-    
-                Write-Output "Successfully added $user as a super user."
-            }
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to add $user as a super user. Error: $_"
+function EnableSuperUser {
+    try {
+        Enable-AipServiceSuperUserFeature -ErrorAction Stop
+        Write-Output "Super User feature has been successfully enabled."
+    } catch {
+        Write-Error "Failed to enable Super User feature: $_"
+        exit 1
+    }
+}
+
+function DisableSuperUser {
+    try {
+        Disable-AipServiceSuperUserFeature -ErrorAction Stop
+        Write-Output "Super User feature has been successfully disabled."
+    } catch {
+        Write-Error "Failed to disable Super User feature: $_"
+        exit 1
+    }
+}
+
+function AddUser([string]$users) {
+    $userArray = $users -split ',' | ForEach-Object { $_.Trim() }
+    try {
+        foreach ($user in $userArray) {
+            Add-AipServiceSuperUser -EmailAddress $user -ErrorAction Stop
+            Write-Output "Successfully added $user as a super user."
         }
-    }    
+    } catch {
+        Write-Error "Failed to add $user as a super user: $_"
+        exit 1
+    }
 }
 
 function AddGroup([string]$group) {
-    function AddGroup([string]$group) {
-        # Disclaimers
-        Write-Warning "DISCLAIMER: All users in this group are super users. This action will effectively make them owners of all content in the organization."
-        Write-Warning "DISCLAIMER: Any new group added with this command will overwrite the previous group. You can have multiple super users, but only one super user group at a time."
-        Write-Warning "DISCLAIMER: The group has to have an email address to function properly."
-        Write-Warning "DISCLAIMER: Group memberships are cached. For real-time access, you need to add the user individually."
-    
-        try {
-            # Adding the group as super user group
-            Set-AipServiceSuperUserGroup -GroupEmailAddress $group
-    
-            Write-Output "Successfully set $group as the super user group."
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to set $group as the super user group. Error: $_"
-        }
-    }    
+    Write-Warning "DISCLAIMER: All users in this group are super users. This action will effectively make them owners of all content in the organization."
+    Write-Warning "DISCLAIMER: Any new group added with this command will overwrite the previous group. You can have multiple super users, but only one super user group at a time."
+    Write-Warning "DISCLAIMER: The group has to have an email address to function properly."
+    Write-Warning "DISCLAIMER: Group memberships are cached. For real-time access, you need to add the user individually."
+    try {
+        Set-AipServiceSuperUserGroup -GroupEmailAddress $group -ErrorAction Stop
+        Write-Output "Successfully set $group as the super user group."
+    } catch {
+        Write-Error "Failed to set $group as the super user group: $_"
+        exit 1
+    }
 }
 
-function RemoveUser([string]$user) {
-    function RemoveUser([string]$users) {
-        # Splitting the provided comma-separated users into an array
-        $userArray = $users -split ',' | ForEach-Object { $_.Trim() }
-    
-        try {
-            foreach ($user in $userArray) {
-                # Removing each user from super users
-                Remove-AipServiceSuperUser -EmailAddress $user
-    
-                Write-Output "Successfully removed $user from super users."
-            }
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to remove $user from super users. Error: $_"
+function RemoveUser([string]$users) {
+    $userArray = $users -split ',' | ForEach-Object { $_.Trim() }
+    try {
+        foreach ($user in $userArray) {
+            Remove-AipServiceSuperUser -EmailAddress $user -ErrorAction Stop
+            Write-Output "Successfully removed $user from super users."
         }
-    }    
+    } catch {
+        Write-Error "Failed to remove $user from super users: $_"
+        exit 1
+    }
 }
 
-function RemoveGroup([string]$group) {
-    function RemoveGroup() {
-        # Disclaimers
-        Write-Warning "DISCLAIMER: You are about to remove the super user group."
-    
-        try {
-            # Clearing the super user group
-            Clear-AipServiceSuperUserGroup
-    
-            Write-Output "Successfully removed the super user group."
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to remove the super user group. Error: $_"
-        }
-    }    
+function RemoveGroup {
+    Write-Warning "DISCLAIMER: You are about to remove the super user group."
+    try {
+        Clear-AipServiceSuperUserGroup -ErrorAction Stop
+        Write-Output "Successfully removed the super user group."
+    } catch {
+        Write-Error "Failed to remove the super user group: $_"
+        exit 1
+    }
 }
 
-function ListAllSuperUsers() {
-    function ListAllSuperUsers() {
-        # Fetching and listing all super users
-        $superUsers = Get-AipServiceSuperUser
+function ListAllSuperUsers {
+    try {
+        $superUsers = Get-AipServiceSuperUser -ErrorAction Stop
         if ($superUsers -ne $null -and $superUsers.Count -gt 0) {
             Write-Output "List of Super Users:"
             $superUsers | ForEach-Object {
@@ -188,35 +173,31 @@ function ListAllSuperUsers() {
         } else {
             Write-Output "No super users found."
         }
-    
-        # Fetching and listing the super user group
-        $superUserGroup = Get-AipServiceSuperUserGroup
+        $superUserGroup = Get-AipServiceSuperUserGroup -ErrorAction Stop
         if ($superUserGroup) {
             Write-Output "Super User Group:"
             Write-Output $superUserGroup.GroupEmailAddress
         } else {
             Write-Output "No super user group set."
         }
-    }    
+    } catch {
+        Write-Error "Failed to list super users: $_"
+        exit 1
+    }
 }
 
-function ListCurrentState() {
-    function ListCurrentState() {
-        try {
-            # Fetching the current state of the super user feature
-            $superUserFeatureState = Get-AipServiceSuperUserFeature
-    
-            # Checking the status and displaying appropriate message
-            if ($superUserFeatureState.Enabled) {
-                Write-Output "Super User feature is currently ENABLED."
-            } else {
-                Write-Output "Super User feature is currently DISABLED."
-            }
-        } catch {
-            # Catching any exceptions or errors that occur
-            Write-Error "Failed to fetch the current state of the Super User feature. Error: $_"
+function ListCurrentState {
+    try {
+        $superUserFeatureState = Get-AipServiceSuperUserFeature -ErrorAction Stop
+        if ($superUserFeatureState.Enabled) {
+            Write-Output "Super User feature is currently ENABLED."
+        } else {
+            Write-Output "Super User feature is currently DISABLED."
         }
-    }    
+    } catch {
+        Write-Error "Failed to fetch the current state of the Super User feature: $_"
+        exit 1
+    }
 }
 
 switch ($Action) {
@@ -227,16 +208,16 @@ switch ($Action) {
         DisableSuperUser
     }
     "adduser" {
-        AddUser -User $User
+        AddUser -users $User
     }
     "addgroup" {
-        AddGroup -Group $Group
+        AddGroup -group $Group
     }
     "removeuser" {
-        RemoveUser -User $User
+        RemoveUser -users $User
     }
     "removegroup" {
-        RemoveGroup -Group $Group
+        RemoveGroup
     }
     "listallsuperusers" {
         ListAllSuperUsers
