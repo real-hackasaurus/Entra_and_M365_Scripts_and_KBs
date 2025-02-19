@@ -1,11 +1,9 @@
 <#
 .SYNOPSIS
-    This script creates new retention policies in Microsoft 365 Purview based on the information provided in a CSV file.
+    Create new retention policies in Microsoft 365 Purview based on a CSV file.
 
 .DESCRIPTION
-    The script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file, 
-    and creates new retention policies in Microsoft 365 Purview. The CSV file should contain columns for PolicyName, 
-    ExchangeLocation, SharePointLocation, and OneDriveLocation.
+    This script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file, and creates new retention policies in Microsoft 365 Purview.
 
 .PARAMETER CsvPath
     The path to the CSV file containing the retention policy details.
@@ -17,7 +15,9 @@
     .\New-RetentionPolicy.ps1 -CsvPath "C:\Path\To\Your\CSV\policies.csv" -AdminUPN "admin@yourdomain.onmicrosoft.com"
 
 .NOTES
-    Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
+    Author: Wesley Blackwell
+    Date: 5/25/2022
+    Prerequisite: ExchangeOnlineManagement module
 #>
 
 param (
