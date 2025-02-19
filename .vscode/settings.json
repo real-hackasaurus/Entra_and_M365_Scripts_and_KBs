@@ -1,0 +1,11 @@
+{
+    "terminal.integrated.env.windows": {
+        "MY_ENV_VAR": "my_value"
+    },
+    "terminal.integrated.env.linux": {
+        "MY_ENV_VAR": "my_value"
+    },
+    "terminal.integrated.env.osx": {
+        "MY_ENV_VAR": "my_value"
+    }
+}
