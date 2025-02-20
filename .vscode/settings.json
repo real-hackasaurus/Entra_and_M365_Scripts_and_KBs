@@ -1,6 +1,8 @@
 {
     "terminal.integrated.env.windows": {
-        "MY_ENV_VAR": "my_value"
+        "MY_ENV_VAR": "my_value",
+        "UPN": "admin@M365x34890247.onmicrosoft.com"
+
     },
     "terminal.integrated.env.linux": {
         "MY_ENV_VAR": "my_value"
