@@ -1,0 +1,19 @@
+Script Header
+---------------
+Need a synopsis, instrictions on how to use, description, permissions needed, modules needed, and examples as a header to the top of the script.
+
+Try Catching
+-------------
+Add try catching for all functions, if present, and for params to ensure they are not empty. Provide console output to explain error.
+
+
+Main Variables as Params
+----------------------------
+Need to take the top variables and take them as params or default to environment variables. Also write me the environment variables I would add to settings.json. If there is a file path, I would like that as an environment variable that goes into the launch.json
+
+
+Main Params as Launch.json variables
+------------------------------------
+Need the main parameters in the file to default to environment variables that are set in the launch.json file. 
+
+

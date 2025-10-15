@@ -1,0 +1,3 @@
+PolicyName,ExchangeLocation,SharePointLocation,OneDriveLocation
+Policy1,Mailbox1,SiteURL1,User1@domain.com
+Policy2,Mailbox2,SiteURL2,User2@domain.com

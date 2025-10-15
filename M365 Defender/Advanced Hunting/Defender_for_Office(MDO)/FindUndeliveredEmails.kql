@@ -1,0 +1,19 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 2/14/2025
+
+// -Overview:
+//     This query identifies emails that were not delivered. 
+//     It is useful for investigating email delivery issues within Microsoft 365 Defender for Office (MDO).
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender for Office.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface to retrieve emails that were not delivered.
+
+// -Notes:
+//     -You can modify the query to include additional filters or columns as needed.
+
+EmailEvents
+| where DeliveryAction != "Delivered"

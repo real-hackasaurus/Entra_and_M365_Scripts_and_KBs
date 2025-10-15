@@ -1,0 +1,7 @@
+#codebase review all powershell files. Any that use modules, make sure there is a check that the module is installed and a check that the module is imported. Perform the action if it is not. Use this example.
+
+# Check if nameOfModule module is installed and imported
+if (-not (Get-Module -ListAvailable -Name nameOfModule)) {
+    Install-Module -Name nameOfModule -Force
+}
+Import-Module nameOfModule
