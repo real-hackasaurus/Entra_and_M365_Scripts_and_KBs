@@ -1,1 +1,0 @@
-https://graph.microsoft.com/v1.0/security/alerts_v2?$filter=serviceSource in ('microsoftDataLossPrevention')&$orderby=createdDateTime desc

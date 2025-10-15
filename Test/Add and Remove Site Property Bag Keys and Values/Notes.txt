@@ -1,7 +1,0 @@
-Observations
--it appears that private groups do not show. Both the https://m365x34890247.sharepoint.com/sites/SACTestSite1/ and https://m365x34890247.sharepoint.com/sites/Communications/ sites are private groups but do not appear in searches from the site collection
-
-Next Steps
--create new label policies using this cmdlet and have it take a csv for the import https://learn.microsoft.com/en-us/powershell/module/exchange/new-retentioncompliancepolicy?view=exchange-ps
-
--create new retention labels using the bulk import script and powershell
