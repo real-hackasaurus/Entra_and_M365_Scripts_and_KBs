@@ -409,6 +409,16 @@
                 "-CSV_PATH", "C:\\Path\\To\\Your\\CSV\\rules.csv",
                 "-ADMIN_UPN", "admin@yourdomain.onmicrosoft.com"
             ]
+        },
+        {
+            "name": "PowerShell: Update-RetentionPolicy",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/M365 Purview/Retention Policies (Not Labels or MRM)/Update-RetentionPolicy/Update-RetentionPolicy.ps1",
+            "args": [
+                "-csvPath", "C:\\Users\\wesle\\OneDrive/Documents\\GitHub\\Entra_and_M365_Scripts_and_KBs\\Test\\Update-RetentionPolicy\\values.csv",
+                "-adminUPN", "admin@M365x34890247.onmicrosoft.com"
+            ]
         }
     ]
 }

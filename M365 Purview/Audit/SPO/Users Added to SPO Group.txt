@@ -1,0 +1,9 @@
+Date: Time frame you want to search in, no more that about 180 days (178 or 177 in practice)
+
+Activities - friendly name: "Added site collection admin", "Added user or group to SharePoint group", "Modified site permissions", "Updated group"
+
+Activities - operation name: sitecollectionadminadded, addedtogroup, sitepermissionsmodified, groupupdated
+
+File, Folder, or Site: https://tenant.sharepoint.com/sites/name-of-site  (note there is no ending "/" or "*", this only works on the URL wihtout these features)
+
+Search Name: Give a name for the search

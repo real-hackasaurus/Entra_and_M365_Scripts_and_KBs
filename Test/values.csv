@@ -1,0 +1,3 @@
+PolicyName,Action,Exception,ExchangeLocation,SharePointLocation,OneDriveLocation,ModernGroupLocation,SkypeLocation,TeamsChannelLocation,PublicFolderLocation
+Policy1,Add,No,UpdatedMailbox1,UpdatedSiteURL1,UpdatedUser1@domain.com,UpdatedGroup1,UpdatedSkype1,UpdatedTeamsChannel1,UpdatedPublicFolder1
+Policy2,Remove,Yes,UpdatedMailbox2,UpdatedSiteURL2,UpdatedUser2@domain.com,UpdatedGroup2,UpdatedSkype2,UpdatedTeamsChannel2,UpdatedPublicFolder2

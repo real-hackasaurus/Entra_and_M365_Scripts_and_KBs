@@ -1,0 +1,4 @@
+PolicyName,Action,Exception,TeamsChannelLocation,TeamsChatLocation
+Policy1,Add,No,SalesUser1@contoso.onmicrosoft.com,SalesUser2@contoso.onmicrosoft.com
+Policy1,Add,No,MarketingUser1@contoso.onmicrosoft.com,MarketingUser2@contoso.onmicrosoft.com
+Policy2,Remove,Yes,HRUser1@contoso.onmicrosoft.com,HRUser2@contoso.onmicrosoft.com

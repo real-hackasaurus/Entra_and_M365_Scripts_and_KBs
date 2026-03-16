@@ -1,0 +1,4 @@
+PolicyName,Action,Exception,ExchangeLocation,SharePointLocation,OneDriveLocation,ModernGroupLocation,SkypeLocation,PublicFolderLocation
+DEI Policy,Add,No,,https://m365x34890247.sharepoint.com/sites/Communications,,Communications@M365x34890247.onmicrosoft.com,,
+DEI Policy,Add,No,,https://m365x34890247.sharepoint.com/sites/Contosomarketing,,Contosomarketing@M365x34890247.onmicrosoft.com,,
+DEI Policy,Add,No,,https://m365x34890247.sharepoint.com/sites/contosoteam,,contosoteam@M365x34890247.onmicrosoft.com,,
