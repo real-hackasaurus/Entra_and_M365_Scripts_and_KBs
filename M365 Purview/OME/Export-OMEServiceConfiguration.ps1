@@ -10,20 +10,22 @@ The script imports the ExchangeOnlineManagement module, connects to Exchange Onl
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator (confirmed)
 
 .MODULES NEEDED
 - ExchangeOnlineManagement
 
-.PARAMETERS
--UPN: The User Principal Name (UPN) for administrative actions.
+.PARAMETER UPN
+The User Principal Name (UPN) for administrative actions.
 
-.EXAMPLES
+.EXAMPLE
 .\Export-OMEServiceConfiguration.ps1 -UPN "yourname@domain.com"
 
 .NOTES
-- Ensure the ExchangeOnlineManagement module is installed.
+File Name      : Export-OMEServiceConfiguration.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

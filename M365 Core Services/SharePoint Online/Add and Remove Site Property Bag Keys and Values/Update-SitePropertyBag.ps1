@@ -1,32 +1,37 @@
 <#
-    -Created by: Wesley Blackwell
-    -Date last updated: 2/17/2025
+.SYNOPSIS
+This script updates specified properties in the property bag of SharePoint Online sites based on a CSV template.
 
-    -Overview:
-        This script updates specified properties in the property bag of SharePoint Online sites based on a CSV template.
-        The CSV file should contain the site URLs, keys, and values of the properties to be updated.
+.DESCRIPTION
+Using the PnP.PowerShell module, this script connects to each SharePoint Online site listed in a CSV file and sets or updates the specified property bag keys and values for each site.
 
-    -Instructions:
-        1. Ensure you have the PnP.PowerShell module installed.
-        2. Create a CSV file with the following structure:
-            SiteURL,key,value
-            https://yourtenant.sharepoint.com/sites/Site1,Key1,Value1
-            https://yourtenant.sharepoint.com/sites/Site2,Key2,Value2
-        3. Update the $csvPath variable in the script to point to the location of your CSV file.
-        4. Run the script in PowerShell.
+.INSTRUCTIONS
+1. Ensure you have the PnP.PowerShell module installed.
+2. Create a CSV file with the following structure:
+    SiteURL,key,value
+    https://yourtenant.sharepoint.com/sites/Site1,Key1,Value1
+    https://yourtenant.sharepoint.com/sites/Site2,Key2,Value2
+3. Update the $csvPath variable in the script to point to the location of your CSV file.
+4. Run the script in PowerShell.
 
-    -Permissions Needed:
-        - SharePoint Admin or Site Collection Admin
+.PERMISSIONS
+- SharePoint Admin or Site Collection Admin
 
-    -Modules Needed:
-        - PnP.PowerShell
+.MODULES NEEDED
+- PnP.PowerShell
 
-    -Notes:
-        - Ensure you have the necessary permissions to update properties in the property bag in SharePoint Online.
+.EXAMPLE
+.\Update-SitePropertyBag.ps1
+
+This will read site URLs, keys, and values from the CSV file and update the specified property bag keys for each site.
+
+.NOTES
+File Name      : Update-SitePropertyBag.ps1
+Author         : Wes Blackwell
+Prerequisite   : PnP.PowerShell Module
 #>
 
 Import-Module PnP.PowerShell
-
 # Load the CSV file
 $csvPath = "C:\path\to\your\csvfile.csv"
 $sites = Import-Csv -Path $csvPath

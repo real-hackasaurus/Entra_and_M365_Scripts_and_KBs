@@ -30,15 +30,6 @@ Author         : Wes Blackwell
 Prerequisite   : Microsoft.Online.SharePoint.PowerShell Module
 #>
 
-# Description:
-# This script enables restricted access control for a SharePoint Online tenant.
-# It connects to the SharePoint Online admin site and sets the tenant property to enable restricted access control.
-
-# Instructions:
-# 1. Ensure you have the SharePoint Online Management Shell module installed.
-# 2. Replace the placeholder URL with your actual SharePoint Online admin site URL.
-# 3. Run this script in PowerShell with appropriate permissions.
-
 param (
     [Parameter(Mandatory=$true)]
     [string]$AdminSiteURL = $env:ADMIN_SITE_URL

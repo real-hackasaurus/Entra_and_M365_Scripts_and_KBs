@@ -1,32 +1,37 @@
 <#
-    -Created by: Wesley Blackwell
-    -Date last updated: 2/17/2025
+.SYNOPSIS
+This script removes specified properties from the property bag of SharePoint Online sites based on a CSV template.
 
-    -Overview:
-        This script removes specified properties from the property bag of SharePoint Online sites based on a CSV template.
-        The CSV file should contain the site URLs and the keys of the properties to be removed.
+.DESCRIPTION
+Using the PnP.PowerShell module, this script connects to each SharePoint Online site listed in a CSV file and removes the specified property bag keys from each site.
 
-    -Instructions:
-        1. Ensure you have the PnP.PowerShell module installed.
-        2. Create a CSV file with the following structure:
-            SiteURL,key
-            https://yourtenant.sharepoint.com/sites/Site1,Key1
-            https://yourtenant.sharepoint.com/sites/Site2,Key2
-        3. Update the $csvPath variable in the script to point to the location of your CSV file.
-        4. Run the script in PowerShell.
+.INSTRUCTIONS
+1. Ensure you have the PnP.PowerShell module installed.
+2. Create a CSV file with the following structure:
+    SiteURL,key
+    https://yourtenant.sharepoint.com/sites/Site1,Key1
+    https://yourtenant.sharepoint.com/sites/Site2,Key2
+3. Update the $csvPath variable in the script to point to the location of your CSV file.
+4. Run the script in PowerShell.
 
-    -Permissions Needed:
-        - SharePoint Admin or Site Collection Admin
+.PERMISSIONS
+- SharePoint Admin or Site Collection Admin
 
-    -Modules Needed:
-        - PnP.PowerShell
+.MODULES NEEDED
+- PnP.PowerShell
 
-    -Notes:
-        - Ensure you have the necessary permissions to remove properties from the property bag in SharePoint Online.
+.EXAMPLE
+.\Remove-SitePropertyBag.ps1
+
+This will read site URLs and keys from the CSV file and remove the specified property bag keys from each site.
+
+.NOTES
+File Name      : Remove-SitePropertyBag.ps1
+Author         : Wes Blackwell
+Prerequisite   : PnP.PowerShell Module
 #>
 
 Import-Module PnP.PowerShell
-
 # Load the CSV file
 $csvPath = "C:\path\to\your\csvfile.csv"
 $sites = Import-Csv -Path $csvPath

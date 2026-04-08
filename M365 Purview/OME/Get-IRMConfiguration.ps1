@@ -1,20 +1,31 @@
 <#
 .SYNOPSIS
-    Display the active IRM settings, useful for troubleshooting MIP.
+Display the active IRM settings, useful for troubleshooting MIP.
 
 .DESCRIPTION
-    The script imports the ExchangeOnlineManagement module, connects to Exchange Online, and retrieves the IRM configuration.
+The script imports the ExchangeOnlineManagement module, connects to Exchange Online, and retrieves the IRM configuration.
+
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to retrieve the IRM configuration.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+- Global Administrator (confirmed)
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
 .PARAMETER UPN
-    The User Principal Name (UPN) for administrative actions.
+The User Principal Name (UPN) for administrative actions.
 
 .EXAMPLE
-    .\Get-IRMConfiguration.ps1 -UPN "user@yourdomain.com"
+.\Get-IRMConfiguration.ps1 -UPN "user@yourdomain.com"
 
 .NOTES
-    Author: Wesley Blackwell
-    Date: 5/25/2022
-    Prerequisite: ExchangeOnlineManagement module
+File Name      : Get-IRMConfiguration.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

@@ -1,12 +1,3 @@
-##############################################################################
-##
-## Bulk_Create_Guest_User.ps1
-##
-## Created by: Wesley Blackwell
-## Date of last modification: 5/25/2022
-##
-##############################################################################
-
 <#
 .SYNOPSIS
 Allows for creating multiple guest users in the AAD environment via CSV.

@@ -10,6 +10,18 @@ The script performs the following steps:
 4. Loops through each row in the CSV file and creates new adaptive scopes.
 5. Disconnects from the Security & Compliance Center.
 
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Create a CSV file with columns: Name, Location, Query.
+3. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+4. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+- Global Administrator or Compliance Administrator
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
+
 .PARAMETER CsvPath
 The path to the CSV file containing the adaptive scope definitions. The CSV file should have the following columns: Name, Location, Query.
 
@@ -20,7 +32,9 @@ The admin account to use for connecting to the Security & Compliance Center.
 .\New-AdaptiveScopes.ps1 -CsvPath "C:\path\to\scopes.csv" -AdminAccount "admin@domain.com"
 
 .NOTES
-Ensure that the Exchange Online Management module is installed and that you have the necessary permissions to create adaptive scopes.
+File Name      : New-AdaptiveScopes.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

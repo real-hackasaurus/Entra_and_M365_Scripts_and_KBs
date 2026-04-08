@@ -1,29 +1,35 @@
 <#
-    -Created by: Wesley Blackwell
-    -Date last updated: 2/17/2025
+.SYNOPSIS
+This script checks the property bag of SharePoint Online sites based on a CSV template and exports the results to a text file.
 
-    -Overview:
-        This script checks the property bag of SharePoint Online sites based on a CSV template and exports the results to a text file.
-        The CSV file should contain the site URLs.
+.DESCRIPTION
+Using the PnP.PowerShell module, this script connects to each SharePoint Online site listed in a CSV file, retrieves the site's property bag, and exports the results to a text file.
 
-    -Instructions:
-        1. Ensure you have the PnP.PowerShell module installed.
-        2. Create a CSV file with the following structure:
-            SiteURL
-            https://yourtenant.sharepoint.com/sites/Site1
-            https://yourtenant.sharepoint.com/sites/Site2
-        3. Update the $csvPath variable in the script to point to the location of your CSV file.
-        4. Update the $outputPath variable in the script to point to the desired location of the output text file.
-        5. Run the script in PowerShell.
+.INSTRUCTIONS
+1. Ensure you have the PnP.PowerShell module installed.
+2. Create a CSV file with the following structure:
+    SiteURL
+    https://yourtenant.sharepoint.com/sites/Site1
+    https://yourtenant.sharepoint.com/sites/Site2
+3. Update the $csvPath variable in the script to point to the location of your CSV file.
+4. Update the $outputPath variable in the script to point to the desired location of the output text file.
+5. Run the script in PowerShell.
 
-    -Permissions Needed:
-        - SharePoint Admin or Site Collection Admin
+.PERMISSIONS
+- SharePoint Admin or Site Collection Admin
 
-    -Modules Needed:
-        - PnP.PowerShell
+.MODULES NEEDED
+- PnP.PowerShell
 
-    -Notes:
-        - Ensure you have the necessary permissions to check properties in the property bag in SharePoint Online.
+.EXAMPLE
+.\Get-SitePropertyBag.ps1
+
+This will read site URLs from the CSV file and export each site's property bag to the output text file.
+
+.NOTES
+File Name      : Get-SitePropertyBag.ps1
+Author         : Wes Blackwell
+Prerequisite   : PnP.PowerShell Module
 #>
 
 # Check if PnP.PowerShell module is installed and imported

@@ -27,6 +27,11 @@ The display name of the target Azure AD group to which members will be added.
 .\Copy-AADGroupMembers.ps1 -SourceGroupName "Source Group Name" -TargetGroupName "Target Group Name"
 
 This will copy all user members from "Source Group Name" to "Target Group Name".
+
+.NOTES
+File Name      : Copy-AADGroupMembers.ps1
+Author         : Wes Blackwell
+Prerequisite   : AzureAD or AzureADPreview Module
 #>
 
 [CmdletBinding()]

@@ -28,6 +28,11 @@ A comma-separated string of user principal names to be removed from the specifie
 .\Remove-AADGroupMembers.ps1 -groupNames "Group1,Group2" -users "user1@example.com,user2@example.com"
 
 This will attempt to remove the users user1@example.com and user2@example.com from the groups named "Group1" and "Group2" in Azure AD.
+
+.NOTES
+File Name      : Remove-AADGroupMembers.ps1
+Author         : Wes Blackwell
+Prerequisite   : AzureAD Module
 #>
 
 # Get command line parameters

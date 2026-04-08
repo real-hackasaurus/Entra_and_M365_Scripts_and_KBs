@@ -1,30 +1,37 @@
 <#
 .SYNOPSIS
-    This script creates new retention policies in Microsoft 365 Purview based on the information provided in a CSV file.
+This script creates new retention policies in Microsoft 365 Purview based on the information provided in a CSV file.
 
 .DESCRIPTION
-    The script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file, 
-    and creates new retention policies in Microsoft 365 Purview. The CSV file should contain columns for PolicyName, 
-    ExchangeLocation, SharePointLocation, and OneDriveLocation.
+The script connects to the Security & Compliance PowerShell, reads retention policy details from a CSV file,
+and creates new retention policies in Microsoft 365 Purview. The CSV file should contain columns for PolicyName,
+ExchangeLocation, SharePointLocation, and OneDriveLocation.
 
-.PARAMETER csvPath
-    The path to the CSV file containing the retention policy details.
-
-.PARAMETER adminUPN
-    The User Principal Name (UPN) of the admin account used to connect to Security & Compliance PowerShell.
-
-.EXAMPLE
-    .\New-RetentionPolicy.ps1 -csvPath "C:\Path\To\Your\CSV\policies.csv" -adminUPN "admin@yourdomain.onmicrosoft.com"
-
-.NOTES
-    Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Create a CSV file with columns: PolicyName, ExchangeLocation, SharePointLocation, OneDriveLocation.
+3. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+4. Run the script using the provided examples or your own parameters.
 
 .PERMISSIONS
-    Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
+Ensure you have the necessary permissions to create retention policies and connect to the Security & Compliance PowerShell.
 
-.MODULES
-    ExchangeOnlineManagement
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
+.PARAMETER csvPath
+The path to the CSV file containing the retention policy details.
+
+.PARAMETER adminUPN
+The User Principal Name (UPN) of the admin account used to connect to Security & Compliance PowerShell.
+
+.EXAMPLE
+.\New-RetentionPolicy.ps1 -csvPath "C:\Path\To\Your\CSV\policies.csv" -adminUPN "admin@yourdomain.onmicrosoft.com"
+
+.NOTES
+File Name      : New-RetentionPolicy.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

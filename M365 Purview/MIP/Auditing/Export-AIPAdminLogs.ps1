@@ -11,27 +11,35 @@ Logs are saved to a specified path.
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Azure Information Protection Administrator
 - Global Administrator (if required for certain actions)
 
 .MODULES NEEDED
 - AIPService
 
-.PARAMETERS
--Path: The path where the AIP admin logs should be saved.
--StartDate: The starting date for the logs. Logs will be fetched from this date onwards.
--EndDate: The ending date for the logs. Logs will be fetched up to this date.
--FilterText: The specific text to filter the log entries. Only entries containing this text will be saved.
+.PARAMETER Path
+The path where the AIP admin logs should be saved.
 
-.EXAMPLES
-.\GetAipAdminLogs.ps1 -Path "C:\MyDirectory\MyAdminLog.log" -StartDate "2023-01-01" -EndDate "2023-12-31" -FilterText "SuperUser"
-.\GetAipAdminLogs.ps1 -Path "C:\MyDirectory\MyAdminLog.log" -FilterText "SuperUser"
+.PARAMETER StartDate
+The starting date for the logs. Logs will be fetched from this date onwards.
+
+.PARAMETER EndDate
+The ending date for the logs. Logs will be fetched up to this date.
+
+.PARAMETER FilterText
+The specific text to filter the log entries. Only entries containing this text will be saved.
+
+.EXAMPLE
+.\Export-AIPAdminLogs.ps1 -Path "C:\MyDirectory\MyAdminLog.log" -StartDate "2023-01-01" -EndDate "2023-12-31" -FilterText "SuperUser"
+
+.EXAMPLE
+.\Export-AIPAdminLogs.ps1 -Path "C:\MyDirectory\MyAdminLog.log" -FilterText "SuperUser"
 
 .NOTES
-- Ensure the AIPService module is installed.
-- You should have the necessary permissions to connect to the AIP service and retrieve the logs.
-- Make sure to run this script with elevated permissions if required.
+File Name      : Export-AIPAdminLogs.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService Module
 #>
 
 param(
