@@ -26,23 +26,11 @@ The file path where the CSV file will be saved.
 .\Export-AADGroupMembers.ps1 -GroupId "your-group-id-here" -OutputPath "C:\Path\To\Group.csv"
 
 This will export all user members from the specified group to the specified CSV file.
-#>
 
-<#
-    -Created by: Wesley Blackwell
-    -Date last updated: 5/9/2022
-
-    -Overview:
-        Just exports users of group by group id
-
-    -Permissions Needed:
-        -Global Admin (confirmed)
-
-    -Modules Needed:
-        -AzureAD
-
-    -Notes:
-        -
+.NOTES
+File Name      : Export-AADGroupMembers.ps1
+Author         : Wes Blackwell
+Prerequisite   : AzureAD Module
 #>
 
 param(

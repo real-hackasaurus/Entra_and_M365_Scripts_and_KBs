@@ -49,6 +49,11 @@ A comma-separated list of Azure AD groups. This is mandatory for the export oper
 .EXAMPLE
 # Export owners from a specific Azure AD group into a directory.
 .\Manage-AADGroupMembers.ps1 -accounttype "owner" -importexport "export" -fileordir "C:\path\to\directory\" -groups "GroupName"
+
+.NOTES
+File Name      : Manage-AADGroupMembers.ps1
+Author         : Wes Blackwell
+Prerequisite   : AzureAD Module
 #>
 
 param (

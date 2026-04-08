@@ -14,7 +14,7 @@ The script performs the following actions:
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator: EnableMIPLabelsForContainers, EnableNewCapabilitiesSPOOD, SyncLabels
 - SharePoint Administrator: EnableNewCapabilitiesSPOOD
 - Security Administrator: SyncLabels
@@ -24,17 +24,19 @@ The script performs the following actions:
 - AzureADPreview
 - ExchangeOnlineManagement
 
-.PARAMETERS
--URL: The specific URL for SharePoint Online (SPO) integration.
--UPN: The User Principal Name (UPN) for administrative actions.
+.PARAMETER URL
+The specific URL for SharePoint Online (SPO) integration.
 
-.EXAMPLES
+.PARAMETER UPN
+The User Principal Name (UPN) for administrative actions.
+
+.EXAMPLE
 .\Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1 -URL "https://contoso-admin.sharepoint.com" -UPN "admin@contoso.com"
 
 .NOTES
-- Ensure the necessary modules are installed.
-- Changes may take up to 24 hours to show up.
-- Ensure any labels for "Groups & sites" are enabled under Label -> Scope.
+File Name      : Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1
+Author         : Wes Blackwell
+Prerequisite   : Microsoft.Online.SharePoint.PowerShell, AzureADPreview, ExchangeOnlineManagement Modules
 #>
 
 param (

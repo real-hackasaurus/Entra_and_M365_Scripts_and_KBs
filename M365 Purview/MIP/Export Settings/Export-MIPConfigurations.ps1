@@ -5,6 +5,18 @@ Exports configurations for Microsoft Information Protection (MIP).
 .DESCRIPTION
 This script exports various configurations for MIP, including AIP Service Configuration, IRM Configuration, MIP Labels, MIP Label Policies, and Document Tracking Status.
 
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to access and export the configurations.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+Ensure you have the necessary permissions to access and export the MIP configurations.
+
+.MODULES NEEDED
+- AIPService
+- ExchangeOnlineManagement
+
 .PARAMETER Action
 Specifies which action to perform. Valid options are:
 - AIP Service Configuration
@@ -20,14 +32,15 @@ Specifies the directory path where the exported information will be saved.
 User Principal Name required for exporting the IRM Configuration, MIP Labels, and MIP Label Policies.
 
 .EXAMPLE
-.\Export_MIP_Config.ps1 -Action "AIP Service Configuration" -ExportPath "C:\exports"
+.\Export-MIPConfigurations.ps1 -Action "AIP Service Configuration" -ExportPath "C:\exports"
 
 .EXAMPLE
-.\Export_MIP_Config.ps1 -Action "MIP Labels" -ExportPath "C:\exports" -UPN "user@example.com"
+.\Export-MIPConfigurations.ps1 -Action "MIP Labels" -ExportPath "C:\exports" -UPN "user@example.com"
 
 .NOTES
-Permissions: Ensure you have the necessary permissions to access and export the configurations.
-Modules: AIPService, ExchangeOnlineManagement
+File Name      : Export-MIPConfigurations.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService, ExchangeOnlineManagement Modules
 #>
 
 param (

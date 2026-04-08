@@ -18,42 +18,38 @@ Supported actions:
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Azure Information Protection Administrator
 - Global Administrator (if required for certain actions)
 
 .MODULES NEEDED
 - AIPService
 
-.PARAMETERS
--Action: The action to be performed.
--User: The username for actions that require it.
--Group: The group name for actions that require it.
+.PARAMETER Action
+The action to be performed.
 
-.EXAMPLES
-# Enable the Super User feature
+.PARAMETER User
+The username for actions that require it.
+
+.PARAMETER Group
+The group name for actions that require it.
+
+.EXAMPLE
 .\Manage-MIPSuperUsers.ps1 -Action "enable"
 
-# Disable the Super User feature
-.\Manage-MIPSuperUsers.ps1 -Action "disable"
-
-# Add specific users as super users
+.EXAMPLE
 .\Manage-MIPSuperUsers.ps1 -Action "adduser" -User "user1@example.com,user2@example.com"
 
-# Remove specific users from the super user list
-.\Manage-MIPSuperUsers.ps1 -Action "removeuser" -User "user1@example.com,user2@example.com"
-
-# Set a group as the super user group
+.EXAMPLE
 .\Manage-MIPSuperUsers.ps1 -Action "addgroup" -Group "groupemail@example.com"
 
-# Remove the designated super user group
-.\Manage-MIPSuperUsers.ps1 -Action "removegroup"
-
-# List all super users and the super user group
+.EXAMPLE
 .\Manage-MIPSuperUsers.ps1 -Action "listallsuperusers"
 
-# Display the current state of the Super User feature
-.\Manage-MIPSuperUsers.ps1 -Action "listcurrentstate"
+.NOTES
+File Name      : Manage-MIPSuperUsers.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService Module
 #>
 
 param (

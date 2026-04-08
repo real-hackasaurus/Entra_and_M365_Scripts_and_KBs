@@ -15,7 +15,7 @@ The available features are:
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Azure Information Protection Administrator
 - Global Administrator (if required for certain actions)
 
@@ -25,23 +25,35 @@ The available features are:
 - Microsoft.Online.SharePoint.PowerShell
 - AzureADPreview
 
-.PARAMETERS
--action: Specifies which MIP feature to enable. The available actions are:
-  - AIPServiceDocumentTracking
-  - PdfEncryption
-  - MIPIntegrationForSPO_OD
-  - MIPForContainers
--URL: The specific URL for SharePoint Online (SPO) integration. This parameter is required for the MIPIntegrationForSPO_OD action.
--UPN: The User Principal Name (UPN) for administrative actions. This parameter is required for the MIPIntegrationForSPO_OD and MIPForContainers actions.
+.PARAMETER action
+Specifies which MIP feature to enable. The available actions are:
+- AIPServiceDocumentTracking
+- PdfEncryption
+- MIPIntegrationForSPO_OD
+- MIPForContainers
 
-.EXAMPLES
-.\MIPFeatureEnabler.ps1 -action AIPServiceDocumentTracking
-.\MIPFeatureEnabler.ps1 -action PdfEncryption
-.\MIPFeatureEnabler.ps1 -action MIPIntegrationForSPO_OD -URL "https://contoso-admin.sharepoint.com" -UPN "admin@yourdomain.com"
-.\MIPFeatureEnabler.ps1 -action MIPForContainers -UPN "admin@yourdomain.com"
+.PARAMETER URL
+The specific URL for SharePoint Online (SPO) integration. This parameter is required for the MIPIntegrationForSPO_OD action.
+
+.PARAMETER UPN
+The User Principal Name (UPN) for administrative actions. This parameter is required for the MIPIntegrationForSPO_OD and MIPForContainers actions.
+
+.EXAMPLE
+.\Enable-MIPFeatures.ps1 -action AIPServiceDocumentTracking
+
+.EXAMPLE
+.\Enable-MIPFeatures.ps1 -action PdfEncryption
+
+.EXAMPLE
+.\Enable-MIPFeatures.ps1 -action MIPIntegrationForSPO_OD -URL "https://contoso-admin.sharepoint.com" -UPN "admin@yourdomain.com"
+
+.EXAMPLE
+.\Enable-MIPFeatures.ps1 -action MIPForContainers -UPN "admin@yourdomain.com"
 
 .NOTES
-Ensure you have the required permissions and configurations in place for these features before using the script.
+File Name      : Enable-MIPFeatures.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService, ExchangeOnlineManagement, Microsoft.Online.SharePoint.PowerShell, AzureADPreview Modules
 #>
 
 param (

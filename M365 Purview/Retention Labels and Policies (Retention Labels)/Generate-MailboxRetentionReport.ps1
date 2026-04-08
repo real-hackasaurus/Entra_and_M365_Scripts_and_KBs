@@ -1,30 +1,42 @@
-﻿<#
+<#
 .SYNOPSIS
-    This script generates a detailed retention report for a specified mailbox in Microsoft 365 (Exchange Online).
+This script generates a detailed retention report for a specified mailbox in Microsoft 365 (Exchange Online).
 
 .DESCRIPTION
-    This script connects to Exchange Online and Microsoft Purview (Compliance Center) to retrieve information about:
-    - Organization-wide retention policies
-    - Retention policies applied to the mailbox
-    - Retention labels and label policies
-    - MRM (Messaging Records Management) retention policies
-    - eDiscovery and In-Place Holds
-    - Retention Hold and Delay Hold status
+This script connects to Exchange Online and Microsoft Purview (Compliance Center) to retrieve information about:
+- Organization-wide retention policies
+- Retention policies applied to the mailbox
+- Retention labels and label policies
+- MRM (Messaging Records Management) retention policies
+- eDiscovery and In-Place Holds
+- Retention Hold and Delay Hold status
 
-    The script outputs the results to a text file named "RetentionReport.txt" in the current working directory.
+The script outputs the results to a text file named "RetentionReport.txt" in the current working directory.
+
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+Ensure you have the necessary permissions to access and export the configurations.
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
 .PARAMETER AdminAccount
-    The admin account to use for connecting to Exchange Online and the Compliance Center.
+The admin account to use for connecting to Exchange Online and the Compliance Center.
 
 .PARAMETER MailboxIdentity
-    The identity of the mailbox to generate the retention report for.
+The identity of the mailbox to generate the retention report for.
 
 .EXAMPLE
-    .\Generate-MailboxRetentionReport.ps1 -AdminAccount "admin@M365x34890247.onmicrosoft.com" -MailboxIdentity "admin@M365x34890247.onmicrosoft.com"
+.\Generate-MailboxRetentionReport.ps1 -AdminAccount "admin@contoso.onmicrosoft.com" -MailboxIdentity "user@contoso.onmicrosoft.com"
 
 .NOTES
-    Permissions: Ensure you have the necessary permissions to access and export the configurations.
-    Modules: ExchangeOnlineManagement
+File Name      : Generate-MailboxRetentionReport.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

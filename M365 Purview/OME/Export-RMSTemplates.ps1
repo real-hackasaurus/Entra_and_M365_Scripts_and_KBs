@@ -1,20 +1,31 @@
 <#
 .SYNOPSIS
-    Export all RMS templates in the environment.
+Export all RMS templates in the environment.
 
 .DESCRIPTION
-    The script imports the ExchangeOnlineManagement module, connects to the IPPS session using the provided UPN, and retrieves the RMS templates.
+The script imports the ExchangeOnlineManagement module, connects to the IPPS session using the provided UPN, and retrieves the RMS templates.
+
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to export RMS templates.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+- Global Administrator (confirmed)
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
 .PARAMETER UPN
-    The User Principal Name (UPN) for administrative actions.
+The User Principal Name (UPN) for administrative actions.
 
 .EXAMPLE
-    .\Export-RMSTemplates.ps1 -UPN "yourupn@domain.com"
+.\Export-RMSTemplates.ps1 -UPN "yourupn@domain.com"
 
 .NOTES
-    Author: Wesley Blackwell
-    Date: 5/25/2022
-    Prerequisite: ExchangeOnlineManagement module
+File Name      : Export-RMSTemplates.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

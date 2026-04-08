@@ -1,3 +1,34 @@
+<#
+.SYNOPSIS
+This script connects to the Security & Compliance Center and creates new adaptive scopes based on a CSV file.
+
+.DESCRIPTION
+This script imports the Exchange Online Management module, connects to the Security & Compliance Center, reads adaptive scope definitions from a CSV file, and creates new adaptive scopes based on the CSV data.
+
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Create a CSV file with columns: Name, Location, Query.
+3. Update the $adminAccount variable with your admin UPN.
+4. Update the $csvPath variable to point to your CSV file.
+5. Run the script in PowerShell.
+
+.PERMISSIONS
+- Global Administrator or Compliance Administrator
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
+
+.EXAMPLE
+.\New-AdaptiveScopes.ps1
+
+This will read adaptive scope definitions from the CSV file and create them in the Security & Compliance Center.
+
+.NOTES
+File Name      : New-AdaptiveScopes.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
+#>
+
 # Install the Exchange Online Management module if not already installed
 if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
     Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber

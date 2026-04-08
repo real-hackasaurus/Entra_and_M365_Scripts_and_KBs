@@ -10,22 +10,26 @@ This script is designed to set a label policy in Exchange Online, specifically t
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator
 - Security Administrator (if required for certain actions)
 
 .MODULES NEEDED
 - ExchangeOnlineManagement
 
-.PARAMETERS
--UPN: User Principal Name required for connecting to Exchange Online.
--PolicyIdentity: Specifies the identity of the policy that you want to set.
+.PARAMETER UPN
+User Principal Name required for connecting to Exchange Online.
 
-.EXAMPLES
+.PARAMETER PolicyIdentity
+Specifies the identity of the policy that you want to set.
+
+.EXAMPLE
 .\Retry-LabelPolicyDistribution.ps1 -UPN "user@yourdomain.com" -PolicyIdentity "Demo - Policy"
 
 .NOTES
-- Ensure the ExchangeOnlineManagement module is installed.
+File Name      : Retry-LabelPolicyDistribution.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

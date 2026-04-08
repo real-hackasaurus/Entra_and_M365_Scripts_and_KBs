@@ -1,23 +1,34 @@
 <#
 .SYNOPSIS
-    Retrieve the publishing status of a specified retention label policy in Microsoft 365.
+Retrieve the publishing status of a specified retention label policy in Microsoft 365.
 
 .DESCRIPTION
-    This script connects to the Microsoft 365 Security & Compliance Center and retrieves information about the specified retention label policy.
+This script connects to the Microsoft 365 Security & Compliance Center and retrieves information about the specified retention label policy.
+
+.INSTRUCTIONS
+1. Ensure you have the ExchangeOnlineManagement module installed.
+2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
+3. Run the script using the provided examples or your own parameters.
+
+.PERMISSIONS
+- Global Administrator or Compliance Administrator
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
 
 .PARAMETER AdminAccount
-    The admin account to use for connecting to the Microsoft 365 Security & Compliance Center.
+The admin account to use for connecting to the Microsoft 365 Security & Compliance Center.
 
 .PARAMETER RetentionLabelPolicy
-    The retention label policy to retrieve the publishing status for.
+The retention label policy to retrieve the publishing status for.
 
 .EXAMPLE
-    .\Get-RetentionLabelPolicyPublishingStatus.ps1 -AdminAccount "admin@yourdomain.com" -RetentionLabelPolicy "YourRetentionLabelPolicy"
+.\Get-RetentionLabelPolicyPublishingStatus.ps1 -AdminAccount "admin@yourdomain.com" -RetentionLabelPolicy "YourRetentionLabelPolicy"
 
 .NOTES
-    Author: Wesley Blackwell
-    Date: 5/25/2022
-    Prerequisite: ExchangeOnlineManagement module
+File Name      : Get-RetentionLabelPolicyPublishingStatus.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

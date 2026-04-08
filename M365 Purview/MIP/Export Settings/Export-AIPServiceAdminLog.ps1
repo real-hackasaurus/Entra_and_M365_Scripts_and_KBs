@@ -10,20 +10,22 @@ The script imports the AIPService module, connects to the AIP service, and expor
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator (confirmed)
 
 .MODULES NEEDED
 - AIPService
 
-.PARAMETERS
--Path: The path where the AIP admin logs should be saved.
+.PARAMETER Path
+The path where the AIP admin logs should be saved.
 
-.EXAMPLES
+.EXAMPLE
 .\Export-AIPServiceAdminLog.ps1 -Path "C:\Temp\AdminLog.log"
 
 .NOTES
-- Ensure the AIPService module is installed.
+File Name      : Export-AIPServiceAdminLog.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService Module
 #>
 
 param (

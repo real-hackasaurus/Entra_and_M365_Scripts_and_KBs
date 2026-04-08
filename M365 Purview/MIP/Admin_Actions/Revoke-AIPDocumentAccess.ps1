@@ -14,26 +14,38 @@ The script performs the following actions:
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Azure Information Protection Administrator
 - Global Administrator (if required for certain actions)
 
 .MODULES NEEDED
 - AIPService
 
-.PARAMETERS
--ContentName: Name of the document for which you want to revoke access.
--IssuerName: Name of the issuer to use for revocation.
--FromTime: (Optional) The starting time frame to search logs.
--ToTime: (Optional) The ending time frame to search logs.
--Owner: (Optional) The owner of the document.
+.PARAMETER ContentName
+Name of the document for which you want to revoke access.
 
-.EXAMPLES
-.\Revoke_Access_To_Documents.ps1 -ContentName "Doc1.docx" -IssuerName "admin@M365x248674.onmicrosoft.com" -FromTime "06/01/2022 00:00:00" -ToTime "06/25/2022 04:00:59"
-.\Revoke_Access_To_Documents.ps1 -ContentName "Doc2.docx" -IssuerName "admin@M365x248674.onmicrosoft.com"
+.PARAMETER IssuerName
+Name of the issuer to use for revocation.
+
+.PARAMETER FromTime
+(Optional) The starting time frame to search logs.
+
+.PARAMETER ToTime
+(Optional) The ending time frame to search logs.
+
+.PARAMETER Owner
+(Optional) The owner of the document.
+
+.EXAMPLE
+.\Revoke-AIPDocumentAccess.ps1 -ContentName "Doc1.docx" -IssuerName "admin@contoso.onmicrosoft.com" -FromTime "06/01/2022 00:00:00" -ToTime "06/25/2022 04:00:59"
+
+.EXAMPLE
+.\Revoke-AIPDocumentAccess.ps1 -ContentName "Doc2.docx" -IssuerName "admin@contoso.onmicrosoft.com"
 
 .NOTES
-Prerequisite: AIPService Module
+File Name      : Revoke-AIPDocumentAccess.ps1
+Author         : Wes Blackwell
+Prerequisite   : AIPService Module
 #>
 
 param(

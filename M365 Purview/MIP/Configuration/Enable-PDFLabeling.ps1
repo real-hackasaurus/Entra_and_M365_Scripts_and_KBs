@@ -10,22 +10,23 @@ The script imports the ExchangeOnlineManagement module, connects to Exchange Onl
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator: Set-IRMConfiguration
 - Security Administrator: (Needs testing)
 
 .MODULES NEEDED
 - ExchangeOnlineManagement
 
-.PARAMETERS
--UPN: The User Principal Name (UPN) for administrative actions.
+.PARAMETER UPN
+The User Principal Name (UPN) for administrative actions.
 
-.EXAMPLES
+.EXAMPLE
 .\Enable-PDFLabeling.ps1 -UPN "admin@contoso.com"
 
 .NOTES
-- Ensure the ExchangeOnlineManagement module is installed.
-- Changes may take up to 24 hours to show up.
+File Name      : Enable-PDFLabeling.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (

@@ -1,20 +1,31 @@
 <#
 .SYNOPSIS
-    Update site property bag keys and values in SharePoint Online.
+Update site property bag keys and values in SharePoint Online.
 
 .DESCRIPTION
-    This script reads site property bag keys and values from a CSV file and updates them in SharePoint Online.
+This script reads site property bag keys and values from a CSV file and updates them in SharePoint Online.
 
-.PARAMETER csvPath
-    The path to the CSV file containing the site property bag keys and values.
+.INSTRUCTIONS
+1. Ensure you have the PnP.PowerShell module installed.
+2. Create a CSV file with columns: SiteURL, key, value.
+3. Update the $csvPath variable in the script to point to the location of your CSV file.
+4. Run the script in PowerShell.
+
+.PERMISSIONS
+- SharePoint Admin or Site Collection Admin
+
+.MODULES NEEDED
+- PnP.PowerShell
 
 .EXAMPLE
-    .\Update-SitePropertyBag.ps1 -csvPath "C:\Path\To\CSV_Template.csv"
+.\Update-SitePropertyBag.ps1
+
+This will read site URLs, keys, and values from the CSV file and update the specified property bag keys for each site.
 
 .NOTES
-    Author: Wesley Blackwell
-    Date: 5/25/2022
-    Prerequisite: PnP.PowerShell module
+File Name      : Update-SitePropertyBag.ps1
+Author         : Wes Blackwell
+Prerequisite   : PnP.PowerShell Module
 #>
 
 # Check if PnP.PowerShell module is installed and imported

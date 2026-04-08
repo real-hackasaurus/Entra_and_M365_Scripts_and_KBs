@@ -5,6 +5,17 @@ Searches eDiscovery holds by custodian hold ID.
 .DESCRIPTION
 This script retrieves the eDiscovery hold for a given custodian hold ID and outputs the related SharePoint locations.
 
+.INSTRUCTIONS
+1. Ensure you have the necessary permissions to access eDiscovery holds.
+2. Ensure you are connected to the Security & Compliance Center (Connect-IPPSSession) before running.
+3. Run the script with the required parameters or set the environment variables.
+
+.PERMISSIONS
+- eDiscovery Manager or eDiscovery Administrator
+
+.MODULES NEEDED
+- ExchangeOnlineManagement
+
 .PARAMETER CustodianHoldId
 Specifies the ID of the custodian hold to search.
 
@@ -12,10 +23,12 @@ Specifies the ID of the custodian hold to search.
 Specifies the path to the output file where the results will be saved.
 
 .EXAMPLE
-.\Search_eDiscovery_CustodianHolds.ps1 -CustodianHoldId "CustodianHold-b627ef86afd64798-0638222667106043239" -OutputFile "C:\temp\custodianResults.txt"
+.\Search-eDiscoveryCustodianHolds.ps1 -CustodianHoldId "CustodianHold-b627ef86afd64798-0638222667106043239" -OutputFile "C:\temp\custodianResults.txt"
 
 .NOTES
-Ensure the required modules are installed and you are authenticated to the services before executing the script.
+File Name      : Search-eDiscoveryCustodianHolds.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param(

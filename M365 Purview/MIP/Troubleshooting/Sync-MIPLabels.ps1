@@ -10,21 +10,23 @@ The script imports the ExchangeOnlineManagement module, connects to the IPPS ses
 2. Set the required environment variables in the launch.json file or pass them as parameters when running the script.
 3. Run the script using the provided examples or your own parameters.
 
-.PERMISSIONS NEEDED
+.PERMISSIONS
 - Global Administrator
 - Security Administrator (if required for certain actions)
 
 .MODULES NEEDED
 - ExchangeOnlineManagement
 
-.PARAMETERS
--UPN: User Principal Name (UPN) used to connect to the IPPS session.
+.PARAMETER UPN
+User Principal Name (UPN) used to connect to the IPPS session.
 
-.EXAMPLES
+.EXAMPLE
 .\Sync-MIPLabels.ps1 -UPN user@contoso.com
 
 .NOTES
-Make sure to have the ExchangeOnlineManagement module installed and that you have the required permissions to execute the commands.
+File Name      : Sync-MIPLabels.ps1
+Author         : Wes Blackwell
+Prerequisite   : ExchangeOnlineManagement Module
 #>
 
 param (
