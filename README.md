@@ -1,60 +1,133 @@
-# Azure and O365 Scripts
-Various scripts that I have worked on throughout the years
+# Entra ID and M365 Scripts and Knowledge Base
+Various scripts and knowledge base articles that I have worked on throughout the years, covering Microsoft Entra ID (formerly Azure AD) and Microsoft 365 services.
 
 ## Contents of Folders
 
+### [Entra ID](./EntraID)
+- [Groups](./EntraID/Groups)
+  - Scripts for managing Entra ID (Azure AD) groups — copy, export, manage, and remove group members, and configure Unified Group welcome messages.
+- [Licensing](./EntraID/Licensing)
+  - Scripts for generating Office 365 user license reports.
+- [Users](./EntraID/Users)
+  - Scripts for inviting guest users individually or in bulk via CSV.
+
+### [Graph API](./Graph%20API)
+- REST API request files for querying Microsoft Graph, including DLP alert queries via the Security API.
+
+### [M365 Core Services](./M365%20Core%20Services)
+- [Project Online](./M365%20Core%20Services/Project%20Online)
+  - JavaScript plugins for the Project Online People Picker.
+- [SharePoint Online](./M365%20Core%20Services/SharePoint%20Online)
+  - Scripts for managing SharePoint Online site property bags, custom permission levels, and restricted access control.
+
+### [M365 Defender](./M365%20Defender)
+- [Advanced Hunting](./M365%20Defender/Advanced%20Hunting)
+  - KQL queries for Microsoft 365 Defender advanced hunting across cloud app events, Defender for Office 365 email events, and more.
+- [Alerts](./M365%20Defender/Alerts)
+  - Scripts for exporting M365 Defender activity and alert policies.
+- [Anti-Phishing](./M365%20Defender/Anti-Phishing)
+  - Scripts for exporting anti-phishing policies and rules.
+- [MDCA](./M365%20Defender/MDCA)
+  - Microsoft Defender for Cloud Apps API examples, including a Postman collection.
+- [Safe Links and Safe Attachments](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments)
+  - Scripts for configuring and exporting Safe Links, Safe Attachments, and O365 threat protection policies.
+
+### [M365 Power Platform](./M365%20Power%20Platform)
+- [Power BI](./M365%20Power%20Platform/Power%20BI)
+  - Power Query (`.pq`) source files for connecting Power BI to Microsoft 365 Defender Advanced Hunting.
+
+### [M365 Purview](./M365%20Purview)
+- [Audit](./M365%20Purview/Audit)
+  - SharePoint Online audit log query templates.
+- [DLP](./M365%20Purview/DLP)
+  - Scripts for creating and managing Data Loss Prevention policies and rules, and troubleshooting DLP character proximity.
+- [MIP](./M365%20Purview/MIP)
+  - Microsoft Information Protection scripts organized by category: Admin Actions, Auditing, Configuration, Export Settings, and Troubleshooting.
+- [OME](./M365%20Purview/OME)
+  - Scripts for exporting Office Message Encryption service configurations, RMS templates, and IRM configuration.
+- [Retention Labels and Policies (Retention Labels)](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29)
+  - Scripts for generating mailbox retention reports, checking label policy publishing status, and creating adaptive scopes.
+- [Retention Policies (Not Labels or MRM)](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29)
+  - Scripts for creating and updating Purview retention policies and Teams channel locations via CSV.
+- [eDiscovery](./M365%20Purview/eDiscovery)
+  - Scripts for managing eDiscovery holds, generating hold reports, and searching holds by custodian or SharePoint site.
+
+### [Sentinel](./Sentinel)
+- Scripts and utilities for Microsoft Sentinel, including exporting Sentinel functions.
+
+## Key Scripts
+
 ### Entra ID
-- [Conditional Access](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/Entra_ID/Conditional_Access)
-  - Scripts related to managing conditional access policies.
-- [Groups](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/Entra_ID/Groups)
-  - Scripts for managing Azure AD groups.
-- [Licensing](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/Entra_ID/Licensing)
-  - Scripts for managing Azure AD licensing.
-- [Users and Guests](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/Entra_ID/Users_and_Guests)
-  - Scripts for managing Azure AD users and guest accounts.
+| Script | Description |
+|--------|-------------|
+| [Copy-AADGroupMembers.ps1](./EntraID/Groups/Copy-AADGroupMembers.ps1) | Copies members from one Entra ID group to another. |
+| [Export-AADGroupMembers.ps1](./EntraID/Groups/Export-AADGroupMembers.ps1) | Exports members of an Entra ID group to a CSV file. |
+| [Manage-AADGroupMembers.ps1](./EntraID/Groups/Manage-AADGroupMembers.ps1) | Imports or exports members and owners of Entra ID groups via CSV. |
+| [Remove-AADGroupMembers.ps1](./EntraID/Groups/Remove-AADGroupMembers.ps1) | Removes specified users from multiple Entra ID groups. |
+| [Set-UnifiedGroupWelcomeMessage.ps1](./EntraID/Groups/Set-UnifiedGroupWelcomeMessage.ps1) | Enables or disables the welcome message for Office 365 Unified Groups. |
+| [Generate-O365UserLicenseReport.ps1](./EntraID/Licensing/O365UserLicenseReport/Generate-O365UserLicenseReport.ps1) | Generates a detailed report of all O365 user licenses and service statuses. |
+| [Invite-GuestUser.ps1](./EntraID/Users/Invite-GuestUser.ps1) | Invites a single guest user to the Entra ID environment. |
+| [Bulk-InviteGuestUsers.ps1](./EntraID/Users/Bulk%20Invite%20Guest%20Users/Bulk-InviteGuestUsers.ps1) | Bulk-invites guest users from a CSV file using Microsoft Graph. |
 
-### M365 Compliance Services
-- [DLP](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Compliance_Services/DLP)
-  - Data Loss Prevention scripts for managing DLP policies and rules.
-- [MIP](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Compliance_Services/MIP)
-  - Microsoft Information Protection scripts for managing MIP labels and policies.
-- [OME](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Compliance_Services/OME)
-  - Office Message Encryption scripts for managing OME configurations.
-- [Retention Policies and Labels](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Compliance_Services/Retention_Policies_and_Labels)
-  - Scripts for managing retention policies and labels.
+### M365 Core Services
+| Script | Description |
+|--------|-------------|
+| [Create-NoDeletePermissionLevel.ps1](./M365%20Core%20Services/SharePoint%20Online/Create-NoDeletePermissionLevel.ps1) | Creates a custom SPO permission level based on Full Control but without delete permissions. |
+| [Enable-SPORestrictedAccessControl.ps1](./M365%20Core%20Services/SharePoint%20Online/Enable-SPORestrictedAccessControl.ps1) | Enables restricted access control for a SharePoint Online tenant. |
 
-### M365 Security Services
-- [Advanced Hunting](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Security_Services/Advanced_Hunting)
-  - Scripts for advanced hunting in Microsoft 365 Defender.
-- [Alerts](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Security_Services/Alerts)
-  - Scripts for managing security alerts.
-- [Anti-Phishing](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Security_Services/Anti_Phishing)
-  - Scripts for managing anti-phishing policies.
-- [MDCA](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Security_Services/MDCA)
-  - Microsoft Defender for Cloud Apps scripts for managing MDCA configurations.
-- [Safe Links and Safe Attachments](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Security_Services/Safe_Links_and_Safe_Attachments)
-  - Scripts for managing Safe Links and Safe Attachments policies.
+### M365 Defender
+| Script | Description |
+|--------|-------------|
+| [Export-M365DefenderAlertPolicies.ps1](./M365%20Defender/Alerts/Export-M365DefenderAlertPolicies.ps1) | Exports all Activity and Alert policies from the Security Portal to CSV. |
+| [Export-AntiPhishingPolicies.ps1](./M365%20Defender/Anti-Phishing/Export-AntiPhishingPolicies.ps1) | Exports all anti-phishing policies and rules to CSV files. |
+| [Configure-SafeAttachmentsForSPO_OD_Teams.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Configure-SafeAttachmentsForSPO_OD_Teams.ps1) | Configures Safe Attachments for SharePoint Online, OneDrive, and Teams. |
+| [Export-O365ThreatProtectionPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-O365ThreatProtectionPolicies.ps1) | Exports global Safe Attachments and Safe Links configurations to CSV. |
+| [Export-SafeAttachmentsPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-SafeAttachmentsPolicies.ps1) | Exports all Safe Attachment policies and rules to CSV files. |
+| [Export-SafeLinksPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-SafeLinksPolicies.ps1) | Exports all Safe Links policies and rules to CSV files. |
 
-### M365 Services
-- [Power BI](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Services/Power_BI)
-  - Scripts for managing Power BI configurations and reports.
-- [Project Online](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/tree/main/M365_Services/Project_Online)
-  - Scripts for managing Project Online configurations.
+### M365 Purview — DLP
+| Script | Description |
+|--------|-------------|
+| [Manage-DLPRulesAndPolicies.ps1](./M365%20Purview/DLP/Manage-DLPRulesAndPolicies.ps1) | Creates and manages DLP policies and rules in Exchange Online. |
+| [Analyze-DLPCharacterProximity.ps1](./M365%20Purview/DLP/Troubleshooting/Analyze-DLPCharacterProximity.ps1) | Extracts and classifies text from a file to analyze DLP character proximity. |
 
-## Individual Scripts
+### M365 Purview — MIP
+| Script | Description |
+|--------|-------------|
+| [Manage-MIPLabels.ps1](./M365%20Purview/MIP/Admin_Actions/Manage-MIPLabels.ps1) | Applies or removes MIP sensitivity labels on files in a directory. |
+| [Revoke-AIPDocumentAccess.ps1](./M365%20Purview/MIP/Admin_Actions/Revoke-AIPDocumentAccess.ps1) | Revokes access to an AIP-protected document by content name. |
+| [Export-AIPAdminLogs.ps1](./M365%20Purview/MIP/Auditing/Export-AIPAdminLogs.ps1) | Exports filtered AIP admin logs to a file based on date range and text filter. |
+| [Enable-MIPFeatures.ps1](./M365%20Purview/MIP/Configuration/Enable-MIPFeatures.ps1) | Enables various MIP features: document tracking, PDF encryption, SPO/OD integration, and container labels. |
+| [Enable-PDFLabeling.ps1](./M365%20Purview/MIP/Configuration/Enable-PDFLabeling.ps1) | Enables PDF labeling and encryption via Exchange Online IRM configuration. |
+| [Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1](./M365%20Purview/MIP/Configuration/Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1) | Enables sensitivity labels for SharePoint Online, OneDrive, Teams, and M365 Groups. |
+| [Manage-MIPSuperUsers.ps1](./M365%20Purview/MIP/Configuration/Manage-MIPSuperUsers.ps1) | Manages MIP/AIP super users — enable, disable, add/remove users and groups. |
+| [Export-AIPServiceAdminLog.ps1](./M365%20Purview/MIP/Export%20Settings/Export-AIPServiceAdminLog.ps1) | Exports the full AIP service admin log to a file. |
+| [Export-MIPConfigurations.ps1](./M365%20Purview/MIP/Export%20Settings/Export-MIPConfigurations.ps1) | Exports AIP service config, IRM config, MIP labels, label policies, and document tracking status. |
+| [Retry-LabelPolicyDistribution.ps1](./M365%20Purview/MIP/Troubleshooting/Retry-LabelPolicyDistribution.ps1) | Retries the distribution of a MIP label policy in Exchange Online. |
+| [Sync-MIPLabels.ps1](./M365%20Purview/MIP/Troubleshooting/Sync-MIPLabels.ps1) | Syncs MIP labels from Entra ID to the Security & Compliance Center. |
 
-### Entra ID
-- [Export-AADGroupMembers.ps1](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/blob/main/Entra_ID/Groups/Export-AADGroupMembers.ps1)
-  - Exports members of an Azure AD group to a CSV file.
+### M365 Purview — OME
+| Script | Description |
+|--------|-------------|
+| [Export-OMEServiceConfiguration.ps1](./M365%20Purview/OME/Export-OMEServiceConfiguration.ps1) | Exports the current Office Message Encryption service configuration. |
+| [Export-RMSTemplates.ps1](./M365%20Purview/OME/Export-RMSTemplates.ps1) | Exports all RMS templates in the environment. |
+| [Get-IRMConfiguration.ps1](./M365%20Purview/OME/Get-IRMConfiguration.ps1) | Retrieves the active IRM configuration, useful for troubleshooting MIP. |
 
-### M365 Compliance Services
-- [Export-SafeLinksPolicies.ps1](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/blob/main/M365_Compliance_Services/Safe_Links_and_Safe_Attachments/Export-SafeLinksPolicies.ps1)
-  - Exports Safe Links policies to a CSV file.
+### M365 Purview — Retention
+| Script | Description |
+|--------|-------------|
+| [Generate-MailboxRetentionReport.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/Generate-MailboxRetentionReport.ps1) | Generates a detailed retention report for a specified mailbox. |
+| [Get-RetentionLabelPolicyPublishingStatus.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/Get-RetentionLabelPolicyPublishingStatus.ps1) | Retrieves the publishing status of a retention label policy. |
+| [New-AdaptiveScopes.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/New-AdaptiveScopes/New-AdaptiveScopes.ps1) | Creates new Purview adaptive scopes from a CSV file. |
+| [New-RetentionPolicy.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/New-RetentionPolicy/New-RetentionPolicy.ps1) | Creates new retention policies in Purview from a CSV file. |
+| [New-RetentionPolicyRule.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/New-RetentionPolicy/New-RetentionPolicyRule.ps1) | Creates retention policy rules from a CSV file. |
+| [Update-RetentionPolicy.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/Update-RetentionPolicy/Update-RetentionPolicy.ps1) | Updates existing retention policies in Purview from a CSV file. |
+| [Update-TeamsChannelLocation.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/Update-TeamsChannelLocation/Update-TeamsChannelLocation.ps1) | Updates Teams channel locations in retention policies from a CSV file. |
 
-### M365 Security Services
-- [Retry-LabelPolicyDistribution.ps1](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/blob/main/M365_Security_Services/MDCA/Retry-LabelPolicyDistribution.ps1)
-  - Retries the distribution of a label policy.
-
-### M365 Services
-- [Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1](https://github.com/real-hackasaurus/Azure_and_O365_Scripts_and_KBs/blob/main/M365_Services/Enable-SensitivityLabelsForSPO_OD_Teams_Groups.ps1)
-  - Enables sensitivity labels for SharePoint Online, OneDrive, Teams, and Microsoft 365 Groups.
+### M365 Purview — eDiscovery
+| Script | Description |
+|--------|-------------|
+| [Remove-SPOFromeDiscoveryHold.ps1](./M365%20Purview/eDiscovery/Admin_Tasks/Remove-SPOFromeDiscoveryHold.ps1) | Removes specified SharePoint sites from an eDiscovery hold. |
+| [Generate-eDiscoveryHoldsReport.ps1](./M365%20Purview/eDiscovery/Reports/Generate-eDiscoveryHoldsReport.ps1) | Generates a CSV report of all eDiscovery cases and holds. |
+| [Search-eDiscoveryCustodianHolds.ps1](./M365%20Purview/eDiscovery/Search/Search-eDiscoveryCustodianHolds.ps1) | Searches eDiscovery holds by custodian hold ID and outputs SharePoint locations. |
+| [Search-eDiscoverySPOSites.ps1](./M365%20Purview/eDiscovery/Search/Search-eDiscoverySPOSites.ps1) | Searches an eDiscovery hold for matching SharePoint site patterns. |
