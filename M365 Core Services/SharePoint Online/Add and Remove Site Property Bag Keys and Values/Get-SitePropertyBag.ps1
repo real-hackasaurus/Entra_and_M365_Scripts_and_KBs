@@ -32,6 +32,10 @@ Author         : Wes Blackwell
 Prerequisite   : PnP.PowerShell Module
 #>
 
+# Check if PnP.PowerShell module is installed and imported
+if (-not (Get-Module -ListAvailable -Name PnP.PowerShell)) {
+    Install-Module -Name PnP.PowerShell -Force
+}
 Import-Module PnP.PowerShell
 # Load the CSV file
 $csvPath = "C:\path\to\your\csvfile.csv"

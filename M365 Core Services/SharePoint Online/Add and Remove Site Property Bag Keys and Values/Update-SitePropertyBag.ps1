@@ -31,6 +31,10 @@ Author         : Wes Blackwell
 Prerequisite   : PnP.PowerShell Module
 #>
 
+# Check if PnP.PowerShell module is installed and imported
+if (-not (Get-Module -ListAvailable -Name PnP.PowerShell)) {
+    Install-Module -Name PnP.PowerShell -Force
+}
 Import-Module PnP.PowerShell
 # Load the CSV file
 $csvPath = "C:\path\to\your\csvfile.csv"
@@ -41,15 +45,21 @@ foreach ($site in $sites) {
     $key = $site.key
     $value = $site.value
 
-    # Connect to the SharePoint Online site
-    Connect-PnPOnline -Url $siteUrl -UseWebLogin
+    try {
+        # Connect to the SharePoint Online site
+        Connect-PnPOnline -Url $siteUrl -UseWebLogin
 
-    # Set the adaptive scope property
-    Set-PnPAdaptiveScopeProperty -Key $key -Value $value
+        # Set the property bag value
+        Set-PnPAdaptiveScopeProperty -Key $key -Value $value
 
-    # Get the site's property bag
-    $propertyBag = Get-PnPPropertyBag
+        # Get the site's property bag
+        $propertyBag = Get-PnPPropertyBag
 
-    # Output the property bag
-    $propertyBag
+        # Output the property bag
+        $propertyBag
+
+        Write-Host "Property bag for site $siteUrl has been updated." -ForegroundColor Green
+    } catch {
+        Write-Error "An error occurred while processing site ${siteUrl}: $_"
+    }
 }

@@ -1,0 +1,39 @@
+{
+  "agents": [
+    {
+      "persistent_name": "Project Manager",
+      "universe": "literal",
+      "created_at": "2026-04-08",
+      "legacy_named": true,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Azure Admin",
+      "universe": "literal",
+      "created_at": "2026-04-08",
+      "legacy_named": true,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Entra Admin",
+      "universe": "literal",
+      "created_at": "2026-04-08",
+      "legacy_named": true,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Defender Admin",
+      "universe": "literal",
+      "created_at": "2026-04-08",
+      "legacy_named": true,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Purview Admin",
+      "universe": "literal",
+      "created_at": "2026-04-08",
+      "legacy_named": true,
+      "status": "active"
+    }
+  ]
+}
