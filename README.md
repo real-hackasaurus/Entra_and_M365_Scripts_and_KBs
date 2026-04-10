@@ -21,16 +21,14 @@ Various scripts and knowledge base articles that I have worked on throughout the
   - Scripts for managing SharePoint Online site property bags, custom permission levels, and restricted access control.
 
 ### [M365 Defender](./M365%20Defender)
-- [Advanced Hunting](./M365%20Defender/Advanced%20Hunting)
-  - KQL queries for Microsoft 365 Defender advanced hunting across cloud app events, Defender for Office 365 email events, and more.
-- [Alerts](./M365%20Defender/Alerts)
-  - Scripts for exporting M365 Defender activity and alert policies.
-- [Anti-Phishing](./M365%20Defender/Anti-Phishing)
-  - Scripts for exporting anti-phishing policies and rules.
-- [MDCA](./M365%20Defender/MDCA)
-  - Microsoft Defender for Cloud Apps API examples, including a Postman collection.
-- [Safe Links and Safe Attachments](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments)
-  - Scripts for configuring and exporting Safe Links, Safe Attachments, and O365 threat protection policies.
+- [MDCA](./M365%20Defender/MDCA) — Microsoft Defender for Cloud Apps
+  - [Advanced Hunting](./M365%20Defender/MDCA/Advanced%20Hunting) — KQL queries for filtering by application in MDCA.
+  - [API Examples](./M365%20Defender/MDCA/API%20Examples) — Postman collection for the MDCA API.
+- [MDO](./M365%20Defender/MDO) — Microsoft Defender for Office 365
+  - [Advanced Hunting](./M365%20Defender/MDO/Advanced%20Hunting) — KQL queries for email alerts, undelivered emails, and Safe Link/Attachment alerts.
+  - [Alerts](./M365%20Defender/MDO/Alerts) — Scripts for exporting M365 Defender activity and alert policies.
+  - [Anti-Phishing](./M365%20Defender/MDO/Anti-Phishing) — Scripts for exporting anti-phishing policies and rules.
+  - [Safe Links and Safe Attachments](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments) — Scripts for configuring and exporting Safe Links, Safe Attachments, and O365 threat protection policies. Includes demo files.
 
 ### [M365 Power Platform](./M365%20Power%20Platform)
 - [Power BI](./M365%20Power%20Platform/Power%20BI)
@@ -40,15 +38,14 @@ Various scripts and knowledge base articles that I have worked on throughout the
 - [Audit](./M365%20Purview/Audit)
   - SharePoint Online audit log query templates.
 - [DLP](./M365%20Purview/DLP)
-  - Scripts for creating and managing Data Loss Prevention policies and rules, and troubleshooting DLP character proximity.
+  - Scripts for creating and managing Data Loss Prevention policies and rules, testing DLP policies against files, and troubleshooting DLP character proximity.
 - [MIP](./M365%20Purview/MIP)
   - Microsoft Information Protection scripts organized by category: Admin Actions, Auditing, Configuration, Export Settings, and Troubleshooting.
 - [OME](./M365%20Purview/OME)
   - Scripts for exporting Office Message Encryption service configurations, RMS templates, and IRM configuration.
-- [Retention Labels and Policies (Retention Labels)](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29)
-  - Scripts for generating mailbox retention reports, checking label policy publishing status, and creating adaptive scopes.
-- [Retention Policies (Not Labels or MRM)](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29)
-  - Scripts for creating and updating Purview retention policies and Teams channel locations via CSV.
+- [Retention](./M365%20Purview/Retention)
+  - [Labels](./M365%20Purview/Retention/Labels) — Scripts for generating mailbox retention reports, checking label policy publishing status, and creating adaptive scopes.
+  - [Policies](./M365%20Purview/Retention/Policies) — Scripts for creating and updating Purview retention policies and Teams channel locations via CSV.
 - [eDiscovery](./M365%20Purview/eDiscovery)
   - Scripts for managing eDiscovery holds, generating hold reports, and searching holds by custodian or SharePoint site.
 
@@ -74,21 +71,25 @@ Various scripts and knowledge base articles that I have worked on throughout the
 |--------|-------------|
 | [Create-NoDeletePermissionLevel.ps1](./M365%20Core%20Services/SharePoint%20Online/Create-NoDeletePermissionLevel.ps1) | Creates a custom SPO permission level based on Full Control but without delete permissions. |
 | [Enable-SPORestrictedAccessControl.ps1](./M365%20Core%20Services/SharePoint%20Online/Enable-SPORestrictedAccessControl.ps1) | Enables restricted access control for a SharePoint Online tenant. |
+| [Get-SitePropertyBag.ps1](./M365%20Core%20Services/SharePoint%20Online/Add%20and%20Remove%20Site%20Property%20Bag%20Keys%20and%20Values/Get-SitePropertyBag.ps1) | Retrieves site property bag keys and values from a SharePoint Online site. |
+| [Update-SitePropertyBag.ps1](./M365%20Core%20Services/SharePoint%20Online/Add%20and%20Remove%20Site%20Property%20Bag%20Keys%20and%20Values/Update-SitePropertyBag.ps1) | Adds or updates site property bag keys and values on a SharePoint Online site. |
+| [Remove-SitePropertyBag.ps1](./M365%20Core%20Services/SharePoint%20Online/Add%20and%20Remove%20Site%20Property%20Bag%20Keys%20and%20Values/Remove-SitePropertyBag.ps1) | Removes site property bag keys from a SharePoint Online site. |
 
 ### M365 Defender
 | Script | Description |
 |--------|-------------|
-| [Export-M365DefenderAlertPolicies.ps1](./M365%20Defender/Alerts/Export-M365DefenderAlertPolicies.ps1) | Exports all Activity and Alert policies from the Security Portal to CSV. |
-| [Export-AntiPhishingPolicies.ps1](./M365%20Defender/Anti-Phishing/Export-AntiPhishingPolicies.ps1) | Exports all anti-phishing policies and rules to CSV files. |
-| [Configure-SafeAttachmentsForSPO_OD_Teams.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Configure-SafeAttachmentsForSPO_OD_Teams.ps1) | Configures Safe Attachments for SharePoint Online, OneDrive, and Teams. |
-| [Export-O365ThreatProtectionPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-O365ThreatProtectionPolicies.ps1) | Exports global Safe Attachments and Safe Links configurations to CSV. |
-| [Export-SafeAttachmentsPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-SafeAttachmentsPolicies.ps1) | Exports all Safe Attachment policies and rules to CSV files. |
-| [Export-SafeLinksPolicies.ps1](./M365%20Defender/Safe%20Links%20and%20Safe%20Attachments/Export-SafeLinksPolicies.ps1) | Exports all Safe Links policies and rules to CSV files. |
+| [Export-M365DefenderAlertPolicies.ps1](./M365%20Defender/MDO/Alerts/Export-M365DefenderAlertPolicies.ps1) | Exports all Activity and Alert policies from the Security Portal to CSV. |
+| [Export-AntiPhishingPolicies.ps1](./M365%20Defender/MDO/Anti-Phishing/Export-AntiPhishingPolicies.ps1) | Exports all anti-phishing policies and rules to CSV files. |
+| [Configure-SafeAttachmentsForSPO_OD_Teams.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Configure-SafeAttachmentsForSPO_OD_Teams.ps1) | Configures Safe Attachments for SharePoint Online, OneDrive, and Teams. |
+| [Export-O365ThreatProtectionPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-O365ThreatProtectionPolicies.ps1) | Exports global Safe Attachments and Safe Links configurations to CSV. |
+| [Export-SafeAttachmentsPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-SafeAttachmentsPolicies.ps1) | Exports all Safe Attachment policies and rules to CSV files. |
+| [Export-SafeLinksPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-SafeLinksPolicies.ps1) | Exports all Safe Links policies and rules to CSV files. |
 
 ### M365 Purview — DLP
 | Script | Description |
 |--------|-------------|
 | [Manage-DLPRulesAndPolicies.ps1](./M365%20Purview/DLP/Manage-DLPRulesAndPolicies.ps1) | Creates and manages DLP policies and rules in Exchange Online. |
+| [Test-DLPPolicyAgainstFile.ps1](./M365%20Purview/DLP/Test-DLPPolicyAgainstFile.ps1) | Tests a DLP policy against a specified file. |
 | [Analyze-DLPCharacterProximity.ps1](./M365%20Purview/DLP/Troubleshooting/Analyze-DLPCharacterProximity.ps1) | Extracts and classifies text from a file to analyze DLP character proximity. |
 
 ### M365 Purview — MIP
@@ -116,13 +117,13 @@ Various scripts and knowledge base articles that I have worked on throughout the
 ### M365 Purview — Retention
 | Script | Description |
 |--------|-------------|
-| [Generate-MailboxRetentionReport.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/Generate-MailboxRetentionReport.ps1) | Generates a detailed retention report for a specified mailbox. |
-| [Get-RetentionLabelPolicyPublishingStatus.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/Get-RetentionLabelPolicyPublishingStatus.ps1) | Retrieves the publishing status of a retention label policy. |
-| [New-AdaptiveScopes.ps1](./M365%20Purview/Retention%20Labels%20and%20Policies%20%28Retention%20Labels%29/New-AdaptiveScopes/New-AdaptiveScopes.ps1) | Creates new Purview adaptive scopes from a CSV file. |
-| [New-RetentionPolicy.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/New-RetentionPolicy/New-RetentionPolicy.ps1) | Creates new retention policies in Purview from a CSV file. |
-| [New-RetentionPolicyRule.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/New-RetentionPolicy/New-RetentionPolicyRule.ps1) | Creates retention policy rules from a CSV file. |
-| [Update-RetentionPolicy.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/Update-RetentionPolicy/Update-RetentionPolicy.ps1) | Updates existing retention policies in Purview from a CSV file. |
-| [Update-TeamsChannelLocation.ps1](./M365%20Purview/Retention%20Policies%20%28Not%20Labels%20or%20MRM%29/Update-TeamsChannelLocation/Update-TeamsChannelLocation.ps1) | Updates Teams channel locations in retention policies from a CSV file. |
+| [Generate-MailboxRetentionReport.ps1](./M365%20Purview/Retention/Labels/Generate-MailboxRetentionReport.ps1) | Generates a detailed retention report for a specified mailbox. |
+| [Get-RetentionLabelPolicyPublishingStatus.ps1](./M365%20Purview/Retention/Labels/Get-RetentionLabelPolicyPublishingStatus.ps1) | Retrieves the publishing status of a retention label policy. |
+| [New-AdaptiveScopes.ps1](./M365%20Purview/Retention/Labels/New-AdaptiveScopes/New-AdaptiveScopes.ps1) | Creates new Purview adaptive scopes from a CSV file. |
+| [New-RetentionPolicy.ps1](./M365%20Purview/Retention/Policies/New-RetentionPolicy/New-RetentionPolicy.ps1) | Creates new retention policies in Purview from a CSV file. |
+| [New-RetentionPolicyRule.ps1](./M365%20Purview/Retention/Policies/New-RetentionPolicy/New-RetentionPolicyRule.ps1) | Creates retention policy rules from a CSV file. |
+| [Update-RetentionPolicy.ps1](./M365%20Purview/Retention/Policies/Update-RetentionPolicy/Update-RetentionPolicy.ps1) | Updates existing retention policies in Purview from a CSV file. |
+| [Update-TeamsChannelLocation.ps1](./M365%20Purview/Retention/Policies/Update-TeamsChannelLocation/Update-TeamsChannelLocation.ps1) | Updates Teams channel locations in retention policies from a CSV file. |
 
 ### M365 Purview — eDiscovery
 | Script | Description |
