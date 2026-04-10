@@ -22,13 +22,17 @@ Various scripts and knowledge base articles that I have worked on throughout the
 
 ### [M365 Defender](./M365%20Defender)
 - [MDCA](./M365%20Defender/MDCA) — Microsoft Defender for Cloud Apps
-  - [Advanced Hunting](./M365%20Defender/MDCA/Advanced%20Hunting) — KQL queries for filtering by application in MDCA.
+  - [Advanced Hunting](./M365%20Defender/MDCA/Advanced%20Hunting) — KQL queries for cloud app events, anonymous proxy detection, impersonation auditing, and suppression rule monitoring.
   - [API Examples](./M365%20Defender/MDCA/API%20Examples) — Postman collection for the MDCA API.
+- [MDI](./M365%20Defender/MDI) — Microsoft Defender for Identity
+  - [Advanced Hunting](./M365%20Defender/MDI/Advanced%20Hunting) — KQL queries for identity-based threats, sensitive group changes, brute force detection, Kerberos attacks, and LDAP reconnaissance.
 - [MDO](./M365%20Defender/MDO) — Microsoft Defender for Office 365
-  - [Advanced Hunting](./M365%20Defender/MDO/Advanced%20Hunting) — KQL queries for email alerts, undelivered emails, and Safe Link/Attachment alerts.
+  - [Advanced Hunting](./M365%20Defender/MDO/Advanced%20Hunting) — KQL queries for email threats including phishing campaigns, executable/ISO/macro attachments, typosquatting, Safe Links, and post-delivery events.
   - [Alerts](./M365%20Defender/MDO/Alerts) — Scripts for exporting M365 Defender activity and alert policies.
   - [Anti-Phishing](./M365%20Defender/MDO/Anti-Phishing) — Scripts for exporting anti-phishing policies and rules.
   - [Safe Links and Safe Attachments](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments) — Scripts for configuring and exporting Safe Links, Safe Attachments, and O365 threat protection policies. Includes demo files.
+- [Defender XDR](./M365%20Defender/Defender%20XDR) — Microsoft Defender XDR
+  - [Advanced Hunting](./M365%20Defender/Defender%20XDR/Advanced%20Hunting) — KQL queries for auditing Defender XDR custom detections, RBAC changes, alert suppression, and device isolation events.
 
 ### [M365 Power Platform](./M365%20Power%20Platform)
 - [Power BI](./M365%20Power%20Platform/Power%20BI)
@@ -75,7 +79,7 @@ Various scripts and knowledge base articles that I have worked on throughout the
 | [Update-SitePropertyBag.ps1](./M365%20Core%20Services/SharePoint%20Online/Add%20and%20Remove%20Site%20Property%20Bag%20Keys%20and%20Values/Update-SitePropertyBag.ps1) | Adds or updates site property bag keys and values on a SharePoint Online site. |
 | [Remove-SitePropertyBag.ps1](./M365%20Core%20Services/SharePoint%20Online/Add%20and%20Remove%20Site%20Property%20Bag%20Keys%20and%20Values/Remove-SitePropertyBag.ps1) | Removes site property bag keys from a SharePoint Online site. |
 
-### M365 Defender
+### M365 Defender — Scripts
 | Script | Description |
 |--------|-------------|
 | [Export-M365DefenderAlertPolicies.ps1](./M365%20Defender/MDO/Alerts/Export-M365DefenderAlertPolicies.ps1) | Exports all Activity and Alert policies from the Security Portal to CSV. |
@@ -84,6 +88,30 @@ Various scripts and knowledge base articles that I have worked on throughout the
 | [Export-O365ThreatProtectionPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-O365ThreatProtectionPolicies.ps1) | Exports global Safe Attachments and Safe Links configurations to CSV. |
 | [Export-SafeAttachmentsPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-SafeAttachmentsPolicies.ps1) | Exports all Safe Attachment policies and rules to CSV files. |
 | [Export-SafeLinksPolicies.ps1](./M365%20Defender/MDO/Safe%20Links%20and%20Safe%20Attachments/Export-SafeLinksPolicies.ps1) | Exports all Safe Links policies and rules to CSV files. |
+
+### M365 Defender — Advanced Hunting (KQL)
+| Query | Product | Description |
+|-------|---------|-------------|
+| [ExecutableAttachmentReceived.kql](./M365%20Defender/MDO/Advanced%20Hunting/ExecutableAttachmentReceived.kql) | MDO | Detects inbound emails with executable file attachments. |
+| [ISOAttachmentReceived.kql](./M365%20Defender/MDO/Advanced%20Hunting/ISOAttachmentReceived.kql) | MDO | Detects inbound emails with ISO disk image attachments. |
+| [PotentialPhishingCampaign.kql](./M365%20Defender/MDO/Advanced%20Hunting/PotentialPhishingCampaign.kql) | MDO | Identifies potential phishing campaigns via EmailClusterId analysis. |
+| [TyposquattedEmailReceived.kql](./M365%20Defender/MDO/Advanced%20Hunting/TyposquattedEmailReceived.kql) | MDO | Detects inbound emails from typosquatted domains using Jaccard similarity. |
+| [MacroAttachmentFromRareSender.kql](./M365%20Defender/MDO/Advanced%20Hunting/MacroAttachmentFromRareSender.kql) | MDO | Detects macro-enabled attachments opened from rare senders. |
+| [SafeLinksBlockedClicks.kql](./M365%20Defender/MDO/Advanced%20Hunting/SafeLinksBlockedClicks.kql) | MDO | Lists Safe Links URL block events with email context. |
+| [RareFileExtensionsReceived.kql](./M365%20Defender/MDO/Advanced%20Hunting/RareFileExtensionsReceived.kql) | MDO | Lists the 20 rarest file extensions received as email attachments. |
+| [PostDeliveryEvents.kql](./M365%20Defender/MDO/Advanced%20Hunting/PostDeliveryEvents.kql) | MDO | Summarizes post-delivery email actions (ZAP, remediation) by day. |
+| [AnonymousProxyEvents.kql](./M365%20Defender/MDCA/Advanced%20Hunting/AnonymousProxyEvents.kql) | MDCA | Identifies activities performed through anonymous proxies. |
+| [ImpersonatedActions.kql](./M365%20Defender/MDCA/Advanced%20Hunting/ImpersonatedActions.kql) | MDCA | Lists the top accounts with impersonated actions. |
+| [SuppressionRuleCreations.kql](./M365%20Defender/MDCA/Advanced%20Hunting/SuppressionRuleCreations.kql) | MDCA | Lists alert suppression rule creations. |
+| [MaliciousEmailDeliveredInMailbox.kql](./M365%20Defender/MDCA/Advanced%20Hunting/MaliciousEmailDeliveredInMailbox.kql) | MDCA | Detects malicious email delivery events from cloud app logs. |
+| [UserAddedToSensitiveGroup.kql](./M365%20Defender/MDI/Advanced%20Hunting/UserAddedToSensitiveGroup.kql) | MDI | Detects user additions to sensitive AD groups. |
+| [PasswordChangeAfterBruteForce.kql](./M365%20Defender/MDI/Advanced%20Hunting/PasswordChangeAfterBruteForce.kql) | MDI | Detects password changes following brute force attacks. |
+| [KerberosEncryptionDowngrade.kql](./M365%20Defender/MDI/Advanced%20Hunting/KerberosEncryptionDowngrade.kql) | MDI | Detects Kerberos encryption type downgrade changes. |
+| [AnomalousLDAPTraffic.kql](./M365%20Defender/MDI/Advanced%20Hunting/AnomalousLDAPTraffic.kql) | MDI | Identifies anomalous high-volume LDAP query activity. |
+| [CustomDetectionDisabled.kql](./M365%20Defender/Defender%20XDR/Advanced%20Hunting/CustomDetectionDisabled.kql) | Defender XDR | Detects when a custom detection rule is disabled. |
+| [RBACChanges.kql](./M365%20Defender/Defender%20XDR/Advanced%20Hunting/RBACChanges.kql) | Defender XDR | Audits RBAC role changes in Defender XDR. |
+| [AlertSuppressionAdded.kql](./M365%20Defender/Defender%20XDR/Advanced%20Hunting/AlertSuppressionAdded.kql) | Defender XDR | Lists alert suppression rules added to Defender XDR. |
+| [DeviceIsolationEvents.kql](./M365%20Defender/Defender%20XDR/Advanced%20Hunting/DeviceIsolationEvents.kql) | Defender XDR | Detects device isolation and unisolation actions. |
 
 ### M365 Purview — DLP
 | Script | Description |

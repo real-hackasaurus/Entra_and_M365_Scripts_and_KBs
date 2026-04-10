@@ -1,0 +1,32 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects changes to Kerberos encryption types supported by domain-joined accounts.
+//     A downgrade to weaker encryption algorithms (e.g., DES, RC4) may indicate an adversary attempting 
+//     to enable kerberoasting by enabling vulnerable ciphers on target accounts.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+//     -Defender for Identity must be configured and reporting to IdentityDirectoryEvents.
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review results for changes that introduce weak encryption types (DES, RC4/arcfour).
+
+// -Notes:
+//     -Weak algorithms include: des-cbc-crc, des-cbc-md4, des-cbc-md5, des3-cbc-sha1, arcfour-hmac, arcfour-hmac-exp.
+//     -The query filters out entries where the original encryption was "N/A", which typically indicates initial device domain join.
+//     -MITRE ATT&CK: T1558.003 - Kerberoasting, T1562.010 - Impair Defenses: Downgrade Attack
+//     -Reference: https://web.mit.edu/kerberos/krb5-latest/doc/admin/enctypes.html
+
+IdentityDirectoryEvents
+| where ActionType == "Account Supported Encryption Types changed"
+| extend 
+    ToEncryptionTypes = tostring(parse_json(AdditionalFields).['TO AccountSupportedEncryptionTypes']),
+    FromEncryptionTypes = tostring(parse_json(AdditionalFields).['FROM AccountSupportedEncryptionTypes']),
+    TargetDevice = tostring(parse_json(AdditionalFields).['TARGET_OBJECT.DEVICE']),
+    ActorDevice = tostring(parse_json(AdditionalFields).['ACTOR.DEVICE'])
+| where FromEncryptionTypes != "N/A"
+| project Timestamp, DeviceName, FromEncryptionTypes, ToEncryptionTypes, ActorDevice, TargetDevice

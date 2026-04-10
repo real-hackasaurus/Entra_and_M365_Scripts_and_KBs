@@ -1,0 +1,30 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects when a custom detection rule is disabled in Defender XDR.
+//     An adversary who gains access to a privileged account may disable custom detection rules 
+//     to evade detection while conducting further malicious activity.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Investigate any results where the actor is not a known, authorized administrator.
+
+// -Notes:
+//     -This event is logged in the CloudAppEvents table as a "ChangeCustomDetectionRuleStatus" action.
+//     -MITRE ATT&CK: T1070 - Indicator Removal
+//     -Reference: https://learn.microsoft.com/en-us/defender-xdr/custom-detections-overview
+
+CloudAppEvents
+| where ActionType == "ChangeCustomDetectionRuleStatus"
+| where RawEventData.IsEnabled == "false"
+| extend 
+    RuleName = tostring(parse_json(RawEventData.RuleName)), 
+    Query = tostring(parse_json(RawEventData.Query)), 
+    Actor = tostring(parse_json(RawEventData.UserId)), 
+    IsEnabled = RawEventData.IsEnabled
+| project-reorder Timestamp, Actor, IsEnabled, RuleName, Query

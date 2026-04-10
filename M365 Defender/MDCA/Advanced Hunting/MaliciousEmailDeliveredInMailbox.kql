@@ -1,0 +1,35 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects when malware is delivered to a mailbox through CloudAppEvents.
+//     This covers scenarios where malicious email delivery is logged by Defender for Cloud Apps,
+//     which can complement EmailEvents-based detections.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Investigate any results to determine the scope of the malware delivery.
+
+// -Notes:
+//     -This detection focuses on the CloudAppEvents table rather than EmailEvents.
+//     -It complements email-based detections by capturing events from the cloud app perspective.
+//     -MITRE ATT&CK: T1566.001 - Phishing: Spearphishing Attachment
+
+CloudAppEvents
+| where ActionType == "MaliciousEmailDeliveredInMailbox"
+| extend 
+    UserId = tostring(parse_json(RawEventData).UserId),
+    Subject = tostring(parse_json(RawEventData).Subject)
+| project 
+    Timestamp, 
+    ActionType, 
+    Application, 
+    AccountDisplayName, 
+    UserId, 
+    Subject, 
+    IPAddress, 
+    CountryCode

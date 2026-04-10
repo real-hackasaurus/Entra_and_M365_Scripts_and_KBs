@@ -1,0 +1,35 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query lists emails where a user clicked a URL that was subsequently blocked by Safe Links.
+//     It correlates URL click events with email metadata to provide full context for investigation,
+//     including the sender, subject, and blocked URL chain.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Ensure Safe Links is enabled in your environment — this query will not return results otherwise.
+//     3. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -The ClickBlocked action means Safe Links prevented the user from reaching the malicious URL.
+//     -This query is useful for enriching Safe Links incidents with email context for investigation.
+//     -MITRE ATT&CK: T1566.002 - Phishing: Spearphishing Link
+//     -Reference: https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/safe-links-about
+
+UrlClickEvents
+| where ActionType == "ClickBlocked"
+| where Workload == "Email"
+| join kind=leftouter (EmailEvents | project NetworkMessageId, Subject, SenderFromAddress) on NetworkMessageId
+| project 
+    Timestamp, 
+    AccountUpn, 
+    Product = Workload, 
+    Url, 
+    ThreatTypes, 
+    Subject, 
+    SenderFromAddress, 
+    UrlChain

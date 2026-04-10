@@ -18,6 +18,16 @@ Scripts, KQL queries, and API examples for Microsoft Defender for Cloud Apps.
 - **[Advanced Hunting](./MDCA/Advanced%20Hunting)** — KQL queries for cloud app events in the Advanced Hunting portal.
 - **[API Examples](./MDCA/API%20Examples)** — Postman collection for common MDCA API calls.
 
+### [MDI](./MDI) — Microsoft Defender for Identity
+KQL queries for Defender for Identity, covering identity-based threat detection, Active Directory monitoring, and lateral movement.
+
+- **[Advanced Hunting](./MDI/Advanced%20Hunting)** — KQL queries for identity events, directory changes, and logon activities in the Advanced Hunting portal.
+
+### [Defender XDR](./Defender%20XDR) — Microsoft Defender XDR
+KQL queries for cross-product Defender XDR auditing and security operations monitoring.
+
+- **[Advanced Hunting](./Defender%20XDR/Advanced%20Hunting)** — KQL queries for auditing Defender XDR configuration changes, RBAC, and incident response actions.
+
 ---
 
 ## MDO — Microsoft Defender for Office 365
@@ -26,9 +36,17 @@ Scripts, KQL queries, and API examples for Microsoft Defender for Cloud Apps.
 
 | Query File | Table | Description |
 |------------|-------|-------------|
-| [FindEmailAlertByRecipient.kql](./MDO/Advanced%20Hunting/FindEmailAlertByRecipient.kql) | EmailEvents / AlertEvidence | Finds email-related alerts filtered by recipient address. |
+| [FindEmailAlertByRecipient.kql](./MDO/Advanced%20Hunting/FindEmailAlertByRecipient.kql) | EmailEvents | Finds email events filtered by recipient address. |
 | [FindUndeliveredEmails.kql](./MDO/Advanced%20Hunting/FindUndeliveredEmails.kql) | EmailEvents | Finds undelivered email messages. |
-| [SafeLinkAndAttachmentAlerts.kql](./MDO/Advanced%20Hunting/SafeLinkAndAttachmentAlerts.kql) | AlertEvidence / AlertInfo | Retrieves alerts triggered by Safe Links and Safe Attachments detections. |
+| [SafeLinkAndAttachmentAlerts.kql](./MDO/Advanced%20Hunting/SafeLinkAndAttachmentAlerts.kql) | UrlClickEvents / EmailEvents | Retrieves Safe Links click-through events and blocked/malware emails. |
+| [ExecutableAttachmentReceived.kql](./MDO/Advanced%20Hunting/ExecutableAttachmentReceived.kql) | EmailEvents / EmailAttachmentInfo | Detects inbound emails with executable file attachments. |
+| [ISOAttachmentReceived.kql](./MDO/Advanced%20Hunting/ISOAttachmentReceived.kql) | EmailEvents / EmailAttachmentInfo | Detects inbound emails with ISO disk image attachments. |
+| [PotentialPhishingCampaign.kql](./MDO/Advanced%20Hunting/PotentialPhishingCampaign.kql) | EmailEvents / EmailUrlInfo | Identifies potential phishing campaigns via EmailClusterId analysis. |
+| [TyposquattedEmailReceived.kql](./MDO/Advanced%20Hunting/TyposquattedEmailReceived.kql) | EmailEvents | Detects inbound emails from typosquatted domains using Jaccard similarity. |
+| [MacroAttachmentFromRareSender.kql](./MDO/Advanced%20Hunting/MacroAttachmentFromRareSender.kql) | EmailAttachmentInfo / DeviceFileEvents / EmailEvents | Detects macro-enabled attachments received and opened from rare senders. |
+| [SafeLinksBlockedClicks.kql](./MDO/Advanced%20Hunting/SafeLinksBlockedClicks.kql) | UrlClickEvents / EmailEvents | Lists emails where a Safe Links URL block was triggered by a user click. |
+| [RareFileExtensionsReceived.kql](./MDO/Advanced%20Hunting/RareFileExtensionsReceived.kql) | EmailEvents / EmailAttachmentInfo | Lists the 20 rarest file extensions received as email attachments. |
+| [PostDeliveryEvents.kql](./MDO/Advanced%20Hunting/PostDeliveryEvents.kql) | EmailPostDeliveryEvents | Summarizes post-delivery email actions (ZAP, remediation) by day. |
 
 ### Alerts
 
@@ -67,10 +85,40 @@ The `MDO/Safe Links and Safe Attachments/Demo Files` folder contains sample file
 | Query File | Table | Description |
 |------------|-------|-------------|
 | [FilterByApplication.kql](./MDCA/Advanced%20Hunting/FilterByApplication.kql) | CloudAppEvents | Filters cloud app events by a specific application name. |
+| [AnonymousProxyEvents.kql](./MDCA/Advanced%20Hunting/AnonymousProxyEvents.kql) | CloudAppEvents | Identifies activities performed while connected through an anonymous proxy. |
+| [ImpersonatedActions.kql](./MDCA/Advanced%20Hunting/ImpersonatedActions.kql) | CloudAppEvents | Lists the top 100 accounts with the most impersonated actions. |
+| [SuppressionRuleCreations.kql](./MDCA/Advanced%20Hunting/SuppressionRuleCreations.kql) | CloudAppEvents | Lists alert suppression rule creations. |
+| [MaliciousEmailDeliveredInMailbox.kql](./MDCA/Advanced%20Hunting/MaliciousEmailDeliveredInMailbox.kql) | CloudAppEvents | Detects malicious email delivery events logged by Defender for Cloud Apps. |
 
 ### API Examples
 
 The `MDCA/API Examples` folder contains a Postman collection for common Microsoft Defender for Cloud Apps API calls.
+
+---
+
+## MDI — Microsoft Defender for Identity
+
+### Advanced Hunting (KQL Queries)
+
+| Query File | Table | Description |
+|------------|-------|-------------|
+| [UserAddedToSensitiveGroup.kql](./MDI/Advanced%20Hunting/UserAddedToSensitiveGroup.kql) | IdentityDirectoryEvents | Detects when a user is added to sensitive AD groups (Domain Admins, Enterprise Admins, etc.). |
+| [PasswordChangeAfterBruteForce.kql](./MDI/Advanced%20Hunting/PasswordChangeAfterBruteForce.kql) | IdentityLogonEvents / IdentityDirectoryEvents | Detects password changes following a successful brute force attack. |
+| [KerberosEncryptionDowngrade.kql](./MDI/Advanced%20Hunting/KerberosEncryptionDowngrade.kql) | IdentityDirectoryEvents | Detects changes to Kerberos encryption types that may indicate a downgrade attack. |
+| [AnomalousLDAPTraffic.kql](./MDI/Advanced%20Hunting/AnomalousLDAPTraffic.kql) | IdentityQueryEvents | Identifies accounts generating anomalously high volumes of LDAP queries. |
+
+---
+
+## Defender XDR — Microsoft Defender XDR
+
+### Advanced Hunting (KQL Queries)
+
+| Query File | Table | Description |
+|------------|-------|-------------|
+| [CustomDetectionDisabled.kql](./Defender%20XDR/Advanced%20Hunting/CustomDetectionDisabled.kql) | CloudAppEvents | Detects when a custom detection rule is disabled in Defender XDR. |
+| [RBACChanges.kql](./Defender%20XDR/Advanced%20Hunting/RBACChanges.kql) | CloudAppEvents | Audits RBAC role additions, deletions, and modifications in Defender XDR. |
+| [AlertSuppressionAdded.kql](./Defender%20XDR/Advanced%20Hunting/AlertSuppressionAdded.kql) | CloudAppEvents | Lists alert suppression rules added to Defender XDR. |
+| [DeviceIsolationEvents.kql](./Defender%20XDR/Advanced%20Hunting/DeviceIsolationEvents.kql) | CloudAppEvents | Detects device isolation and unisolation actions in Defender XDR. |
 
 ---
 

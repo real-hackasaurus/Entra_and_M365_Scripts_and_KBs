@@ -1,0 +1,34 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects inbound emails that contain executable file attachments.
+//     Executable attachments are a common initial access vector used by adversaries to deliver malware.
+//     The query filters for a predefined list of executable file extensions and summarizes 
+//     the targeted mailboxes, senders, and subjects by file hash.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Optionally modify the ExecutableFileExtensions list to include additional extensions relevant to your environment.
+//     3. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -Some executable extension types are blocked by default in Outlook/Exchange. This query will only return results for extensions that are allowed through.
+//     -Reference: https://support.microsoft.com/en-us/office/blocked-attachments-in-outlook-434752e1-02d3-4e90-9124-8b81e49a8519
+//     -MITRE ATT&CK: T1566.001 - Phishing: Spearphishing Attachment
+
+let ExecutableFileExtensions = dynamic(["bat", "cmd", "com", "cpl", "dll", "exe", "jse", "lnk", "msc", "ps1", "reg", "vb", "vbe", "vbs", "ws", "wsf"]);
+EmailEvents
+| where EmailDirection == "Inbound"
+| join kind=inner EmailAttachmentInfo on NetworkMessageId
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+| where isnotempty(FileExtension)
+| where FileExtension in~ (ExecutableFileExtensions)
+| summarize 
+    TargetMailboxes = make_set(RecipientEmailAddress), 
+    SenderAddresses = make_set(SenderFromAddress), 
+    EmailSubjects = make_set(Subject) 
+    by SHA256, FileName

@@ -1,28 +1,33 @@
-//Safe Links report url
-//https://security.microsoft.com/URLProtectionActionReport
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
 
-//Link to KB article going over above
-//https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/reports-defender-for-office-365?view=o365-worldwide#url-protection-report
+// -Overview:
+//     This file contains two queries related to Safe Links and Safe Attachments in Microsoft 365 Defender for Office (MDO).
+//     Query 1: Identifies malicious URL click events where the user was allowed to proceed through a Safe Links warning.
+//     Query 2: Finds email events that were blocked or contained malware by Safe Attachments.
 
-//KB on KQL for URL protection alerts
-//https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-urlclickevents-table?view=o365-worldwide
+// -Permissions Needed:
+//     -Security Admin (confirmed)
 
-//Code for above
-// Search for malicious links where user was allowed to proceed through
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender for Office.
+//     2. Run each query individually in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -Safe Links report URL: https://security.microsoft.com/URLProtectionActionReport
+//     -Reference (URL Protection Report): https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/reports-defender-for-office-365#url-protection-report
+//     -Reference (UrlClickEvents table): https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-urlclickevents-table
+//     -Reference (Threat Protection Status): https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/reports-email-security#threat-protection-status-report
+//     -Reference (EmailEvents table): https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-emailevents-table
+
+// --- Query 1: Safe Links - Malicious URL clicks where user was allowed to proceed through ---
 UrlClickEvents
-| whersafe link and safe attachment alertse ActionType == "ClickAllowed" or IsClickedThrough !="0"
+| where ActionType == "ClickAllowed" or IsClickedThrough != "0"
 | where ThreatTypes has "Phish"
 | summarize by ReportId, IsClickedThrough, AccountUpn, NetworkMessageId, ThreatTypes, Timestamp
 
 
 
-//KB on Threat Protection Status Report, the report for Safe Attachments
-//https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/reports-email-security?view=o365-worldwide#threat-protection-status-report
-
-
-//KB on EmailEvents, the hunting api that shows alerts from defender for office-365-security/reports-defender-for-office-365
-//https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-emailevents-table?view=o365-worldwide
-
-//Code to find email events that were blocked or contained malware
+// --- Query 2: Safe Attachments - Email events that were blocked or contained malware ---
 EmailEvents 
-| where DeliveryAction == "Blocked" or ThreatTypes =="malware"
+| where DeliveryAction == "Blocked" or ThreatTypes == "malware"

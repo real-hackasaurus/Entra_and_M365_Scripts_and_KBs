@@ -1,0 +1,32 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query identifies all CloudAppEvents performed while the user was connected through an anonymous proxy.
+//     Adversaries may use anonymous proxies to mask their source IP address during malicious activity.
+//     The query summarizes total activities, actions performed, operating systems, and IPs used per account.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the results to identify suspicious accounts using anonymous proxies.
+
+// -Notes:
+//     -A common false positive is Apple devices using iCloud Private Relay, which masks IP addresses for privacy.
+//     -Reference: https://support.apple.com/en-us/HT212614
+//     -MITRE ATT&CK: T1090 - Proxy
+
+CloudAppEvents
+| where IsAnonymousProxy == 1
+| extend UserId = tostring(parse_json(RawEventData).UserId)
+| summarize 
+    TotalActivities = count(), 
+    ActionsPerformed = make_set(ActionType), 
+    OSUsed = make_set(OSPlatform), 
+    IPsUsed = make_set(IPAddress) 
+    by AccountId, UserId
+| project AccountId, UserId, TotalActivities, ActionsPerformed, OSUsed, IPsUsed
+| sort by TotalActivities desc

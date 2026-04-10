@@ -1,0 +1,33 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query lists the top 100 accounts with the most impersonated actions in CloudAppEvents.
+//     Impersonated actions indicate that one user performed an action on behalf of another.
+//     High volumes of impersonation activity may indicate compromised accounts or unauthorized delegation.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the results to identify accounts with unusual impersonation activity.
+
+// -Notes:
+//     -Legitimate impersonation includes service accounts or applications acting on behalf of users (e.g., delegate access in Exchange).
+//     -Investigate results where the impersonator is not a recognized service account or authorized delegate.
+//     -Reference: https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-cloudappevents-table
+
+CloudAppEvents
+| where IsImpersonated == 1
+| extend 
+    MailboxOwnerUPN = tostring(parse_json(RawEventData).MailboxOwnerUPN),
+    ActionPerformedBy = tostring(parse_json(RawEventData).UserId)
+| where MailboxOwnerUPN != ActionPerformedBy
+| summarize 
+    TotalImpersonatedActivities = count(), 
+    Impersonators = make_set(ActionPerformedBy), 
+    PerformedActions = make_set(ActionType) 
+    by MailboxOwnerUPN
+| top 100 by TotalImpersonatedActivities

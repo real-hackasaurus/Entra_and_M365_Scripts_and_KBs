@@ -1,0 +1,33 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects inbound emails from domains that are similar (but not identical) to a specified domain,
+//     which may indicate a typosquatting attack. It uses the Jaccard similarity index on Unicode code points 
+//     to measure how closely a sender's domain matches the target domain.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Replace "yourdomain.com" with the domain you want to monitor for typosquatting.
+//     3. Adjust TypoSquatMin (minimum similarity %) and TypoSquatMax (maximum similarity %) as needed.
+//         -TypoSquatMax should be less than 1.0 to exclude exact matches.
+//     4. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -Higher similarity percentages (closer to 1.0) indicate domains that more closely resemble the target.
+//     -This query may generate false positives for legitimately similar domain names.
+//     -MITRE ATT&CK: T1566 - Phishing
+
+let TargetDomain = tolower("yourdomain.com");
+let UnicodeDomain = unicode_codepoints_from_string(TargetDomain);
+let TypoSquatMin = 0.75;
+let TypoSquatMax = 0.99;
+EmailEvents
+| where EmailDirection == "Inbound"
+| extend SenderDomainUnicode = unicode_codepoints_from_string(tolower(SenderFromDomain))
+| extend TypoSquatPercentage = jaccard_index(UnicodeDomain, SenderDomainUnicode)
+| where TypoSquatPercentage between (TypoSquatMin .. TypoSquatMax)
+| project-reorder Timestamp, SenderFromDomain, TypoSquatPercentage, RecipientEmailAddress, Subject

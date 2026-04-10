@@ -1,0 +1,53 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects macro-enabled file attachments received from rare senders.
+//     Adversaries commonly use macro-enabled documents (e.g., .xlsm, .docm) to deliver malware.
+//     The query first identifies senders who have sent fewer macro attachments than the threshold 
+//     in the past 30 days, then checks if any of those attachments were opened on endpoint devices.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Adjust the RareSenderThreshold to define what constitutes a "rare" macro sender.
+//     3. Adjust the LookupPeriod if you need to search further back than 7 days.
+//     4. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -This query correlates email attachment data with DeviceFileEvents to determine if the macro was actually opened on endpoint.
+//     -False positives may include new legitimate senders who have not previously sent macro attachments.
+//     -MITRE ATT&CK: T1566.001 - Phishing: Spearphishing Attachment
+
+let RareSenderThreshold = 10;
+let LookupPeriod = 7d;
+let MacroExtensions = dynamic(["xlsm", "xstm", "docm", "dotm", "pptm", "ppsm", "xll", "xlsb"]);
+// Step 1: Identify rare macro senders (fewer than threshold in last 30 days)
+let RareMacroSenders = EmailAttachmentInfo
+    | where Timestamp > ago(30d)
+    | extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+    | where isnotempty(FileExtension) and isnotempty(SHA256)
+    | where FileExtension in~ (MacroExtensions)
+    | summarize TotalMacroAttachmentsSent = dcount(NetworkMessageId) by SenderObjectId
+    | where TotalMacroAttachmentsSent < RareSenderThreshold
+    | project SenderObjectId;
+// Step 2: Get SHA256 hashes from macro attachments sent by rare senders
+let ReceivedMacros = EmailAttachmentInfo
+    | where Timestamp > ago(LookupPeriod)
+    | where SenderObjectId in (RareMacroSenders)
+    | extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+    | where isnotempty(FileExtension) and isnotempty(SHA256)
+    | where FileExtension in~ (MacroExtensions)
+    | project SHA256;
+// Step 3: Correlate with device file events to find opened macro files
+DeviceFileEvents
+| where ActionType == "FileCreated"
+| where SHA256 in (ReceivedMacros)
+| summarize TotalDevices = dcount(DeviceName), FileLocations = make_set(FolderPath) by SHA256
+// Step 4: Enrich with email metadata
+| join kind=inner (EmailAttachmentInfo | project RecipientEmailAddress, NetworkMessageId, SHA256) on SHA256
+| join kind=inner (EmailEvents | project SenderFromAddress, Subject, NetworkMessageId, EmailDirection) on NetworkMessageId
+| where EmailDirection == "Inbound"
+| summarize TargetedMailboxes = make_set(RecipientEmailAddress) by SHA256, TotalDevices, tostring(FileLocations), Subject, SenderFromAddress

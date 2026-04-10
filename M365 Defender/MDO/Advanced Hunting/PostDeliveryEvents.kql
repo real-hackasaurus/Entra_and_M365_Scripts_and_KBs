@@ -1,0 +1,27 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query summarizes post-delivery email events, such as zero-hour auto purge (ZAP),
+//     manual remediation, and dynamic delivery actions. It provides a daily breakdown of 
+//     post-delivery actions and their results to help monitor email protection effectiveness.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the daily breakdown to identify trends or failures in post-delivery actions.
+
+// -Notes:
+//     -Post-delivery events include actions taken on emails after they have been delivered to the mailbox.
+//     -Common actions include ZAP (Zero-hour Auto Purge), manual admin remediation, and dynamic delivery.
+//     -A high failure rate may indicate configuration issues that need attention.
+//     -Reference: https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/zero-hour-auto-purge
+
+EmailPostDeliveryEvents
+| summarize 
+    TotalMessages = dcount(NetworkMessageId) 
+    by bin(Timestamp, 1d), ActionType, ActionResult
+| order by Timestamp desc, ActionType asc

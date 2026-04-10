@@ -1,0 +1,30 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query audits RBAC (Role-Based Access Control) changes in Defender XDR.
+//     It captures role additions, deletions, and modifications, which helps monitor 
+//     for unauthorized privilege changes in the security portal.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the results to ensure all RBAC changes are authorized.
+
+// -Notes:
+//     -If you want to filter for only specific action types (e.g., additions only), add a filter on ActionType.
+//     -MITRE ATT&CK: T1098 - Account Manipulation
+//     -Reference: https://learn.microsoft.com/en-us/defender-xdr/m365d-permissions
+
+CloudAppEvents
+| extend Workload = tostring(parse_json(RawEventData).Workload)
+| where Workload contains "Defender"
+| where ActionType endswith "Role"
+| extend 
+    RoleName = tostring(parse_json(RawEventData).RoleName), 
+    RolePermissions = tostring(parse_json(RawEventData).RolePermissions), 
+    AssignedGroups = tostring(parse_json(RawEventData).AssignedGroups)
+| project-reorder Timestamp, ActionType, AccountObjectId, RoleName, RolePermissions, AssignedGroups

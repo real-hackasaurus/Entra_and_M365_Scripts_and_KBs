@@ -1,0 +1,30 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects when a user is added to a sensitive Active Directory group such as 
+//     Domain Admins, Enterprise Admins, or Exchange Admins. Adversaries who have compromised an 
+//     account may add themselves to high-privilege groups to escalate their access.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+//     -Defender for Identity must be configured and reporting to IdentityDirectoryEvents.
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Update the SensitiveGroups list to include any custom sensitive groups in your environment.
+//     3. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -False positives include legitimate administrative group additions. Verify against change management records.
+//     -MITRE ATT&CK: T1078.002 - Valid Accounts: Domain Accounts
+//     -Reference: https://learn.microsoft.com/en-us/defender-for-identity/entity-tags#sensitive-entities
+
+let SensitiveGroups = dynamic(["Domain Admins", "Enterprise Admins", "Exchange Admins", "Schema Admins"]);
+IdentityDirectoryEvents
+| where Timestamp > ago(30d)
+| where ActionType == "Group Membership changed"
+| extend Group = parse_json(AdditionalFields).['TO.GROUP']
+| extend GroupAdditionInitiatedBy = parse_json(AdditionalFields).['ACTOR.ACCOUNT']
+| where Group has_any (SensitiveGroups)
+| project-reorder Timestamp, Group, GroupAdditionInitiatedBy, TargetAccountUpn

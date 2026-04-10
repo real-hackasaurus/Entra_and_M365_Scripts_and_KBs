@@ -1,0 +1,33 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects anomalous LDAP traffic patterns that may indicate LDAP-based reconnaissance
+//     or exploitation attempts. It identifies accounts generating unusually high volumes of LDAP queries,
+//     which can be a sign of adversary enumeration of Active Directory objects.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+//     -Defender for Identity must be configured and reporting to IdentityQueryEvents.
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Adjust the LDAPQueryThreshold to set the minimum number of LDAP queries that constitute anomalous behavior.
+//     3. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+
+// -Notes:
+//     -False positives include service accounts or applications that legitimately perform frequent LDAP queries.
+//     -MITRE ATT&CK: T1018 - Remote System Discovery, T1087 - Account Discovery
+//     -Reference: https://learn.microsoft.com/en-us/defender-for-identity/reconnaissance-alerts
+
+let LDAPQueryThreshold = 100;
+IdentityQueryEvents
+| where Timestamp > ago(1d)
+| where QueryType == "LDAP"
+| summarize 
+    TotalQueries = count(), 
+    UniqueQueryTargets = dcount(QueryTarget), 
+    QueryTypes = make_set(Query) 
+    by AccountUpn, DeviceName
+| where TotalQueries > LDAPQueryThreshold
+| sort by TotalQueries desc

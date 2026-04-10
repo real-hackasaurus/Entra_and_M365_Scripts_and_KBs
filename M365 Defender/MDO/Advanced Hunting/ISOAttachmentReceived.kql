@@ -1,0 +1,36 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects inbound emails that contain ISO disk image file attachments.
+//     Adversaries may use ISO files to deliver malware, as the files can contain executable payloads
+//     that run when the ISO is mounted. This is a known technique used in spam campaigns to deliver
+//     malware such as Lokibot and NanoCore.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review results to identify potentially malicious ISO attachments delivered to mailboxes.
+
+// -Notes:
+//     -By default, ISO files are blocked in Exchange. This query will only return results if your admin has configured the environment to allow ISO file attachments.
+//     -Receiving an ISO does not necessarily mean infection — typically the user must mount the ISO and open files within it.
+//     -MITRE ATT&CK: T1566.001 - Phishing: Spearphishing Attachment
+
+EmailEvents
+| where EmailDirection == "Inbound"
+| join kind=inner EmailAttachmentInfo on NetworkMessageId
+| where FileName endswith ".iso"
+| project 
+    Timestamp, 
+    NetworkMessageId, 
+    SenderFromAddress, 
+    SenderIPv4, 
+    RecipientEmailAddress, 
+    Subject, 
+    FileName, 
+    FileType, 
+    ThreatNames

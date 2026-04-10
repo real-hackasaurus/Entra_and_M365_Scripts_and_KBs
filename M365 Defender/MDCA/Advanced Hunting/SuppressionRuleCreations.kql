@@ -1,0 +1,30 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query lists alert suppression rule creations in the CloudAppEvents table.
+//     Alert suppression rules can be used by adversaries to hide their activity after gaining access 
+//     to an account with sufficient privileges to manage Defender alert configurations.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the results to ensure all suppression rules were created by authorized administrators.
+
+// -Notes:
+//     -Suppression rules that you do not recognize may indicate that an adversary is trying to evade detection.
+//     -MITRE ATT&CK: T1562 - Impair Defenses
+//     -Reference: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/manage-suppression-rules
+
+CloudAppEvents
+| where ActionType == "Write AlertsSuppressionRules"
+| project 
+    Timestamp, 
+    ActionType, 
+    Application, 
+    AccountId, 
+    AccountDisplayName, 
+    CreatedSuppressionRule = ObjectName

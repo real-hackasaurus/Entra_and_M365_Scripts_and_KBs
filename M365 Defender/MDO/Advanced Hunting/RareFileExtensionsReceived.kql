@@ -1,0 +1,28 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query lists the 20 rarest file extensions received as email attachments.
+//     Unusual or rare file extensions in email attachments may indicate that an adversary is 
+//     attempting to trick users into opening malicious files that bypass common security filters.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Review the results to identify any suspicious or unexpected file extensions.
+
+// -Notes:
+//     -Adjust the "top 20" value if you want to see more or fewer rare extensions.
+//     -Common legitimate extensions appearing in results may indicate they are simply low-volume, not necessarily malicious.
+//     -Consider cross-referencing rare extensions with known malicious file types for your environment.
+
+EmailEvents
+| where EmailDirection == "Inbound"
+| join kind=inner EmailAttachmentInfo on NetworkMessageId
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+| where isnotempty(FileExtension)
+| summarize Total = count() by FileExtension
+| top 20 by Total asc

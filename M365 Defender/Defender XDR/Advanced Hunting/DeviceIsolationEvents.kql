@@ -1,0 +1,27 @@
+// -Created by: Wesley Blackwell
+// -Date last updated: 4/10/2026
+
+// -Overview:
+//     This query detects when a device is isolated or removed from isolation in Defender XDR.
+//     Device isolation is a critical incident response action. Monitoring these events helps 
+//     track IR activities and detect potential abuse if an adversary removes a device from isolation.
+
+// -Permissions Needed:
+//     -Security Admin (confirmed)
+
+// -Instructions:
+//     1. Ensure you have the necessary permissions to run advanced hunting queries in Microsoft 365 Defender.
+//     2. Run the query in the Microsoft 365 Defender Advanced Hunting interface.
+//     3. Correlate isolation/unisolation events with ongoing incident investigations.
+
+// -Notes:
+//     -Unexpected unisolation events may indicate an adversary attempting to restore connectivity to a compromised device.
+//     -Reference: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/respond-machine-alerts
+
+CloudAppEvents
+| where ActionType in ("IsolateDevice", "UnisolateDevice")
+| extend 
+    Workload = tostring(parse_json(RawEventData).Workload),
+    DeviceName = tostring(parse_json(RawEventData).DeviceName),
+    Comment = tostring(parse_json(RawEventData).Comment)
+| project-reorder Timestamp, ActionType, AccountDisplayName, DeviceName, Comment, Workload
