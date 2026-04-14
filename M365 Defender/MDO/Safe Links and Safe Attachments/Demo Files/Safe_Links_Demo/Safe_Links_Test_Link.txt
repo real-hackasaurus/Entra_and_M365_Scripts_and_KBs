@@ -1,4 +1,0 @@
-• https://lp.vp4.me/pp6j
-    • Leads to site under maintenance. Best used as a global block list in Safe Links.
-• https://spamlink.contoso.com/
-    • Site is marked as "This website is classified as malicious." in Safe Links
